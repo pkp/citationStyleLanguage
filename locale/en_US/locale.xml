@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/en_US/locale.xml
+  *
+  * Copyright (c) 2017 Simon Fraser University
+  * Copyright (c) 2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Citation Style Language</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Allow readers to get a published article's citation in one of several formats supported by the Citation Style Language.</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+</locale>
