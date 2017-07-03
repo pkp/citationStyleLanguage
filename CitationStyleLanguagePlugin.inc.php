@@ -124,7 +124,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		return array_keys($styles)[0];
 	}
 
-
 	/**
 	 * Retrieve citation information for the article details template. This
 	 * method is hooked in before a template displays.
@@ -229,6 +228,75 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 */
 	public function loadStyle($name) {
 		return file_get_contents($this->getPluginPath() . '/citation-styles/' . $name . '.csl');
+	}
+
+	/**
+	 * @see Plugin::getActions()
+	 */
+	public function getActions($request, $actionArgs) {
+
+		$actions = parent::getActions($request, $actionArgs);
+
+		if (!$this->getEnabled()) {
+			return $actions;
+		}
+
+		$router = $request->getRouter();
+		import('lib.pkp.classes.linkAction.request.AjaxModal');
+		$linkAction = new LinkAction(
+			'settings',
+			new AjaxModal(
+				$router->url(
+					$request,
+					null,
+					null,
+					'manage',
+					null,
+					array(
+						'verb' => 'settings',
+						'plugin' => $this->getName(),
+						'category' => 'generic'
+					)
+				),
+				$this->getDisplayName()
+			),
+			__('manager.plugins.settings'),
+			null
+		);
+
+		array_unshift($actions, $linkAction);
+
+		return $actions;
+	}
+
+	/**
+	 * @see Plugin::manage()
+	 */
+	public function manage($args, $request) {
+		switch ($request->getUserVar('verb')) {
+			case 'settings':
+				$this->import('CitationStyleLanguageSettingsForm');
+				$form = new CitationStyleLanguageSettingsForm($this);
+
+				if ($request->getUserVar('save')) {
+					$form->readInputData();
+					if ($form->validate()) {
+						$form->execute();
+						return new JSONMessage(true);
+					}
+				}
+
+				$form->initData();
+				return new JSONMessage(true, $form->fetch($request));
+		}
+		return parent::manage($args, $request);
+	}
+
+	/**
+	 * @copydoc Plugin::getTemplatePath($inCore)
+	 */
+	function getTemplatePath($inCore = false) {
+		return parent::getTemplatePath($inCore) . 'templates/';
 	}
 }
 ?>
