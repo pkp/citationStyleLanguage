@@ -39,6 +39,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$contextId = empty($context) ? 0 : $context->getId();
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
 		$this->setData('enabledCitationStyles', $this->plugin->getSetting($contextId, 'enabledCitationStyles'));
+		$this->setData('enabledCitationDownloads', $this->plugin->getSetting($contextId, 'enabledCitationDownloads'));
 	}
 
 	/**
@@ -47,6 +48,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 	public function readInputData() {
 		$this->readUserVars(array('primaryCitationStyle'));
 		$this->readUserVars(array('enabledCitationStyles'));
+		$this->readUserVars(array('enabledCitationDownloads'));
 	}
 
 	/**
@@ -60,6 +62,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'citationStyles' => $this->plugin->getCitationStyles(),
 			'primaryCitationStyle' => $this->getData('primaryCitationStyle'),
 			'enabledCitationStyles' => $this->getData('enabledCitationStyles'),
+			'citationDownloads' => $this->plugin->getCitationDownloads(),
+			'enabledCitationStyles' => $this->getData('enabledCitationDownloads'),
 		));
 		return parent::fetch($request);
 	}
@@ -72,6 +76,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$contextId = empty($context) ? 0 : $context->getId();
 		$this->plugin->updateSetting($contextId, 'primaryCitationStyle', $this->getData('primaryCitationStyle'));
 		$this->plugin->updateSetting($contextId, 'enabledCitationStyles', $this->getData('enabledCitationStyles'));
+		$this->plugin->updateSetting($contextId, 'enabledCitationDownloads', $this->getData('enabledCitationDownloads'));
 
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();

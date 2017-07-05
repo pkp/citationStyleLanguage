@@ -21,6 +21,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/** @var array List of citation styles available */
 	public $_citationStyles = array();
 
+	/** @var array List of citation download formats available */
+	public $_citationDownloads = array();
+
 	/**
 	 * @copydoc Plugin::getDisplayName()
 	 */
@@ -43,6 +46,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
 			HookRegistry::register('ArticleHandler::view', array($this, 'getArticleTemplateData'));
+			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
 		}
 		return $success;
 	}
@@ -125,6 +129,75 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Get enabled citation styles
+	 *
+	 * @return array
+	 */
+	public function getEnabledCitationStyles() {
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
+		$styles = $this->getCitationStyles();
+		$enabled = $this->getSetting($contextId, 'enabledCitationStyles');
+		if (empty($enabled)) {
+			return array_filter($styles, function($style) {
+				return !empty($style['isEnabled']);
+			});
+		} else {
+			return array_filter($styles, function($style, $styleId) use ($enabled) {
+				return in_array($styleId, $enabled);
+			}, ARRAY_FILTER_USE_BOTH);
+		}
+	}
+
+	/**
+	 * Get list of citation download formats available
+	 *
+	 * @return array
+	 */
+	public function getCitationDownloads() {
+
+		if (!empty($this->_citationDownloads)) {
+			return $this->_citationDownloads;
+		}
+
+		$defaults = array(
+			'bibtex' => array(
+				'label' => __('plugins.generic.citationStyleLanguage.download.bibtex'),
+				'isEnabled' => true,
+				'fileExtension' => 'bib',
+				'contentType' => 'application/x-bibtex',
+			),
+		);
+
+		$this->_citationDownloads = $defaults;
+
+		return $this->_citationDownloads;
+	}
+
+	/**
+	 * Get enabled citation styles
+	 *
+	 * @return array
+	 */
+	public function getEnabledCitationDownloads() {
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
+		$downloads = $this->getCitationDownloads();
+		$enabled = $this->getSetting($contextId, 'enabledCitationDownloads');
+		if (empty($enabled)) {
+			return array_filter($downloads, function($style) {
+				return !empty($style['isEnabled']);
+			});
+		} else {
+			return array_filter($downloads, function($style, $styleId) use ($enabled) {
+				return in_array($styleId, $enabled);
+			}, ARRAY_FILTER_USE_BOTH);
+		}
+	}
+
+	/**
 	 * Retrieve citation information for the article details template. This
 	 * method is hooked in before a template displays.
 	 *
@@ -136,9 +209,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	public function getArticleTemplateData($hookName, $args) {
 		$issue = $args[1];
 		$article = $args[2];
+		$request = Application::getRequest();
 		$templateMgr = TemplateManager::getManager();
 
-		$templateMgr->assign('citation', $this->getCitation($article, $this->getPrimaryStyleName(), $issue));
+		$templateMgr->assign(array(
+			'citation' => $this->getCitation($article, $this->getPrimaryStyleName(), $issue),
+			'citationArgs' => array('submissionId' => $article->getId()),
+			'citationStyles' => $this->getEnabledCitationStyles(),
+			'citationDownloads' => $this->getEnabledCitationDownloads(),
+		));
+
+		$templateMgr->addJavaScript(
+			'citationStyleLanguage',
+			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
+		);
 
 		return false;
 	}
@@ -231,6 +315,41 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Download a citation format
+	 *
+	 * Downloadable citation formats can be used to import into third-party
+	 * software.
+	 *
+	 * @param $article PublishedArticle
+	 * @param $citationStyle string Name of the citation style to use.
+	 * @param $issue Issue Optional. Will fetch from db if not passed.
+	 * @return string
+	 */
+	public function downloadCitation($article, $citationStyle = 'harvard-cite-them-right', $issue = null) {
+		$request = Application::getRequest();
+		$journal = $request->getContext();
+
+		if (empty($issue)) {
+			$issueDao = DAORegistry::getDAO('IssueDAO');
+			$issue = $issueDao->getById($article->getIssueId());
+		}
+
+		$citationDownloads = $this->getCitationDownloads();
+		if (!isset($citationDownloads[$citationStyle])) {
+			return false;
+		}
+
+		$citation = $this->getCitation($article, $citationStyle, $issue);
+
+		$filename = substr(preg_replace('/[^a-zA-Z0-9_.-]/', '', str_replace(' ', '-', $article->getLocalizedTitle())), 0, 60);
+
+		header('Content-Disposition: attachment; filename="' . $filename . '.' . $citationDownloads[$citationStyle]['fileExtension'] . '"');
+		header('Content-Type: ' . $citationDownloads[$citationStyle]['contentType']);
+		echo $citation;
+		exit;
+	}
+
+	/**
 	 * @see Plugin::getActions()
 	 */
 	public function getActions($request, $actionArgs) {
@@ -295,8 +414,25 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * @copydoc Plugin::getTemplatePath($inCore)
 	 */
-	function getTemplatePath($inCore = false) {
+	public function getTemplatePath($inCore = false) {
 		return parent::getTemplatePath($inCore) . 'templates/';
+	}
+
+	/**
+	 * Route requests for the citation styles to custom page handler
+	 *
+	 * @see PKPPageRouter::route()
+	 * @param $hookName string
+	 * @param $params array
+	 */
+	public function setPageHandler($hookName, $params) {
+		$page = $params[0];
+		if ($this->getEnabled() && $page === 'citationstylelanguage') {
+			$this->import('pages/CitationStyleLanguageHandler');
+			define('HANDLER_CLASS', 'CitationStyleLanguageHandler');
+			return true;
+		}
+		return false;
 	}
 }
 ?>

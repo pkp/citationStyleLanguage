@@ -26,6 +26,10 @@
 	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
 	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
 
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Downloadable Formats</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Select which downloadable formats you'd like to offer your readers. Downloadable formats are typically used for importing into third-party bibilography management software, like EndNote or Zotero.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Citation Formats</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Select which formats you'd like to offer your readers. The citation will be rendered in the primary format by default.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.format">Format</message>

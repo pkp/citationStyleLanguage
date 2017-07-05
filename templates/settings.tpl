@@ -55,5 +55,33 @@
 		{/fbvFormSection}
 	{/fbvFormArea}
 
+	{fbvFormArea}
+		{fbvFormSection title="plugins.generic.citationStyleLanguage.settings.citationDownloads" description="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"}
+			<table class="pkp_csl_styles">
+				<tr>
+					<th class="pkp_csl_style_label">
+						{translate key="plugins.generic.citationStyleLanguage.settings.format"}
+					</th>
+					<th class="pkp_csl_style_enabled">
+						{translate key="common.enabled"}
+					</th>
+				</tr>
+				{foreach from=$citationDownloads key="citationDownloadId" item="citationDownload"}
+					<tr class="pkp_csl_style pkp_csl_style_header">
+						<td class="pkp_csl_style_label">
+							{$citationDownload.label}
+						</td>
+						<td class="pkp_csl_style_enabled">
+							<label for="csl-enabled-{$citationDownloadId|escape}" class="pkp_screen_reader">
+								{translate key="common.enabled"}
+							</label>
+							<input type="checkbox" id="csl-enabled-{$citationDownloadId|escape}" name="enabledCitationStyles[]" value="{$citationDownloadId|escape}"{if in_array($citationDownloadId, $enabledCitationStyles)} checked{/if}>
+						</td>
+					</tr>
+				{/foreach}
+			</table>
+		{/fbvFormSection}
+	{/fbvFormArea}
+
 	{fbvFormButtons}
 </form>
