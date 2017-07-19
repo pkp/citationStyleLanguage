@@ -38,8 +38,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = Application::getRequest()->getContext();
 		$contextId = empty($context) ? 0 : $context->getId();
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
-		$this->setData('enabledCitationStyles', $this->plugin->getSetting($contextId, 'enabledCitationStyles'));
-		$this->setData('enabledCitationDownloads', $this->plugin->getSetting($contextId, 'enabledCitationDownloads'));
+		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles()));
+		$this->setData('enabledCitationDownloads', array_keys($this->plugin->getEnabledCitationDownloads()));
 	}
 
 	/**
@@ -63,7 +63,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'primaryCitationStyle' => $this->getData('primaryCitationStyle'),
 			'enabledCitationStyles' => $this->getData('enabledCitationStyles'),
 			'citationDownloads' => $this->plugin->getCitationDownloads(),
-			'enabledCitationStyles' => $this->getData('enabledCitationDownloads'),
+			'enabledCitationDownloads' => $this->getData('enabledCitationDownloads'),
 		));
 		return parent::fetch($request);
 	}

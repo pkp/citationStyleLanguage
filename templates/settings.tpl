@@ -75,7 +75,7 @@
 							<label for="csl-enabled-{$citationDownloadId|escape}" class="pkp_screen_reader">
 								{translate key="common.enabled"}
 							</label>
-							<input type="checkbox" id="csl-enabled-{$citationDownloadId|escape}" name="enabledCitationStyles[]" value="{$citationDownloadId|escape}"{if in_array($citationDownloadId, $enabledCitationStyles)} checked{/if}>
+							<input type="checkbox" id="csl-enabled-{$citationDownloadId|escape}" name="enabledCitationDownloads[]" value="{$citationDownloadId|escape}"{if in_array($citationDownloadId, $enabledCitationDownloads)} checked{/if}>
 						</td>
 					</tr>
 				{/foreach}
