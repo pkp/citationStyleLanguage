@@ -22,6 +22,9 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var array citation style being requested */
 	public $citationStyle = '';
 
+	/** @var bool Whether or not to return citation in JSON format */
+	public $returnJson = false;
+
 	/**
 	 * Get a citation style
 	 *
@@ -33,16 +36,15 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
 		$citation = $plugin->getCitation($this->article, $this->citationStyle);
-		$returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
 
 		if ($citation === false ) {
-			if ($returnJson) {
+			if ($this->returnJson) {
 				return new JSONMessage(false);
 			}
 			exit;
 		}
 
-		if ($returnJson) {
+		if ($this->returnJson) {
 			return new JSONMessage(true, $citation);
 		}
 
@@ -78,6 +80,7 @@ class CitationStyleLanguageHandler extends Handler {
 		}
 
 		$this->citationStyle = $args[0];
+		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
 
 		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
 		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($journal->getId(), (int) $userVars['submissionId'], true);
