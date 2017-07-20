@@ -27,6 +27,7 @@
 	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
 
 	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
 
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Downloadable Formats</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Select which downloadable formats you'd like to offer your readers. Downloadable formats are typically used for importing into third-party bibilography management software, like EndNote or Zotero.</message>

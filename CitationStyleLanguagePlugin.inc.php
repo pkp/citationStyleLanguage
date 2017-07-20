@@ -74,6 +74,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			'apa' => array(
 				'label' => __('plugins.generic.citationStyleLanguage.style.apa'),
 				'isEnabled' => true,
+				'isPrimary' => true,
 			),
 			'associacao-brasileira-de-normas-tecnicas' => array(
 				'label' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
@@ -86,7 +87,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			'harvard-cite-them-right' => array(
 				'label' => __('plugins.generic.citationStyleLanguage.style.harvard-cite-them-right'),
 				'isEnabled' => true,
-				'isPrimary' => true,
 			),
 			'ieee' => array(
 				'label' => __('plugins.generic.citationStyleLanguage.style.ieee'),
@@ -168,6 +168,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				'fileExtension' => 'bib',
 				'contentType' => 'application/x-bibtex',
 			),
+			'ris' => array(
+				'label' => __('plugins.generic.citationStyleLanguage.download.ris'),
+				'isEnabled' => true,
+				'fileExtension' => 'ris',
+				'contentType' => 'application/x-Research-Info-Systems',
+			),
 		);
 
 		$this->_citationDownloads = $defaults;
@@ -241,7 +247,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function getCitation($article, $citationStyle = 'harvard-cite-them-right', $issue = null) {
+	public function getCitation($article, $citationStyle = 'apa', $issue = null) {
 		$request = Application::getRequest();
 		$journal = $request->getContext();
 
@@ -339,7 +345,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			return false;
 		}
 
-		$citation = $this->getCitation($article, $citationStyle, $issue);
+		$citation = trim(strip_tags($this->getCitation($article, $citationStyle, $issue)));
+		// TODO this is likely going to cause an error in a citation some day,
+		// but is necessary to get the .ris downloadable format working. The
+		// CSL language doesn't seem to offer a way to indicate a line break.
+		// See: https://github.com/citation-style-language/styles/issues/2831
+		$citation = str_replace('\n', "\n", $citation);
 
 		$filename = substr(preg_replace('/[^a-zA-Z0-9_.-]/', '', str_replace(' ', '-', $article->getLocalizedTitle())), 0, 60);
 

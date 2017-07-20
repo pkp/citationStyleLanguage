@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never">
+  <info>
+    <title>RIS/Endnote/Zotero Import</title>
+    <title-short>RIS</title-short>
+    <link href="https://en.wikipedia.org/wiki/RIS_(file_format)" rel="self"/>
+    <link href="https://en.wikipedia.org/wiki/RIS_(file_format)" rel="documentation"/>
+    <author>
+      <name>Public Knowledge Project</name>
+      <uri>https://pkp.sfu.ca/</uri>
+    </author>
+    <category citation-format="author-date"/>
+    <category field="generic-base"/>
+    <updated>2017-07-19T15:32:54+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <macro name="type">
+    <choose>
+      <if type="article article-journal" match="any">
+        <text value="JOUR"/>
+      </if>
+      <else-if type="article-magazine" match="any">
+        <text value="MGZN"/>
+      </else-if>
+      <else-if type="article-newspaper" match="any">
+        <text value="NEWS"/>
+      </else-if>
+      <else-if type="bill" match="any">
+        <text value="BILL"/>
+      </else-if>
+      <else-if type="book" match="any">
+        <text value="BOOK"/>
+      </else-if>
+      <else-if type="chapter" match="any">
+        <text value="CHAP"/>
+      </else-if>
+      <else-if type="dataset" match="any">
+        <text value="DATA"/>
+      </else-if>
+      <else-if type="entry-dictionary" match="any">
+        <text value="DICT"/>
+      </else-if>
+      <else-if type="entry-encyclopedia" match="any">
+        <text value="ENCYC"/>
+      </else-if>
+      <else-if type="figure" match="any">
+        <text value="FIGURE"/>
+      </else-if>
+      <else-if type="legal_case" match="any">
+        <text value="CASE"/>
+      </else-if>
+      <else-if type="legislation" match="any">
+        <text value="LEGAL"/>
+      </else-if>
+      <else-if type="manuscript" match="any">
+        <text value="MANSCPT"/>
+      </else-if>
+      <else-if type="map" match="any">
+        <text value="MAP"/>
+      </else-if>
+      <else-if type="motion_picture" match="any">
+        <text value="MPCT"/>
+      </else-if>
+      <else-if type="musical_score" match="any">
+        <text value="MUSIC"/>
+      </else-if>
+      <else-if type="pamphlet" match="any">
+        <text value="PAMP"/>
+      </else-if>
+      <else-if type="paper-conference" match="any">
+        <text value="CPAPER"/>
+      </else-if>
+      <else-if type="patent" match="any">
+        <text value="PAT"/>
+      </else-if>
+      <else-if type="personal_communication" match="any">
+        <text value="PCOMM"/>
+      </else-if>
+      <else-if type="post post-weblog" match="any">
+        <text value="BLOG"/>
+      </else-if>
+      <else-if type="report" match="any">
+        <text value="RPRT"/>
+      </else-if>
+      <else-if type="personal_communication" match="any">
+        <text value="PCOMM"/>
+      </else-if>
+      <else-if type="thesis" match="any">
+        <text value="THES"/>
+      </else-if>
+      <else-if type="webpage" match="any">
+        <text value="ELEC"/>
+      </else-if>
+      <else>
+        <text value="GEN"/>
+      </else>
+    </choose>
+  </macro>
+  <bibliography hanging-indent="false">
+    <layout>
+      <text value="TY - "/>
+      <text macro="type"/>
+      <names variable="author" prefix="\nAU - ">
+        <name delimiter="\nAU - "/>
+      </names>
+      <text value="\nPY - "/>
+      <date variable="issued">
+        <date-part name="year" form="long" suffix="/"/>
+        <date-part name="month" form="numeric-leading-zeros" suffix="/"/>
+        <date-part name="day" form="numeric-leading-zeros"/>
+      </date>
+      <text value="\nY2 - "/>
+      <date variable="accessed">
+        <date-part name="year" form="long" suffix="/"/>
+        <date-part name="month" form="numeric-leading-zeros" suffix="/"/>
+        <date-part name="day" form="numeric-leading-zeros"/>
+      </date>
+      <text value="\nTI - "/>
+      <text variable="title"/>
+      <text value="\nJF - "/>
+      <text variable="container-title"/>
+      <text value="\nJA - "/>
+      <text variable="container-title-short"/>
+      <text value="\nVL - "/>
+      <text variable="volume"/>
+      <text value="\nIS - "/>
+      <text variable="issue"/>
+      <text value="\nSE - "/>
+      <text variable="section"/>
+      <text value="\nDO - "/>
+      <text variable="DOI"/>
+      <text value="\nUR - "/>
+      <text variable="URL"/>
+      <text value="\nER - "/>
+    </layout>
+  </bibliography>
+</style>
