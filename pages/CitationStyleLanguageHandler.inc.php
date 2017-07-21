@@ -75,9 +75,11 @@ class CitationStyleLanguageHandler extends Handler {
 		$userVars = $request->getUserVars();
 		$journal = $request->getContext();
 
-		if (!isset($userVars['submissionId']) || !is_array($args) || empty($args) || !$journal) {
-			return false;
-		}
+		assert(isset($userVars['submissionId']) && is_array($args) && !empty($args) && $journal);
+
+		// Load plugin categories which might need to add data to the citation
+		PluginRegistry::loadCategory('pubIds', true);
+		PluginRegistry::loadCategory('metadata', true);
 
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
