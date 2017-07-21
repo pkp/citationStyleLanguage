@@ -28,7 +28,7 @@
  *		More Citation Formats
  *	</button>
  *
- * And the dropdown should have thee id `cslCitationFormats`:
+ * And the dropdown should have the id `cslCitationFormats`:
  *
  * <div id="cslCitationFormats" aria-hidden="true">
  *   // additional citation formats
