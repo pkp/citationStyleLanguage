@@ -162,17 +162,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		}
 
 		$defaults = array(
+			'ris' => array(
+				'label' => __('plugins.generic.citationStyleLanguage.download.ris'),
+				'isEnabled' => true,
+				'useTemplate' => $this->getTemplatePath() . 'citation-styles/ris.tpl',
+				'fileExtension' => 'ris',
+				'contentType' => 'application/x-Research-Info-Systems',
+			),
 			'bibtex' => array(
 				'label' => __('plugins.generic.citationStyleLanguage.download.bibtex'),
 				'isEnabled' => true,
 				'fileExtension' => 'bib',
 				'contentType' => 'application/x-bibtex',
-			),
-			'ris' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.download.ris'),
-				'isEnabled' => true,
-				'fileExtension' => 'ris',
-				'contentType' => 'application/x-Research-Info-Systems',
 			),
 		);
 
@@ -297,15 +298,33 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->page = $article->getPages();
 		}
 
-		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $article, $issue));
+		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $article, $issue, $journal));
 
 		$citation = '';
 
-		$style = $this->loadStyle($citationStyle);
-		if ($style) {
-			$locale = str_replace('_', '-', AppLocale::getLocale());
-			$citeProc = new CiteProc($style, $locale);
-			$citation = $citeProc->render(array($citationData), 'bibliography');
+		// Determine whether to use citeproc-php or a custom template to render
+		// the citation
+		$citationStyleSetting = null;
+		$styles = array_merge($this->getCitationStyles(), $this->getCitationDownloads());
+		if (!empty($styles[$citationStyle])) {
+			if (!empty($styles[$citationStyle]['useTemplate'])) {
+				$templateMgr = TemplateManager::getManager($request);
+				$templateMgr->assign(array(
+					'citationData' => $citationData,
+					'citationStyle' => $citationStyle,
+					'article' => $article,
+					'issue' => $issue,
+					'journal' => $journal,
+				));
+				$citation = $templateMgr->fetch($styles[$citationStyle]['useTemplate']);
+			} else {
+				$style = $this->loadStyle($citationStyle);
+				if ($style) {
+					$locale = str_replace('_', '-', AppLocale::getLocale());
+					$citeProc = new CiteProc($style, $locale);
+					$citation = $citeProc->render(array($citationData), 'bibliography');
+				}
+			}
 		}
 
 		return $citation;

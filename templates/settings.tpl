@@ -1,5 +1,5 @@
 {**
- * plugins/generic/citationStyleLanguage/settings.tpl
+ * plugins/generic/citationStyleLanguage/templates/settings.tpl
  *
  * Copyright (c) 2017 Simon Fraser University
  * Copyright (c) 2017 John Willinsky
