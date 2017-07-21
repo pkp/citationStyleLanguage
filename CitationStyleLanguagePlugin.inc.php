@@ -117,14 +117,24 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @return string
 	 */
 	public function getPrimaryStyleName() {
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
+
+		$primaryStyleName = $this->getSetting($contextId, 'primaryCitationStyle');
+		if ($primaryStyleName) {
+			return $primaryStyleName;
+		}
+
 		$styles = $this->getCitationStyles();
-		assert(count($styles));
 		$primaryStyle = array_filter($styles, function($style) {
 			return !empty($style['isPrimary']);
 		});
+
 		if (count($primaryStyle)) {
 			return array_keys($primaryStyle)[0];
 		}
+
 		return array_keys($styles)[0];
 	}
 
