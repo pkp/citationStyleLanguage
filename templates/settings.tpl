@@ -19,67 +19,29 @@
 	{csrf}
 
 	{fbvFormArea}
-		{fbvFormSection title="plugins.generic.citationStyleLanguage.settings.citationFormats" description="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"}
-			<table class="pkp_csl_styles">
-				<tr>
-					<th class="pkp_csl_style_label">
-						{translate key="plugins.generic.citationStyleLanguage.settings.format"}
-					</th>
-					<th class="pkp_csl_style_enabled">
-						{translate key="common.enabled"}
-					</th>
-					<th class="pkp_csl_style_primary">
-						{translate key="plugins.generic.citationStyleLanguage.settings.primary"}
-					</th>
-				</tr>
-				{foreach from=$citationStyles key="citationStyleId" item="citationStyle"}
-					<tr class="pkp_csl_style pkp_csl_style_header">
-						<td class="pkp_csl_style_label">
-							{$citationStyle.label}
-						</td>
-						<td class="pkp_csl_style_enabled">
-							<label for="csl-enabled-{$citationStyleId|escape}" class="pkp_screen_reader">
-								{translate key="common.enabled"}
-							</label>
-							<input type="checkbox" id="csl-enabled-{$citationStyleId|escape}" name="enabledCitationStyles[]" value="{$citationStyleId|escape}"{if in_array($citationStyleId, $enabledCitationStyles)} checked{/if}>
-						</td>
-						<td class="pkp_csl_style_primary">
-							<label for="csl-primary-{$citationStyleId|escape}" class="pkp_screen_reader">
-								{translate key="plugins.generic.citationStyleLanguage.settings.primary"}
-							</label>
-							<input type="radio" id="csl-primary-{$citationStyleId|escape}" name="primaryCitationStyle" value="{$citationStyleId|escape}"{if $citationStyleId == $primaryCitationStyle} checked{/if}>
-						</td>
-					</tr>
-				{/foreach}
-			</table>
+		{fbvFormSection}
+			{assign var="uuid" value=""|uniqid|escape}
+			<div id="primary-citation-styles-{$uuid}">
+				<script type="text/javascript">
+					pkp.registry.init('primary-citation-styles-{$uuid}', 'SelectListPanel', {$primaryCitationStyleListData});
+				</script>
+			</div>
 		{/fbvFormSection}
-	{/fbvFormArea}
-
-	{fbvFormArea}
-		{fbvFormSection title="plugins.generic.citationStyleLanguage.settings.citationDownloads" description="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"}
-			<table class="pkp_csl_styles">
-				<tr>
-					<th class="pkp_csl_style_label">
-						{translate key="plugins.generic.citationStyleLanguage.settings.format"}
-					</th>
-					<th class="pkp_csl_style_enabled">
-						{translate key="common.enabled"}
-					</th>
-				</tr>
-				{foreach from=$citationDownloads key="citationDownloadId" item="citationDownload"}
-					<tr class="pkp_csl_style pkp_csl_style_header">
-						<td class="pkp_csl_style_label">
-							{$citationDownload.label}
-						</td>
-						<td class="pkp_csl_style_enabled">
-							<label for="csl-enabled-{$citationDownloadId|escape}" class="pkp_screen_reader">
-								{translate key="common.enabled"}
-							</label>
-							<input type="checkbox" id="csl-enabled-{$citationDownloadId|escape}" name="enabledCitationDownloads[]" value="{$citationDownloadId|escape}"{if in_array($citationDownloadId, $enabledCitationDownloads)} checked{/if}>
-						</td>
-					</tr>
-				{/foreach}
-			</table>
+		{fbvFormSection}
+			{assign var="uuid" value=""|uniqid|escape}
+			<div id="citation-styles-{$uuid}">
+				<script type="text/javascript">
+					pkp.registry.init('citation-styles-{$uuid}', 'SelectListPanel', {$citationStylesListData});
+				</script>
+			</div>
+		{/fbvFormSection}
+		{fbvFormSection}
+			{assign var="uuid" value=""|uniqid|escape}
+			<div id="citation-downloads-{$uuid}">
+				<script type="text/javascript">
+					pkp.registry.init('citation-downloads-{$uuid}', 'SelectListPanel', {$citationDownloadsListData});
+				</script>
+			</div>
 		{/fbvFormSection}
 	{/fbvFormArea}
 

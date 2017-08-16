@@ -63,45 +63,55 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		}
 
 		$defaults = array(
-			'acm-sig-proceedings' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.acm-sig-proceedings'),
+			array(
+				'id' => 'acm-sig-proceedings',
+				'title' => __('plugins.generic.citationStyleLanguage.style.acm-sig-proceedings'),
 				'isEnabled' => true,
 			),
-			'acs-nano' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.acs-nano'),
+			array(
+				'id' => 'acs-nano',
+				'title' => __('plugins.generic.citationStyleLanguage.style.acs-nano'),
 				'isEnabled' => true,
 			),
-			'apa' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.apa'),
+			array(
+				'id' => 'apa',
+				'title' => __('plugins.generic.citationStyleLanguage.style.apa'),
 				'isEnabled' => true,
 				'isPrimary' => true,
 			),
-			'associacao-brasileira-de-normas-tecnicas' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
+			array(
+				'id' => 'associacao-brasileira-de-normas-tecnicas',
+				'title' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
 				'isEnabled' => true,
 			),
-			'chicago-author-date' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.chicago-author-date'),
+			array(
+				'id' => 'chicago-author-date',
+				'title' => __('plugins.generic.citationStyleLanguage.style.chicago-author-date'),
 				'isEnabled' => true,
 			),
-			'harvard-cite-them-right' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.harvard-cite-them-right'),
+			array(
+				'id' => 'harvard-cite-them-right',
+				'title' => __('plugins.generic.citationStyleLanguage.style.harvard-cite-them-right'),
 				'isEnabled' => true,
 			),
-			'ieee' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.ieee'),
+			array(
+				'id' => 'ieee',
+				'title' => __('plugins.generic.citationStyleLanguage.style.ieee'),
 				'isEnabled' => true,
 			),
-			'modern-language-association' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.modern-language-association'),
+			array(
+				'id' => 'modern-language-association',
+				'title' => __('plugins.generic.citationStyleLanguage.style.modern-language-association'),
 				'isEnabled' => true,
 			),
-			'turabian-fullnote-bibliography' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography'),
+			array(
+				'id' => 'turabian-fullnote-bibliography',
+				'title' => __('plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography'),
 				'isEnabled' => true,
 			),
-			'vancouver' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
+			array(
+				'id' => 'vancouver',
+				'title' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
 				'isEnabled' => true,
 			),
 		);
@@ -132,10 +142,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		});
 
 		if (count($primaryStyle)) {
-			return array_keys($primaryStyle)[0];
+			return $primaryStyle[0]['id'];
 		}
 
-		return array_keys($styles)[0];
+		return $styles[0]['id'];
 	}
 
 	/**
@@ -149,14 +159,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$contextId = $context ? $context->getId() : 0;
 		$styles = $this->getCitationStyles();
 		$enabled = $this->getSetting($contextId, 'enabledCitationStyles');
-		if (empty($enabled)) {
+		if (!is_array($enabled)) {
 			return array_filter($styles, function($style) {
 				return !empty($style['isEnabled']);
 			});
 		} else {
-			return array_filter($styles, function($style, $styleId) use ($enabled) {
-				return in_array($styleId, $enabled);
-			}, ARRAY_FILTER_USE_BOTH);
+			return array_filter($styles, function($style) use ($enabled) {
+				return in_array($style['id'], $enabled);
+			});
 		}
 	}
 
@@ -172,15 +182,17 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		}
 
 		$defaults = array(
-			'ris' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.download.ris'),
+			array(
+				'id' => 'ris',
+				'title' => __('plugins.generic.citationStyleLanguage.download.ris'),
 				'isEnabled' => true,
 				'useTemplate' => $this->getTemplatePath() . 'citation-styles/ris.tpl',
 				'fileExtension' => 'ris',
 				'contentType' => 'application/x-Research-Info-Systems',
 			),
-			'bibtex' => array(
-				'label' => __('plugins.generic.citationStyleLanguage.download.bibtex'),
+			array(
+				'id' => 'bibtex',
+				'title' => __('plugins.generic.citationStyleLanguage.download.bibtex'),
 				'isEnabled' => true,
 				'fileExtension' => 'bib',
 				'contentType' => 'application/x-bibtex',
@@ -203,15 +215,28 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$contextId = $context ? $context->getId() : 0;
 		$downloads = $this->getCitationDownloads();
 		$enabled = $this->getSetting($contextId, 'enabledCitationDownloads');
-		if (empty($enabled)) {
+		if (!is_array($enabled)) {
 			return array_filter($downloads, function($style) {
 				return !empty($style['isEnabled']);
 			});
 		} else {
-			return array_filter($downloads, function($style, $styleId) use ($enabled) {
-				return in_array($styleId, $enabled);
-			}, ARRAY_FILTER_USE_BOTH);
+			return array_filter($downloads, function($style) use ($enabled) {
+				return in_array($style['id'], $enabled);
+			});
 		}
+	}
+
+	/**
+	 * Pluck citation IDs from array of citations
+	 *
+	 * @param $citations array See getCitationStyles()
+	 * @return array
+	 */
+	public function mapCitationIds($citations) {
+		$ids = array_map(function($citation) {
+			return $citation['id'];
+		}, $citations);
+		return $ids;
 	}
 
 	/**
