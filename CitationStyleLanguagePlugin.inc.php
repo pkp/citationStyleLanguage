@@ -116,6 +116,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			),
 		);
 
+		// If hooking in to add a custom .csl file, add a `useCsl` key to your
+		// style definition with the path to the file.
+		HookRegistry::call('CitationStyleLanguage::citationStyleDefaults', array(&$defaults, $this));
 		$this->_citationStyles = $defaults;
 
 		return $this->_citationStyles;
@@ -137,15 +140,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		}
 
 		$styles = $this->getCitationStyles();
-		$primaryStyle = array_filter($styles, function($style) {
+		$primaryStyles = array_filter($styles, function($style) {
 			return !empty($style['isPrimary']);
 		});
 
-		if (count($primaryStyle)) {
-			return $primaryStyle[0]['id'];
-		}
+		$primaryStyle = count($primaryStyles) ? array_shift($primaryStyles) : array_shift($styles);
 
-		return $styles[0]['id'];
+		return $primaryStyle['id'];
 	}
 
 	/**
@@ -199,6 +200,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			),
 		);
 
+		// If hooking in to add a custom .csl file, add a `useCsl` key to your
+		// style definition with the path to the file.
+		HookRegistry::call('CitationStyleLanguage::citationDownloadDefaults', array(&$defaults, $this));
 		$this->_citationDownloads = $defaults;
 
 		return $this->_citationDownloads;
@@ -367,7 +371,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				));
 				$citation = $templateMgr->fetch($styleConfig['useTemplate']);
 			} else {
-				$style = $this->loadStyle($citationStyle);
+				$style = $this->loadStyle($styleConfig);
 				if ($style) {
 					$locale = str_replace('_', '-', AppLocale::getLocale());
 					$citeProc = new CiteProc($style, $locale);
@@ -382,10 +386,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * Load a CSL style and return the contents as a string
 	 *
-	 * @param $name string CSL file to load
+	 * @param $styleConfig array CSL configuration to load
 	 */
-	public function loadStyle($name) {
-		return file_get_contents($this->getPluginPath() . '/citation-styles/' . $name . '.csl');
+	public function loadStyle($styleConfig) {
+		if (!empty($styleConfig['useCsl'])) {
+			return file_get_contents($styleConfig['useCsl']);
+		} else {
+			return file_get_contents($this->getPluginPath() . '/citation-styles/' . $styleConfig['id'] . '.csl');
+		}
 	}
 
 	/**
