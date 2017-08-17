@@ -145,7 +145,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$user = Application::getRequest()->getUser();
 		$notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('common.changesSaved')));
 
-		return parent::execute($plugin);
+		return parent::execute();
 	}
 }
 

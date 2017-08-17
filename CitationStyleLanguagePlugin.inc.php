@@ -240,6 +240,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Get citation config for a citation ID
+	 *
+	 * @param $styleId string Example: 'apa'
+	 * @return array
+	 */
+	public function getCitationStyleConfig($styleId) {
+		$styleConfigs = array_merge($this->getCitationStyles(), $this->getCitationDownloads());
+		$styleConfig = array_filter($styleConfigs, function($styleConfig) use ($styleId) {
+			return $styleConfig['id'] === $styleId;
+		});
+		return array_shift($styleConfig);
+	}
+
+	/**
 	 * Retrieve citation information for the article details template. This
 	 * method is hooked in before a template displays.
 	 *
@@ -340,9 +354,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		// Determine whether to use citeproc-php or a custom template to render
 		// the citation
 		$citationStyleSetting = null;
-		$styles = array_merge($this->getCitationStyles(), $this->getCitationDownloads());
-		if (!empty($styles[$citationStyle])) {
-			if (!empty($styles[$citationStyle]['useTemplate'])) {
+		$styleConfig = $this->getCitationStyleConfig($citationStyle);
+		if (!empty($styleConfig)) {
+			if (!empty($styleConfig['useTemplate'])) {
 				$templateMgr = TemplateManager::getManager($request);
 				$templateMgr->assign(array(
 					'citationData' => $citationData,
@@ -351,7 +365,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					'issue' => $issue,
 					'journal' => $journal,
 				));
-				$citation = $templateMgr->fetch($styles[$citationStyle]['useTemplate']);
+				$citation = $templateMgr->fetch($styleConfig['useTemplate']);
 			} else {
 				$style = $this->loadStyle($citationStyle);
 				if ($style) {
@@ -385,7 +399,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function downloadCitation($article, $citationStyle = 'harvard-cite-them-right', $issue = null) {
+	public function downloadCitation($article, $citationStyle = 'ris', $issue = null) {
 		$request = Application::getRequest();
 		$journal = $request->getContext();
 
@@ -394,8 +408,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$issue = $issueDao->getById($article->getIssueId());
 		}
 
-		$citationDownloads = $this->getCitationDownloads();
-		if (!isset($citationDownloads[$citationStyle])) {
+		$styleConfig = $this->getCitationStyleConfig($citationStyle);
+		if (empty($styleConfig)) {
 			return false;
 		}
 
@@ -408,8 +422,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 
 		$filename = substr(preg_replace('/[^a-zA-Z0-9_.-]/', '', str_replace(' ', '-', $article->getLocalizedTitle())), 0, 60);
 
-		header('Content-Disposition: attachment; filename="' . $filename . '.' . $citationDownloads[$citationStyle]['fileExtension'] . '"');
-		header('Content-Type: ' . $citationDownloads[$citationStyle]['contentType']);
+		header('Content-Disposition: attachment; filename="' . $filename . '.' . $styleConfig['fileExtension'] . '"');
+		header('Content-Type: ' . $styleConfig['contentType']);
 		echo $citation;
 		exit;
 	}
