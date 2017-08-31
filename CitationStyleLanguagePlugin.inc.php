@@ -127,12 +127,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * Get the primary style name or default to the first available style
 	 *
+	 * @param $contextId integer Journal ID
 	 * @return string
 	 */
-	public function getPrimaryStyleName() {
-		$request = Application::getRequest();
-		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+	public function getPrimaryStyleName($contextId = 0) {
 
 		$primaryStyleName = $this->getSetting($contextId, 'primaryCitationStyle');
 		if ($primaryStyleName) {
@@ -152,12 +150,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * Get enabled citation styles
 	 *
+	 * @param $contextId integer Journal ID
 	 * @return array
 	 */
-	public function getEnabledCitationStyles() {
-		$request = Application::getRequest();
-		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+	public function getEnabledCitationStyles($contextId = 0)
 		$styles = $this->getCitationStyles();
 		$enabled = $this->getSetting($contextId, 'enabledCitationStyles');
 		if (!is_array($enabled)) {
@@ -211,12 +207,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * Get enabled citation styles
 	 *
+	 * @param $contextId integer Journal ID
 	 * @return array
 	 */
-	public function getEnabledCitationDownloads() {
-		$request = Application::getRequest();
-		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+	public function getEnabledCitationDownloads($contextId = 0) {
 		$downloads = $this->getCitationDownloads();
 		$enabled = $this->getSetting($contextId, 'enabledCitationDownloads');
 		if (!is_array($enabled)) {
@@ -267,16 +261,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @return false
 	 */
 	public function getArticleTemplateData($hookName, $args) {
+		$request = $args[0];
 		$issue = $args[1];
 		$article = $args[2];
-		$request = Application::getRequest();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
 		$templateMgr = TemplateManager::getManager();
 
 		$templateMgr->assign(array(
-			'citation' => $this->getCitation($article, $this->getPrimaryStyleName(), $issue),
+			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue),
 			'citationArgs' => array('submissionId' => $article->getId()),
-			'citationStyles' => $this->getEnabledCitationStyles(),
-			'citationDownloads' => $this->getEnabledCitationDownloads(),
+			'citationStyles' => $this->getEnabledCitationStyles($contextId),
+			'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
 		));
 
 		$templateMgr->addJavaScript(
@@ -296,13 +292,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @see CSL-json schema https://github.com/citation-style-language/schema#csl-json-schema
 	 * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
 	 * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
+	 * @param $request Request
 	 * @param $article PublishedArticle
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function getCitation($article, $citationStyle = 'apa', $issue = null) {
-		$request = Application::getRequest();
+	public function getCitation($request, $article, $citationStyle = 'apa', $issue = null) {
 		$journal = $request->getContext();
 
 		if (empty($issue)) {
@@ -402,13 +398,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * Downloadable citation formats can be used to import into third-party
 	 * software.
 	 *
+	 * @param $request Request
 	 * @param $article PublishedArticle
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function downloadCitation($article, $citationStyle = 'ris', $issue = null) {
-		$request = Application::getRequest();
+	public function downloadCitation($request, $article, $citationStyle = 'ris', $issue = null) {
 		$journal = $request->getContext();
 
 		if (empty($issue)) {
@@ -421,7 +417,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			return false;
 		}
 
-		$citation = trim(strip_tags($this->getCitation($article, $citationStyle, $issue)));
+		$citation = trim(strip_tags($this->getCitation($request, $article, $citationStyle, $issue)));
 		// TODO this is likely going to cause an error in a citation some day,
 		// but is necessary to get the .ris downloadable format working. The
 		// CSL language doesn't seem to offer a way to indicate a line break.

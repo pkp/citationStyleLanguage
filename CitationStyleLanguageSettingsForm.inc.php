@@ -36,10 +36,10 @@ class CitationStyleLanguageSettingsForm extends Form {
 	*/
 	public function initData() {
 		$context = Application::getRequest()->getContext();
-		$contextId = empty($context) ? 0 : $context->getId();
+		$contextId = $context ? $context->getId() : 0;
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
-		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles()));
-		$this->setData('enabledCitationDownloads', $this->plugin->getEnabledCitationDownloads());
+		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles($contextId)));
+		$this->setData('enabledCitationDownloads', $this->plugin->getEnabledCitationDownloads($contextId));
 	}
 
 	/**
@@ -58,6 +58,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	 * @copydoc Form::fetch()
 	 */
 	public function fetch($request) {
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
 
 		$baseCitationStyles = $this->plugin->getCitationStyles();
 
@@ -82,7 +84,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			),
 		);
 
-		$enabledCitationStyleIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles());
+		$enabledCitationStyleIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId));
 		$citationStyles = array_map(function($citation) use ($enabledCitationStyleIds) {
 			$citation['_initializeSelected'] = in_array($citation['id'], $enabledCitationStyleIds);
 			return $citation;
@@ -100,7 +102,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		);
 
 		$citationDownloads = $this->plugin->getCitationDownloads();
-		$enabledCitationDownloadIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads());
+		$enabledCitationDownloadIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId));
 		$citationDownloads = array_map(function($citation) use ($enabledCitationDownloadIds) {
 			$citation['_initializeSelected'] = in_array($citation['id'], $enabledCitationDownloadIds);
 			return $citation;

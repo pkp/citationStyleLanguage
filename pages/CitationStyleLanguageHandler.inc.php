@@ -35,7 +35,7 @@ class CitationStyleLanguageHandler extends Handler {
 	public function get($args, $request) {
 		$this->_setupRequest($args, $request);
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($this->article, $this->citationStyle);
+		$citation = $plugin->getCitation($request, $this->article, $this->citationStyle);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -61,7 +61,7 @@ class CitationStyleLanguageHandler extends Handler {
 	public function download($args, $request) {
 		$this->_setupRequest($args, $request);
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($this->article, $this->citationStyle);
+		$plugin->downloadCitation($request, $this->article, $this->citationStyle);
 		exit;
 	}
 
