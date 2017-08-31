@@ -34,6 +34,11 @@ class CitationStyleLanguageHandler extends Handler {
 	 */
 	public function get($args, $request) {
 		$this->_setupRequest($args, $request);
+
+		if (!$this->article) {
+			return new JSONMessage(false);
+		}
+
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
 		$citation = $plugin->getCitation($request, $this->article, $this->citationStyle);
 
@@ -60,6 +65,11 @@ class CitationStyleLanguageHandler extends Handler {
 	 */
 	public function download($args, $request) {
 		$this->_setupRequest($args, $request);
+
+		if (!$this->article) {
+			return new JSONMessage(false);
+		}
+
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
 		$plugin->downloadCitation($request, $this->article, $this->citationStyle);
 		exit;
@@ -88,6 +98,10 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($journal->getId(), (int) $userVars['submissionId'], true);
 
 		assert(is_a($this->article, 'PublishedArticle') && !empty($this->citationStyle));
+
+		if ($this->article->getStatus() !== STATUS_PUBLISHED) {
+			$this->article = null;
+		}
 	}
 }
 
