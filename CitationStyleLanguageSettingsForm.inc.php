@@ -1,6 +1,6 @@
 <?php
 /**
- * @file plugins/generic/citationStyleLanguage/CitationStyleLanguageSettingsForm.inc.inc.php
+ * @file CitationStyleLanguageSettingsForm.inc.inc.php
  *
  * Copyright (c) 2017 Simon Fraser University
  * Copyright (c) 2017 John Willinsky
