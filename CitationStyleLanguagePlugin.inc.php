@@ -341,6 +341,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if ($article->getDatePublished()) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = $article->getDatePublished();
+		} elseif ($issue->getPublished()) {
+			$citationData->issued = new stdClass();
+			$citationData->issued->raw = $issue->getPublished();
 		}
 
 		if ($article->getPages()) {
