@@ -231,9 +231,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @return array
 	 */
 	public function mapCitationIds($citations) {
-		$ids = array_map(function($citation) {
-			return $citation['id'];
-		}, $citations);
+		$ids = array_map(function($citation) { return $citation['id']; }, $citations);
 		return $ids;
 	}
 
