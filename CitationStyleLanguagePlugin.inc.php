@@ -153,7 +153,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $contextId integer Journal ID
 	 * @return array
 	 */
-	public function getEnabledCitationStyles($contextId = 0)
+	public function getEnabledCitationStyles($contextId = 0) {
 		$styles = $this->getCitationStyles();
 		$enabled = $this->getSetting($contextId, 'enabledCitationStyles');
 		if (!is_array($enabled)) {
@@ -266,9 +266,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$contextId = $context ? $context->getId() : 0;
 		$templateMgr = TemplateManager::getManager();
 
+		$citationArgs = array('submissionId' => $article->getId());
+		$citationArgsJson = $citationArgs;
+		$citationArgsJson['return'] = 'json';
+
 		$templateMgr->assign(array(
 			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue),
-			'citationArgs' => array('submissionId' => $article->getId()),
+			'citationArgs' => $citationArgs,
+			'citationArgsJson' => $citationArgsJson,
 			'citationStyles' => $this->getEnabledCitationStyles($contextId),
 			'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
 		));

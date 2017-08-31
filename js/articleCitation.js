@@ -55,10 +55,15 @@
 	}
 
 	citationFormatLinks.click(function(e) {
+
+		if (!$(this).data('json-href')) {
+			return true;
+		}
+
 		e.preventDefault();
 		e.stopPropagation();
 
-		var url = $(this).attr('href') + '&return=json';
+		var url = $(this).data('json-href');
 
 		citationOutput.css('opacity', 0.5);
 
