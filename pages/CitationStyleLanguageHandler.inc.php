@@ -84,6 +84,9 @@ class CitationStyleLanguageHandler extends Handler {
 	public function _setupRequest($args, $request) {
 		$userVars = $request->getUserVars();
 		$journal = $request->getContext();
+		$user = $request->getUser();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
 
 		assert(isset($userVars['submissionId']) && is_array($args) && !empty($args) && $journal);
 
@@ -99,8 +102,36 @@ class CitationStyleLanguageHandler extends Handler {
 
 		assert(is_a($this->article, 'PublishedArticle') && !empty($this->citationStyle));
 
+		// Disallow access to unpublished submissions, unless the user is a
+		// journal manager or an assigned subeditor or assistant. This ensures the
+		// article preview will work for those who can see it.
 		if ($this->article->getStatus() !== STATUS_PUBLISHED) {
-			$this->article = null;
+			$userCanAccess = false;
+
+			if ($user->hasRole(ROLE_ID_MANAGER, $contextId)) {
+				$userCanAccess = true;
+			}
+
+			if ($user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $contextId)) {
+				$isAssigned = false;
+				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
+				$assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->article->getId());
+				foreach ($assignments as $assignment) {
+					if ($assignment->getUser()->getId() !== $user->getId()) {
+						continue;
+					}
+					$userGroup = $userGroupDao->getById($assignment->getUserGroupId($contextId));
+					if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
+						$userCanAccess = true;
+						break;
+					}
+				}
+			}
+
+			if (!$userCanAccess) {
+				$this->article = null;
+			}
 		}
 	}
 }
