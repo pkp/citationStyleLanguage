@@ -34,8 +34,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/**
 	* @copydoc Form::init
 	*/
-	public function initData() {
-		$context = Application::getRequest()->getContext();
+	public function initData($request) {
+		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
 		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles($contextId)));
@@ -133,9 +133,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/**
 	 * Save settings.
 	 */
-	public function execute() {
-		$context = Application::getRequest()->getContext();
-		$contextId = empty($context) ? 0 : $context->getId();
+	public function execute($request) {
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
 		$this->plugin->updateSetting($contextId, 'primaryCitationStyle', $this->getData('primaryCitationStyle'));
 		$enabledCitationStyles = $this->getData('enabledCitationStyles') ? $this->getData('enabledCitationStyles') : array();
 		$this->plugin->updateSetting($contextId, 'enabledCitationStyles', $enabledCitationStyles);
@@ -144,7 +144,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
-		$user = Application::getRequest()->getUser();
+		$user = $request->getUser();
 		$notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('common.changesSaved')));
 
 		return parent::execute();
