@@ -314,21 +314,21 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData = new stdClass();
 		$citationData->type = 'article-journal';
 		$citationData->id = $article->getId();
-		$citationData->title = PKPString::stripUnsafeHtml($article->getLocalizedTitle());
-		$citationData->{'container-title'} = PKPString::stripUnsafeHtml($journal->getLocalizedName());
-		$citationData->{'container-title-short'} = PKPString::stripUnsafeHtml($journal->getLocalizedAcronym());
-		$citationData->volume = PKPString::stripUnsafeHtml($issue->getData('volume'));
+		$citationData->title = htmlspecialchars($article->getLocalizedTitle());
+		$citationData->{'container-title'} = htmlspecialchars($journal->getLocalizedName());
+		$citationData->{'container-title-short'} = htmlspecialchars($journal->getLocalizedAcronym());
+		$citationData->volume = htmlspecialchars($issue->getData('volume'));
 		// Zotero prefers issue and Mendeley uses `number` to store revisions
-		$citationData->issue = PKPString::stripUnsafeHtml($issue->getData('number'));
-		$citationData->section = PKPString::stripUnsafeHtml($article->getSectionTitle());
-		$citationData->URL = PKPString::stripUnsafeHtml($request->getDispatcher()->url(
+		$citationData->issue = htmlspecialchars($issue->getData('number'));
+		$citationData->section = htmlspecialchars($article->getSectionTitle());
+		$citationData->URL = $request->getDispatcher()->url(
 			$request,
 			ROUTE_PAGE,
 			null,
 			'article',
 			'view',
 			$article->getBestArticleId()
-		));
+		);
 		$citationData->accessed = new stdClass();
 		$citationData->accessed->raw = date('Y-m-d');
 
@@ -337,22 +337,22 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->author = array();
 			foreach ($authors as $author) {
 				$currentAuthor = new stdClass();
-				$currentAuthor->family = PKPString::stripUnsafeHtml($author->getLastName());
-				$currentAuthor->given = PKPString::stripUnsafeHtml($author->getFirstName());
+				$currentAuthor->family = htmlspecialchars($author->getLastName());
+				$currentAuthor->given = htmlspecialchars($author->getFirstName());
 				$citationData->author[] = $currentAuthor;
 			}
 		}
 
 		if ($article->getDatePublished()) {
 			$citationData->issued = new stdClass();
-			$citationData->issued->raw = PKPString::stripUnsafeHtml($article->getDatePublished());
+			$citationData->issued->raw = htmlspecialchars($article->getDatePublished());
 		} elseif ($issue->getPublished()) {
 			$citationData->issued = new stdClass();
-			$citationData->issued->raw = PKPString::stripUnsafeHtml($issue->getPublished());
+			$citationData->issued->raw = htmlspecialchars($issue->getPublished());
 		}
 
 		if ($article->getPages()) {
-			$citationData->page = PKPString::stripUnsafeHtml($article->getPages());
+			$citationData->page = htmlspecialchars($article->getPages());
 		}
 
 		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $article, $issue, $journal));
