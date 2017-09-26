@@ -122,9 +122,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
 			'pluginName' => $this->plugin->getName(),
-			'primaryCitationStyleListData' => $primaryCitationStyleListData,
-			'citationStylesListData' => $citationStylesListData,
-			'citationDownloadsListData' => $citationDownloadsListData,
+			'primaryCitationStyleListData' => json_encode($primaryCitationStyleListData),
+			'citationStylesListData' => json_encode($citationStylesListData),
+			'citationDownloadsListData' => json_encode($citationDownloadsListData),
 		));
 
 		return parent::fetch($request);

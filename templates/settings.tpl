@@ -23,7 +23,7 @@
 			{assign var="uuid" value=""|uniqid|escape}
 			<div id="primary-citation-styles-{$uuid}">
 				<script type="text/javascript">
-					pkp.registry.init('primary-citation-styles-{$uuid}', 'SelectListPanel', {$primaryCitationStyleListData|json_encode});
+					pkp.registry.init('primary-citation-styles-{$uuid}', 'SelectListPanel', {$primaryCitationStyleListData});
 				</script>
 			</div>
 		{/fbvFormSection}
@@ -31,7 +31,7 @@
 			{assign var="uuid" value=""|uniqid|escape}
 			<div id="citation-styles-{$uuid}">
 				<script type="text/javascript">
-					pkp.registry.init('citation-styles-{$uuid}', 'SelectListPanel', {$citationStylesListData|json_encode});
+					pkp.registry.init('citation-styles-{$uuid}', 'SelectListPanel', {$citationStylesListData});
 				</script>
 			</div>
 		{/fbvFormSection}
@@ -39,7 +39,7 @@
 			{assign var="uuid" value=""|uniqid|escape}
 			<div id="citation-downloads-{$uuid}">
 				<script type="text/javascript">
-					pkp.registry.init('citation-downloads-{$uuid}', 'SelectListPanel', {$citationDownloadsListData|json_encode});
+					pkp.registry.init('citation-downloads-{$uuid}', 'SelectListPanel', {$citationDownloadsListData});
 				</script>
 			</div>
 		{/fbvFormSection}
