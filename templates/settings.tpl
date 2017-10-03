@@ -18,7 +18,7 @@
 <form class="pkp_form" id="citationStyleLanguageSettingsForm" method="post" action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
 	{csrf}
 
-	{fbvFormArea}
+	{fbvFormArea id="citationStyleLanguagePluginSettings"}
 		{fbvFormSection}
 			{assign var="uuid" value=""|uniqid|escape}
 			<div id="primary-citation-styles-{$uuid}">
