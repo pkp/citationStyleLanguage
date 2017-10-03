@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/ru_RU/locale.xml
+  *
+  * Copyright (c) 2017 Simon Fraser University
+  * Copyright (c) 2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=OJS:_Russian_(ru_RU)
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="ru_RU" full_name="Русский">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Язык оформления цитат CSL</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Позволяет читателям получить библиографическую ссылку на опубликованную статью в одном из нескольких форматов, поддерживаемых языком оформления цитат CSL.</message>
+
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Форматы для скачивания</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Выберите, какие форматы для скачивания вы хотите предложить своим читателям. Скачиваемые форматы обычно используются для импорта в такие программы для управления библиографией от сторонних производителей, как EndNote или Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Дополнительные форматы ссылок</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Выберите, какие дополнительные форматы вы хотите предложить своим читателям.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Основной формат ссылок</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Выберите, какой формат ссылок вы хотите отображать по умолчанию на основной странице статьи.</message>
+</locale>
