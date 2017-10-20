@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/de_DE/locale.xml
+  *
+  * Copyright (c) 2017 Simon Fraser University
+  * Copyright (c) 2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="de_DE" full_name="Deutsch (Deutschland)">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Citation Style Language (CSL)</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Damit lassen sich die bibliografischen Angaben für einen veröffentlichten Artikel in einem von Citation Style Language (XML-Sprache zur Beschreibung von Formaten für bibliografische Angaben und Zitierstile) unterstützten Zitierstil oder Datenformat darstellen oder exportieren.</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (Literaturverwaltungsprogramm)</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formate zum Herunterladen</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Wählen Sie die Formate zum Herunterladen, die Sie anbieten möchten, aus. Diese Formate werden typischerweise verwendet, um bibliographische Angaben in Literaturverwaltungsprogramme wie beispielsweise Zotero zu übernehmen.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Zusätzliche Formate für bibliographische Angaben</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Wählen Sie aus, welche zusätzlichen Formate für bibliographische Angaben Sie anbieten möchten.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Primäres Format für bibliographische Angaben</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Wählen Sie aus, wie Sie bibliographische Angaben standardmäßig auf der Artikelseite anzeigen möchten.</message>
+</locale>
