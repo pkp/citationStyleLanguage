@@ -25,7 +25,7 @@
 	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
 	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
 	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
-	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (Literaturverwaltungsprogramm)</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">RIS (für Literaturverwaltung)</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formate zum Herunterladen</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Wählen Sie die Formate zum Herunterladen, die Sie anbieten möchten, aus. Diese Formate werden typischerweise verwendet, um bibliographische Angaben in Literaturverwaltungsprogramme wie beispielsweise Zotero zu übernehmen.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Zusätzliche Formate für bibliographische Angaben</message>
