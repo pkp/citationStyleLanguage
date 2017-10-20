@@ -14,6 +14,7 @@
 <locale name="de_DE" full_name="Deutsch (Deutschland)">
 	<message key="plugins.generic.citationStyleLanguage.displayName">Citation Style Language</message>
 	<message key="plugins.generic.citationStyleLanguage.description">Ermöglicht es Leser/innen, die bibliografischen Angaben für einen veröffentlichten Artikel in einem von mehreren Formaten in der Citation Style Language zu erhalten.</message>
+
 	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
 	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
 	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
