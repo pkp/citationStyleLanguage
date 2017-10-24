@@ -108,10 +108,10 @@ class CitationStyleLanguageHandler extends Handler {
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
-		if (!$issue || !$issue->getPublished() || $this->article->getStatus() !== STATUS_PUBLISHED) {
+		if (!$issue || !$issue->getPublished() || $this->article->getStatus() != STATUS_PUBLISHED) {
 			$userCanAccess = false;
 
-			if ($user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $contextId)) {
+			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $contextId)) {
 				$isAssigned = false;
 				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
 				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
@@ -128,7 +128,7 @@ class CitationStyleLanguageHandler extends Handler {
 				}
 			}
 
-			if ($user->hasRole(ROLE_ID_MANAGER, $contextId)) {
+			if ($user && $user->hasRole(ROLE_ID_MANAGER, $contextId)) {
 				$userCanAccess = true;
 			}
 
