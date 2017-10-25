@@ -100,8 +100,11 @@ class CitationStyleLanguageHandler extends Handler {
 		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
 		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($journal->getId(), $userVars['submissionId'], true);
 
-		$issueDao = DAORegistry::getDAO('IssueDAO');
-		$issue = $issueDao->getById($this->article->getIssueId(), $contextId);
+		$issue = null;
+		if ($this->article) {
+			$issueDao = DAORegistry::getDAO('IssueDAO');
+			$issue = $issueDao->getById($this->article->getIssueId(), $contextId);
+		}
 
 		assert(is_a($this->article, 'PublishedArticle') && !empty($this->citationStyle));
 
