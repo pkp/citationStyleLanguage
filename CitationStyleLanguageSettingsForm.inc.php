@@ -61,22 +61,12 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
-		$baseCitationStyles = $this->plugin->getCitationStyles();
-
-		$primaryCitationStyle = $this->getData('primaryCitationStyle');
-		$primaryCitationStyles = $baseCitationStyles;
-		if (!empty($primaryCitationStyle)) {
-			$primaryCitationStyles = array_map(function($citation) use ($primaryCitationStyle) {
-				$citation['_initializeSelected'] = $citation['id'] === $primaryCitationStyle;
-				return $citation;
-			}, $baseCitationStyles);
-		}
-
 		$primaryCitationStyleListData = array(
 			'inputName' => 'primaryCitationStyle',
 			'inputType' => 'radio',
+			'selected' => array($this->getData('primaryCitationStyle')),
 			'collection' => array(
-				'items' => $primaryCitationStyles,
+				'items' => $this->plugin->getCitationStyles(),
 			),
 			'i18n' => array(
 				'title' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary'),
@@ -84,16 +74,11 @@ class CitationStyleLanguageSettingsForm extends Form {
 			),
 		);
 
-		$enabledCitationStyleIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId));
-		$citationStyles = array_map(function($citation) use ($enabledCitationStyleIds) {
-			$citation['_initializeSelected'] = in_array($citation['id'], $enabledCitationStyleIds);
-			return $citation;
-		}, $baseCitationStyles);
-
 		$citationStylesListData = array(
 			'inputName' => 'enabledCitationStyles[]',
+			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
 			'collection' => array(
-				'items' => $citationStyles,
+				'items' => $this->plugin->getCitationStyles(),
 			),
 			'i18n' => array(
 				'title' => __('plugins.generic.citationStyleLanguage.settings.citationFormats'),
@@ -101,17 +86,11 @@ class CitationStyleLanguageSettingsForm extends Form {
 			),
 		);
 
-		$citationDownloads = $this->plugin->getCitationDownloads();
-		$enabledCitationDownloadIds = $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId));
-		$citationDownloads = array_map(function($citation) use ($enabledCitationDownloadIds) {
-			$citation['_initializeSelected'] = in_array($citation['id'], $enabledCitationDownloadIds);
-			return $citation;
-		}, $citationDownloads);
-
 		$citationDownloadsListData = array(
 			'inputName' => 'enabledCitationDownloads[]',
+			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
 			'collection' => array(
-				'items' => $citationDownloads,
+				'items' => $this->plugin->getCitationDownloads(),
 			),
 			'i18n' => array(
 				'title' => __('plugins.generic.citationStyleLanguage.settings.citationDownloads'),
