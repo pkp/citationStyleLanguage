@@ -61,49 +61,39 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
-		$primaryCitationStyleListData = array(
+		import('lib.pkp.controllers.list.SelectListHandler');
+
+		$primaryCitationStyleList = new SelectListHandler(array(
+			'title' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary',
+			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription',
 			'inputName' => 'primaryCitationStyle',
 			'inputType' => 'radio',
 			'selected' => array($this->getData('primaryCitationStyle')),
-			'collection' => array(
-				'items' => $this->plugin->getCitationStyles(),
-			),
-			'i18n' => array(
-				'title' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary'),
-				'notice' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription'),
-			),
-		);
+			'items' => $this->plugin->getCitationStyles(),
+		));
 
-		$citationStylesListData = array(
+		$citationStylesList = new SelectListHandler(array(
+			'title' => 'plugins.generic.citationStyleLanguage.settings.citationFormats',
+			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsDescription',
 			'inputName' => 'enabledCitationStyles[]',
 			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
-			'collection' => array(
-				'items' => $this->plugin->getCitationStyles(),
-			),
-			'i18n' => array(
-				'title' => __('plugins.generic.citationStyleLanguage.settings.citationFormats'),
-				'notice' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsDescription'),
-			),
-		);
+			'items' => $this->plugin->getCitationStyles(),
+		));
 
-		$citationDownloadsListData = array(
+		$citationDownloadsList = new SelectListHandler(array(
+			'title' => 'plugins.generic.citationStyleLanguage.settings.citationDownloads',
+			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription',
 			'inputName' => 'enabledCitationDownloads[]',
 			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
-			'collection' => array(
-				'items' => $this->plugin->getCitationDownloads(),
-			),
-			'i18n' => array(
-				'title' => __('plugins.generic.citationStyleLanguage.settings.citationDownloads'),
-				'notice' => __('plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription'),
-			),
-		);
+			'items' => $this->plugin->getCitationDownloads(),
+		));
 
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
 			'pluginName' => $this->plugin->getName(),
-			'primaryCitationStyleListData' => json_encode($primaryCitationStyleListData),
-			'citationStylesListData' => json_encode($citationStylesListData),
-			'citationDownloadsListData' => json_encode($citationDownloadsListData),
+			'primaryCitationStyleListData' => json_encode($primaryCitationStyleList->getConfig()),
+			'citationStylesListData' => json_encode($citationStylesList->getConfig()),
+			'citationDownloadsListData' => json_encode($citationDownloadsList->getConfig()),
 		));
 
 		return parent::fetch($request);
