@@ -11,7 +11,7 @@
   * Citation Style Language plugin localization strings
   -->
 
-<locale name="pt_BR" full_name="Português Brasileiro">
+<locale name="pt_BR" full_name="Português (Brasil)">
 	<message key="plugins.generic.citationStyleLanguage.displayName">Linguagem de Estilo de Citação</message>
 	<message key="plugins.generic.citationStyleLanguage.description">Permite aos leitores recuperar a citação de um artigo publicado em um dos diferentes formatos apoiados pela Linguagem de Estilos de Citação.</message>
 
