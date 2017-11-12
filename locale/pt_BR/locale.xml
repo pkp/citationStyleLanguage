@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/pt_BR/locale.xml
+  *
+  * Copyright (c) 2017 Simon Fraser University
+  * Copyright (c) 2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=Translating_OxS
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="pt_BR" full_name="Português (Brasil)">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Linguagem de Estilo de Citação</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Permite aos leitores recuperar a citação de um artigo publicado em um dos diferentes formatos apoiados pela Linguagem de Estilos de Citação.</message>
+
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formatos para Download</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Selecione quais formatos para baixar gostaria de oferecer a seus leitores. Esses formatos podem ser utilizados em aplicativos de gerenciamento bibliográfico como EndNote e Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Formatos Adicionais de Citação</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Selecione quais formatos adicionais gostaria de oferecer a seus leitores.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Formato de Citação Padrão</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Selecione qual o formato de citação que gostaria de mostrar por padrão na página do artigo.</message>
+</locale>
