@@ -4,13 +4,11 @@
 <!--
   * plugins/generic/citationStyleLanguage/locale/es_ES/locale.xml
   *
-  * Copyright (c) 2013-2017 Simon Fraser University Library
-  * Copyright (c) 2003-2017 John Willinsky
+  * Copyright (c) 2017 Simon Fraser University
+  * Copyright (c) 2017 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
-  *
-  * Credits: https://pkp.sfu.ca/wiki/index.php?title=OJS:_Spanish_(es_ES)
-  *
-  * Localization strings
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=OJS:_Spanish_(es_ES)
+  * Citation Style Language plugin localization strings  
   -->
   
 <locale name="es_ES" full_name="Español (España)">
