@@ -337,8 +337,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->author = array();
 			foreach ($authors as $author) {
 				$currentAuthor = new stdClass();
-				$currentAuthor->family = htmlspecialchars($author->getLastName());
-				$currentAuthor->given = htmlspecialchars($author->getFirstName());
+				$currentAuthor->family = htmlspecialchars($author->getLocalizedLastName());
+				$currentAuthor->given = htmlspecialchars($author->getLocalizedFirstName()) .' '. htmlspecialchars($author->getLocalizedMiddleName());
 				$citationData->author[] = $currentAuthor;
 			}
 		}
