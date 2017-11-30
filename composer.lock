@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9285b9859d1ff060667d8d8e76e7bcb0",
+    "content-hash": "b12f7528020da5a1579de7712a46030b",
     "packages": [
         {
             "name": "citation-style-language/locales",
@@ -62,16 +62,16 @@
         },
         {
             "name": "seboettg/citeproc-php",
-            "version": "v2.0.2",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "02ddd21afc1094c8ae10920ad3cb8bbd067fba8a"
+                "reference": "1516cc87a0845fca6f8547e68a1b723797211eb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/02ddd21afc1094c8ae10920ad3cb8bbd067fba8a",
-                "reference": "02ddd21afc1094c8ae10920ad3cb8bbd067fba8a",
+                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/1516cc87a0845fca6f8547e68a1b723797211eb6",
+                "reference": "1516cc87a0845fca6f8547e68a1b723797211eb6",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
                 "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0",
+                "phpunit/phpunit": "6.0.13",
                 "satooshi/php-coveralls": "^1"
             },
             "type": "library",
@@ -102,7 +102,7 @@
                 }
             ],
             "description": "Full-featured CSL processor (https://citationstyles.org)",
-            "time": "2017-10-04T21:49:30+00:00"
+            "time": "2017-11-23T16:21:43+00:00"
         },
         {
             "name": "seboettg/collection",
