@@ -47,6 +47,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if ($success && $this->getEnabled()) {
 			HookRegistry::register('ArticleHandler::view', array($this, 'getArticleTemplateData'));
 			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
+			$this->_registerTemplateResource();
 		}
 		return $success;
 	}
@@ -506,7 +507,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @copydoc Plugin::getTemplatePath($inCore)
 	 */
 	public function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 	/**
