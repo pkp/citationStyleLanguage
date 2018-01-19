@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE locale SYSTEM "../../../../lib/pkp/dtd/locale.dtd">
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
 
 <!--
-  * locale/da_DK/locale.xml
+  * plugins/generic/citationStyleLanguage/locale/da_DK/locale.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2003-2017 John Willinsky
+  * Copyright (c) 2017-2018 Simon Fraser University
+  * Copyright (c) 2017-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
-  *
-  * Localization strings.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=Translating_OxS
+  * Citation Style Language plugin localization strings
   -->
 
 <locale name="da_DK" full_name="Dansk">
 	<message key="plugins.generic.citationStyleLanguage.displayName">Citation Style Language</message>
 	<message key="plugins.generic.citationStyleLanguage.description">Tillad læsere at få en offentliggjort artikels citationer i et af flere formater understøttet af Citation Style Language.</message>
+
 	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
 	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
 	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
@@ -24,8 +25,10 @@
 	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
 	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
 	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
 	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
 	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Downloadbare formater</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Vælg hvilke downloadbare formater du ønsker at tilbyde dine læsere. Downloadbare formater bruges typisk til at importere til tredjeparts referencehåndteringsprogrammer såsom EndNote eller Zotero.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Øvrige citationsformater</message>
