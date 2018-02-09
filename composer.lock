@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b12f7528020da5a1579de7712a46030b",
+    "content-hash": "6bb06b7296fe3a02bb5a45cdc2111d17",
     "packages": [
         {
             "name": "citation-style-language/locales",
@@ -62,16 +62,16 @@
         },
         {
             "name": "seboettg/citeproc-php",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "1516cc87a0845fca6f8547e68a1b723797211eb6"
+                "reference": "feca12395e3d2a1f89a98a6d886678cca578a5c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/1516cc87a0845fca6f8547e68a1b723797211eb6",
-                "reference": "1516cc87a0845fca6f8547e68a1b723797211eb6",
+                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/feca12395e3d2a1f89a98a6d886678cca578a5c9",
+                "reference": "feca12395e3d2a1f89a98a6d886678cca578a5c9",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 }
             ],
             "description": "Full-featured CSL processor (https://citationstyles.org)",
-            "time": "2017-11-23T16:21:43+00:00"
+            "time": "2018-02-08T15:42:27+00:00"
         },
         {
             "name": "seboettg/collection",
@@ -143,16 +143,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +164,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -198,7 +198,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2018-01-30T19:27:44+00:00"
         }
     ],
     "packages-dev": [],
