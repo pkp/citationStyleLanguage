@@ -1,7 +1,7 @@
 {
 	"require": {
 		"citation-style-language/locales":"@dev",
-		"seboettg/citeproc-php": "^2.1"
+		"seboettg/citeproc-php": "^2.1.1"
 	},
 	"config": {
 		"vendor-dir": "lib/vendor"
