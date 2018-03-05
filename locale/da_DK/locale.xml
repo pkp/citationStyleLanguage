@@ -33,6 +33,6 @@
 	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Vælg hvilke downloadbare formater du ønsker at tilbyde dine læsere. Downloadbare formater bruges typisk til at importere til tredjeparts referencehåndteringsprogrammer såsom EndNote eller Zotero.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Øvrige citationsformater</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Vælg hvilke øvrige formater du ønsker at tilbyde dine læsere.</message>
-	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Primært Citation Format</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Primært citationsformat</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Vælg hvilket citationsformat du ønsker at vise som standard på din artikels landing page.</message>
 </locale>
