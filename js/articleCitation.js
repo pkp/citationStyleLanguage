@@ -61,7 +61,6 @@
 		}
 
 		e.preventDefault();
-		e.stopPropagation();
 
 		var url = $(this).data('json-href');
 
