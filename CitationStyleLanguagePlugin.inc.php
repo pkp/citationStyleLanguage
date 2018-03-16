@@ -377,7 +377,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			} else {
 				$style = $this->loadStyle($styleConfig);
 				if ($style) {
-					$locale = str_replace('_', '-', AppLocale::getLocale());
+					$locale = str_replace('_', '-', substr(AppLocale::getLocale(), 0, 5));
 					$citeProc = new CiteProc($style, $locale);
 					$citation = $citeProc->render(array($citationData), 'bibliography');
 				}
