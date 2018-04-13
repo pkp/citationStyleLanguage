@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale/pt_PT/locale.xml
+  *
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2003-2018 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+
+<locale name="pt_PT" full_name="Português (Portugal)">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Estilos de Citação</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Permite aos leitores obter citações de artigos publicados usando um de vários formatos suportados pelo plugin.</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formatos para Download:</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Selecione quais dos formatos disponíveis pretende disponibilizar para Download. Os formatos usados para Download são úteis para importar a citação noutras ferramentas de gestão de bibliografia, como o EndNote ou o Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Formatos de Citação Adicionais</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Selecione quais os formatos adicionais que pretende oferecer aos leitores.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Formato de Citação Principal</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Selecione qual o formato de citação que pretende apresentar, por omissão, na página inicial de cada artigo.</message>
+</locale>
