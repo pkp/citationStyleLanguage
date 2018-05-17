@@ -103,7 +103,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/**
 	 * Save settings.
 	 */
-	public function execute($request) {
+	public function execute() {
+		$request = Application::getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 		$this->plugin->updateSetting($contextId, 'primaryCitationStyle', $this->getData('primaryCitationStyle'));
