@@ -490,12 +490,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				if ($request->getUserVar('save')) {
 					$form->readInputData();
 					if ($form->validate()) {
-						$form->execute($request);
+						$form->execute();
 						return new JSONMessage(true);
 					}
 				}
 
-				$form->initData($request);
+				$form->initData();
 				return new JSONMessage(true, $form->fetch($request));
 		}
 		return parent::manage($args, $request);

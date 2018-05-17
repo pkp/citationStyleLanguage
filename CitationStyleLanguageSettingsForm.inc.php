@@ -34,7 +34,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/**
 	* @copydoc Form::init
 	*/
-	public function initData($request) {
+	public function initData() {
+		$request = Application::getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
@@ -102,7 +103,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/**
 	 * Save settings.
 	 */
-	public function execute($request) {
+	public function execute() {
+		$request = Application::getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 		$this->plugin->updateSetting($contextId, 'primaryCitationStyle', $this->getData('primaryCitationStyle'));
