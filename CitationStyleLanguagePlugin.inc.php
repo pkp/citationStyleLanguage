@@ -315,7 +315,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData->id = $article->getId();
 		$citationData->title = htmlspecialchars($article->getLocalizedTitle());
 		$citationData->{'container-title'} = htmlspecialchars($journal->getLocalizedName());
-		$citationData->{'container-title-short'} = htmlspecialchars($journal->getLocalizedAcronym());
+
+		$abbreviation = $journal->getSetting('abbreviation', $journal->getPrimaryLocale());
+		if (!$abbreviation) $abbreviation = $journal->getSetting('acronym', $journal->getPrimaryLocale());
+		if ($abbreviation) $citationData->{'container-title-short'} = htmlspecialchars($abbreviation);
+
 		$citationData->volume = htmlspecialchars($issue->getData('volume'));
 		// Zotero prefers issue and Mendeley uses `number` to store revisions
 		$citationData->issue = htmlspecialchars($issue->getData('number'));
