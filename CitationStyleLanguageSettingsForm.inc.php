@@ -25,7 +25,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 	 * @param $plugin object
 	 */
 	public function __construct($plugin) {
-		parent::__construct($plugin->getTemplatePath() . 'settings.tpl');
+		parent::__construct($plugin->getTemplateResource('settings.tpl'));
 		$this->plugin = $plugin;
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));

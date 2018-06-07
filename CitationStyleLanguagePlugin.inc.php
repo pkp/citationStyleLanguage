@@ -183,7 +183,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				'id' => 'ris',
 				'title' => __('plugins.generic.citationStyleLanguage.download.ris'),
 				'isEnabled' => true,
-				'useTemplate' => $this->getTemplatePath() . 'citation-styles/ris.tpl',
+				'useTemplate' => $this->getTemplateResource('citation-styles/ris.tpl'),
 				'fileExtension' => 'ris',
 				'contentType' => 'application/x-Research-Info-Systems',
 			),
