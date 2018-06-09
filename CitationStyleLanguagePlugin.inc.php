@@ -340,8 +340,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->author = array();
 			foreach ($authors as $author) {
 				$currentAuthor = new stdClass();
-				$currentAuthor->family = htmlspecialchars($author->getLastName());
-				$currentAuthor->given = htmlspecialchars($author->getFirstName());
+				if (empty($author->getLocalizedFamilyName())) {
+					$currentAuthor->family = htmlspecialchars($author->getLocalizedGivenName());
+				} else {
+					$currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
+					$currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
+				}
 				$citationData->author[] = $currentAuthor;
 			}
 		}
