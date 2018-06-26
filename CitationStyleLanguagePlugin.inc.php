@@ -377,8 +377,19 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			} else {
 				$style = $this->loadStyle($styleConfig);
 				if ($style) {
-					$locale = str_replace('_', '-', substr(AppLocale::getLocale(), 0, 5));
-					$citeProc = new CiteProc($style, $locale);
+					// Determine what locale to use. Try in order:
+					//  - xx_YY
+					//  - xx
+					// Fall back English if none found.
+					$tryLocale = null;
+					foreach (array(
+						str_replace('_', '-', substr(AppLocale::getLocale(), 0, 5)),
+						substr(AppLocale::getLocale(), 0, 2),
+						'en-US'
+					) as $tryLocale) {
+						if (file_exists(dirname(__FILE__) . '/lib/vendor/citation-style-language/locales/locales-' . $tryLocale . '.xml')) break;
+					}
+					$citeProc = new CiteProc($style, $tryLocale);
 					$citation = $citeProc->render(array($citationData), 'bibliography');
 				}
 			}
