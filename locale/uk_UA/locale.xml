@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/uk_UA/locale.xml
+  *
+  * Copyright (c) 2017-2018 Simon Fraser University
+  * Copyright (c) 2017-2018 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=OJS:_Ukrainian_(uk_UA)
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="uk_UA" full_name="Українська">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Мова оформлення цитат CSL</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Дозволяє читачам отримати бібліографічне посилання на опубліковану статтю в одному або декількох форматах, які підтримуються мовою оформлення цитат CSL.</message>
+
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Формати для завантаження</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Оберіть, які формати для завантажування ви хочете запропонувати своїм читачам. Завантажувані формати зазвичай використовуються для імпорту в інші програми керування бібліографією, наприклад EndNote or Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Додаткові формати посилань</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Оберіть, які додаткові формати ви хочете запропонувати своїм читачам.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Основний формат посилань</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Оберіть формат посилань, який ви хочете відображати усталено на основній сторінці статті.</message>
+</locale>
