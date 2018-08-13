@@ -12,7 +12,7 @@
   -->
   
 <locale name="es_ES" full_name="Español (España)">
-	<message key="plugins.generic.citationStyleLanguage.displayName">Lenguaje de estilos de Cita</message>
+	<message key="plugins.generic.citationStyleLanguage.displayName">Lenguaje de estilos de cita</message>
 	<message key="plugins.generic.citationStyleLanguage.description">Permite que los lectores obtengan una cita de un artículo publicado en uno de los formatos compatibles con CSL (Citation Style Language).</message>
 
 	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
@@ -29,5 +29,10 @@
 	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
 	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
 
-	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Estilos descargables</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formatos descargables</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Seleccione los formatos descargables que quiere ofrecer a los lectores/as. Los formatos descargables se usan normalmente para que programas de gestión de bibliotecas de terceros los importen, como EndNote o Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Formatos de cita adicionales</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Seleccione los formatos adicionales que quiere ofrecer a los lectores/as.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Formato de cita primario</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Seleccione qué formato de cita quiere mostrar como predefinido en la página de inicio.</message>
 </locale>
