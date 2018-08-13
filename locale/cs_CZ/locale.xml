@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale/cs_CZ/locale.xml
+  *
+  * Copyright (c) 2014-2017 Simon Fraser University
+  * Copyright (c) 2003-2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+
+<locale name="cs_CZ" full_name="Čeština">
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Další citační formáty</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Zvolte, které další formáty chcete nabídnout čtenářům.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Základní citační formát</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Zvolte, který citační formát chcete zobrazovat při zobrazení článku.</message>
+	<message key="plugins.generic.citationStyleLanguage.displayName">Citační formát</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Umožněte čtenářům získat citaci publikovaného článku v jednom či více podporovaných citačních formátů.</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Stáhnutelné formáty</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Zvolte, které stahovatelné formáty chcete čtenářům nabídnout. Stahovatelné formáty se obvykle používají pro import do softwaru pro správu bibliografie od jiných výrobců, jako je EndNote nebo Zotero.</message>
+</locale>
