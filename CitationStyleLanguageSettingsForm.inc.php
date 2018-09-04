@@ -55,10 +55,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 	}
 
 	/**
-	 * Fetch the form.
 	 * @copydoc Form::fetch()
 	 */
-	public function fetch($request) {
+	public function fetch($request, $template = null, $display = false) {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
@@ -97,7 +96,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'citationDownloadsListData' => json_encode($citationDownloadsList->getConfig()),
 		));
 
-		return parent::fetch($request);
+		return parent::fetch($request, $template, $display);
 	}
 
 	/**
