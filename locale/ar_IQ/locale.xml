@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/ar_IQ/locale.xml
+  *
+  * Copyright (c) 2017-2018 Simon Fraser University
+  * Copyright (c) 2017-2018 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=Translating_OxS
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="ar_IQ" full_name="العربية">
+	<message key="plugins.generic.citationStyleLanguage.displayName">لغة نمط الاقتباس</message>
+	<message key="plugins.generic.citationStyleLanguage.description">تسمح للقراء بالحصول على اقتباس المقالة المنشورة بصيغة من بين عدة صيغ تدعمها لغة نمط الاقتباس.</message>
+
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">الصيغ القابلة للتنزيل</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">إختر أي من الأنماط القابلة للتنزيل تريد توفيرها لقرائك. الصيغ القابلة للتنزيل عادة ما تستعمل لأغراض الاستيراد إلى برامج إدارة السير الشخصية من طرف ثالث، مثل EndNote أو Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">أنماط اقتباس إضافية</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">إختر الأنماط الإضافية التي تريد توفيرها لقرائك.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">نمط الاقتباس الأولي</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">إختر نمط الاقتباس الذي تريد عرضه إفتراضياً على صفحة عرض المقال.</message>
+</locale>
