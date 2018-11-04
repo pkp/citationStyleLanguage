@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/citationStyleLanguage/locale/sl_SI/locale.xml
+  *
+  * Copyright (c) 2017-2018 Simon Fraser University
+  * Copyright (c) 2017-2018 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  * Localization information: https://pkp.sfu.ca/wiki/index.php?title=Translating_OxS
+  * Citation Style Language plugin localization strings
+  -->
+
+<locale name="sl_SI" full_name="Slovenščina">
+	<message key="plugins.generic.citationStyleLanguage.displayName">Stil citiranja</message>
+	<message key="plugins.generic.citationStyleLanguage.description">Omogoči uporabnikom, da dobijo citat objavljenega članka v enem od večih podprtih stilov citiranja.</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acm-sig-proceedings">ACM</message>
+	<message key="plugins.generic.citationStyleLanguage.style.acs-nano">ACS</message>
+	<message key="plugins.generic.citationStyleLanguage.style.apa">APA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas">ABNT</message>
+	<message key="plugins.generic.citationStyleLanguage.style.chicago-author-date">Chicago</message>
+	<message key="plugins.generic.citationStyleLanguage.style.harvard-cite-them-right">Harvard</message>
+	<message key="plugins.generic.citationStyleLanguage.style.ieee">IEEE</message>
+	<message key="plugins.generic.citationStyleLanguage.style.modern-language-association">MLA</message>
+	<message key="plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography">Turabian</message>
+	<message key="plugins.generic.citationStyleLanguage.style.vancouver">Vancouver</message>
+
+	<message key="plugins.generic.citationStyleLanguage.download.bibtex">BibTeX</message>
+	<message key="plugins.generic.citationStyleLanguage.download.ris">Endnote/Zotero/Mendeley (RIS)</message>
+
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloads">Formati, ki se lahko prenesejo</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription">Izberi katere formate želite ponuditi bralcem, da jih prenesejo. Formati, ki se lahko prenesejo, tipično omgočajo uvoz citatov v tretje sisteme za urejanje bibilografij, kot sta EndNote in Zotero.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormats">Dodatni formati citiranja</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Izberite katere dodatne formate bi želeli ponuditi vašim bralcem.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Primarna oblika citiranja</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Izberite, katero obliko citiranja bi radi prikazali kot privzeto na straneh vaših prispevkov.</message>
+</locale>
