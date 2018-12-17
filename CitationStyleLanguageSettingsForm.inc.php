@@ -61,7 +61,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
-		import('lib.pkp.components.listPanels.SelectListPanel');
+		import('lib.pkp.classes.components.listPanels.SelectListPanel');
 
 		$primaryCitationStyleList = new SelectListPanel(array(
 			'title' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary',
