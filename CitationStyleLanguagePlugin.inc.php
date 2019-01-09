@@ -317,8 +317,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData->{'container-title'} = htmlspecialchars($journal->getLocalizedName());
 		$citationData->abstract = htmlspecialchars($article->getLocalizedAbstract());
 
-		$abbreviation = $journal->getSetting('abbreviation', $journal->getPrimaryLocale());
-		if (!$abbreviation) $abbreviation = $journal->getSetting('acronym', $journal->getPrimaryLocale());
+		$abbreviation = $journal->getData('abbreviation', $journal->getPrimaryLocale());
+		if (!$abbreviation) $abbreviation = $journal->getData('acronym', $journal->getPrimaryLocale());
 		if ($abbreviation) $citationData->{'container-title-short'} = htmlspecialchars($abbreviation);
 
 		$citationData->volume = htmlspecialchars($issue->getData('volume'));

@@ -61,9 +61,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
-		import('lib.pkp.controllers.list.SelectListHandler');
+		import('lib.pkp.classes.components.listPanels.SelectListPanel');
 
-		$primaryCitationStyleList = new SelectListHandler(array(
+		$primaryCitationStyleList = new SelectListPanel(array(
 			'title' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary',
 			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription',
 			'inputName' => 'primaryCitationStyle',
@@ -72,7 +72,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'items' => $this->plugin->getCitationStyles(),
 		));
 
-		$citationStylesList = new SelectListHandler(array(
+		$citationStylesList = new SelectListPanel(array(
 			'title' => 'plugins.generic.citationStyleLanguage.settings.citationFormats',
 			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationFormatsDescription',
 			'inputName' => 'enabledCitationStyles[]',
@@ -80,7 +80,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'items' => $this->plugin->getCitationStyles(),
 		));
 
-		$citationDownloadsList = new SelectListHandler(array(
+		$citationDownloadsList = new SelectListPanel(array(
 			'title' => 'plugins.generic.citationStyleLanguage.settings.citationDownloads',
 			'notice' => 'plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription',
 			'inputName' => 'enabledCitationDownloads[]',
@@ -91,9 +91,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
 			'pluginName' => $this->plugin->getName(),
-			'primaryCitationStyleListData' => json_encode($primaryCitationStyleList->getConfig()),
-			'citationStylesListData' => json_encode($citationStylesList->getConfig()),
-			'citationDownloadsListData' => json_encode($citationDownloadsList->getConfig()),
+			'primaryCitationStyleListData' => $primaryCitationStyleList->getConfig(),
+			'citationStylesListData' => $citationStylesList->getConfig(),
+			'citationDownloadsListData' => $citationDownloadsList->getConfig(),
 		));
 
 		return parent::fetch($request, $template, $display);
