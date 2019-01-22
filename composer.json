@@ -4,7 +4,10 @@
 		"seboettg/citeproc-php": "^2.1.2"
 	},
 	"config": {
-		"vendor-dir": "lib/vendor"
+		"vendor-dir": "lib/vendor",
+		"platform": {
+			"php": "7.0.0"
+		}
 	},
 	"repositories": [
 		{
