@@ -83,12 +83,12 @@ class CitationStyleLanguageHandler extends Handler {
 	 */
 	public function _setupRequest($args, $request) {
 		$userVars = $request->getUserVars();
-		$journal = $request->getContext();
 		$user = $request->getUser();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
 
-		assert(isset($userVars['submissionId']) && is_array($args) && !empty($args) && $journal);
+		assert(isset($userVars['submissionId']) && is_array($args) && !empty($args) && $context);
+
+		$contextId = $context->getId();
 
 		// Load plugin categories which might need to add data to the citation
 		PluginRegistry::loadCategory('pubIds', true);
@@ -98,7 +98,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
 
 		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
-		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($journal->getId(), $userVars['submissionId'], true);
+		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($contextId, $userVars['submissionId'], true);
 
 		$issue = null;
 		if ($this->article) {
