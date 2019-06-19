@@ -313,7 +313,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData = new stdClass();
 		$citationData->type = 'article-journal';
 		$citationData->id = $article->getId();
-		$citationData->title = htmlspecialchars($article->getLocalizedTitle());
+		$citationData->title = htmlspecialchars($article->getLocalizedFullTitle());
 		$citationData->{'container-title'} = htmlspecialchars($journal->getLocalizedName());
 		$citationData->abstract = htmlspecialchars($article->getLocalizedAbstract());
 
