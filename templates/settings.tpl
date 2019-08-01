@@ -43,6 +43,11 @@
 				</script>
 			</div>
 		{/fbvFormSection}
+
+		{fbvFormSection}
+			<div id="description">{translate key="plugins.generic.citationStyleLanguage.settings.publisherLocation.description"}</div>
+			{fbvElement type="text" id="publisherLocation" value=$publisherLocation label="plugins.generic.citationStyleLanguage.settings.publisherLocation"}
+		{/fbvFormSection}
 	{/fbvFormArea}
 
 	{fbvFormButtons}
