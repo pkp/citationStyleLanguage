@@ -35,4 +35,6 @@
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Select which additional formats you'd like to offer your readers.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Primary Citation Format</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Select which citation format you would like to display by default on your article landing page.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.publisherLocation">Publisher Location</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.publisherLocation.description">Some citation formats request the geographic location of the publisher, such as "London, U.K.".</message>
 </locale>

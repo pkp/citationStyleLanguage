@@ -315,6 +315,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData->id = $article->getId();
 		$citationData->title = htmlspecialchars($article->getLocalizedFullTitle());
 		$citationData->{'container-title'} = htmlspecialchars($journal->getLocalizedName());
+		$citationData->{'publisher-place'} = $this->getSetting($journal->getId(), 'publisherLocation');
 		$citationData->abstract = htmlspecialchars($article->getLocalizedAbstract());
 
 		$abbreviation = $journal->getData('abbreviation', $journal->getPrimaryLocale());

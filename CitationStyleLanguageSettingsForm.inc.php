@@ -41,6 +41,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$this->setData('primaryCitationStyle', $this->plugin->getSetting($contextId, 'primaryCitationStyle'));
 		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles($contextId)));
 		$this->setData('enabledCitationDownloads', $this->plugin->getEnabledCitationDownloads($contextId));
+		$this->setData('publisherLocation', $this->plugin->getSetting($contextId, 'publisherLocation'));
 	}
 
 	/**
@@ -51,6 +52,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'primaryCitationStyle',
 			'enabledCitationStyles',
 			'enabledCitationDownloads',
+			'publisherLocation',
 		));
 	}
 
@@ -111,6 +113,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$this->plugin->updateSetting($contextId, 'enabledCitationStyles', $enabledCitationStyles);
 		$enabledCitationDownloads = $this->getData('enabledCitationDownloads') ? $this->getData('enabledCitationDownloads') : array();
 		$this->plugin->updateSetting($contextId, 'enabledCitationDownloads', $enabledCitationDownloads);
+		$this->plugin->updateSetting($contextId, 'publisherLocation', $this->getData('publisherLocation'));
 
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
