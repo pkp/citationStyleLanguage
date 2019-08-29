@@ -332,7 +332,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			null,
 			'article',
 			'view',
-			$article->getBestArticleId()
+			$article->getBestId()
 		);
 		$citationData->accessed = new stdClass();
 		$citationData->accessed->raw = date('Y-m-d');
