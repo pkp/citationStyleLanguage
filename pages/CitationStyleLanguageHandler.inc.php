@@ -16,7 +16,7 @@
 import('classes.handler.Handler');
 
 class CitationStyleLanguageHandler extends Handler {
-	/** @var PublishedArticle article being requested */
+	/** @var Submission article being requested */
 	public $article = null;
 
 	/** @var array citation style being requested */
@@ -97,16 +97,17 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
 
-		$publishedArticleDao = DAORegistry::getDAO('PublishedArticleDAO');
-		$this->article = $publishedArticleDao->getPublishedArticleByBestArticleId($contextId, $userVars['submissionId'], true);
+		$this->article = Services::get('submission')->get($userVars['submissionId']);
 
 		$issue = null;
 		if ($this->article) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
-			$issue = $issueDao->getById($this->article->getIssueId(), $contextId);
+			// Support OJS 3.1.x and 3.2
+			$issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
+			$issue = $issueDao->getById($issueId, $contextId);
 		}
 
-		assert(is_a($this->article, 'PublishedArticle') && !empty($this->citationStyle));
+		assert(is_a($this->article, 'Submission') && !empty($this->citationStyle));
 
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the

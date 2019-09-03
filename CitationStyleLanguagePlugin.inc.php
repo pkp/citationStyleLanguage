@@ -295,7 +295,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
 	 * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
 	 * @param $request Request
-	 * @param $article PublishedArticle
+	 * @param $article Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
@@ -305,7 +305,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 
 		if (empty($issue)) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
-			$issue = $issueDao->getById($article->getIssueId());
+			// Support OJS 3.1.x and 3.2
+			$issueId = method_exists($article, 'getCurrentPublication') ? $article->getCurrentPublication()->getData('issueId') : $article->getIssueId();
+			$issue = $issueDao->getById($issueId);
 		}
 
 		import('lib.pkp.classes.core.PKPString');
@@ -326,13 +328,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		// Zotero prefers issue and Mendeley uses `number` to store revisions
 		$citationData->issue = htmlspecialchars($issue->getData('number'));
 		$citationData->section = htmlspecialchars($article->getSectionTitle());
+		// Support versions of OJS prior to 3.2
+		$bestId = method_exists($article, 'getBestId') ? $article->getBestId() : $article->getBestArticleId();
 		$citationData->URL = $request->getDispatcher()->url(
 			$request,
 			ROUTE_PAGE,
 			null,
 			'article',
 			'view',
-			$article->getBestId()
+			$bestId
 		);
 		$citationData->accessed = new stdClass();
 		$citationData->accessed->raw = date('Y-m-d');
@@ -427,7 +431,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * software.
 	 *
 	 * @param $request Request
-	 * @param $article PublishedArticle
+	 * @param $article Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
