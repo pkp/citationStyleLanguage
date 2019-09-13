@@ -35,4 +35,6 @@
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription">Выберите, какие дополнительные форматы вы хотите предложить своим читателям.</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary">Основной формат ссылок</message>
 	<message key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription">Выберите, какой формат ссылок вы хотите отображать по умолчанию на основной странице статьи.</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.publisherLocation">Местоположение издателя</message>
+	<message key="plugins.generic.citationStyleLanguage.settings.publisherLocation.description">Некоторые форматы ссылок требуют указания географического местоположения издателя, например «Лондон, Великобритания».</message>
 </locale>
