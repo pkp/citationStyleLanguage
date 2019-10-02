@@ -19,6 +19,12 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var Submission article being requested */
 	public $article = null;
 
+	/** @var Publication publication being requested */
+	public $publication = null;
+
+	/** @var Issue issue of the publication being requested */
+	public $issue = null;
+
 	/** @var array citation style being requested */
 	public $citationStyle = '';
 
@@ -35,12 +41,8 @@ class CitationStyleLanguageHandler extends Handler {
 	public function get($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		if (!$this->article) {
-			return new JSONMessage(false);
-		}
-
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->article, $this->citationStyle);
+		$citation = $plugin->getCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -66,12 +68,8 @@ class CitationStyleLanguageHandler extends Handler {
 	public function download($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		if (!$this->article) {
-			return new JSONMessage(false);
-		}
-
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($request, $this->article, $this->citationStyle);
+		$plugin->downloadCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
 		exit;
 	}
 
@@ -86,9 +84,9 @@ class CitationStyleLanguageHandler extends Handler {
 		$user = $request->getUser();
 		$context = $request->getContext();
 
-		assert(isset($userVars['submissionId']) && is_array($args) && !empty($args) && $context);
-
-		$contextId = $context->getId();
+		if (empty($userVars['submissionId']) || !$context || empty($args)) {
+			$request->handle404();
+		}
 
 		// Load plugin categories which might need to add data to the citation
 		PluginRegistry::loadCategory('pubIds', true);
@@ -96,26 +94,30 @@ class CitationStyleLanguageHandler extends Handler {
 
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
-
 		$this->article = Services::get('submission')->get($userVars['submissionId']);
 
-		$issue = null;
+		if (!$this->article) {
+			$request->handle404();
+		}
+
+		$this->publication = !empty($userVars['publicationId'])
+			? Services::get('publication')->get($userVars['publicationId'])
+			: $this->article->getCurrentPublication();
+
 		if ($this->article) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
 			// Support OJS 3.1.x and 3.2
 			$issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
-			$issue = $issueDao->getById($issueId, $contextId);
+			$this->issue = $issueDao->getById($issueId, $context->getId());
 		}
-
-		assert(is_a($this->article, 'Submission') && !empty($this->citationStyle));
 
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
-		if (!$issue || !$issue->getPublished() || $this->article->getStatus() != STATUS_PUBLISHED) {
+		if (!$this->issue || !$this->issue->getPublished() || $this->article->getStatus() != STATUS_PUBLISHED) {
 			$userCanAccess = false;
 
-			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $contextId)) {
+			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
 				$isAssigned = false;
 				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
 				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
@@ -124,7 +126,7 @@ class CitationStyleLanguageHandler extends Handler {
 					if ($assignment->getUser()->getId() !== $user->getId()) {
 						continue;
 					}
-					$userGroup = $userGroupDao->getById($assignment->getUserGroupId($contextId));
+					$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
 					if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
 						$userCanAccess = true;
 						break;
@@ -132,12 +134,12 @@ class CitationStyleLanguageHandler extends Handler {
 				}
 			}
 
-			if ($user && $user->hasRole(ROLE_ID_MANAGER, $contextId)) {
+			if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
 				$userCanAccess = true;
 			}
 
 			if (!$userCanAccess) {
-				$this->article = null;
+				$request->handle404();
 			}
 		}
 	}

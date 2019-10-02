@@ -10,6 +10,7 @@
  * @uses $citationData stdClass Compiled citation data
  * @uses $citationStyle string Name of the citation style being compiled.
  * @uses $article Article
+ * @uses $publication Publication
  * @uses $issue Issue
  * @uses $journal Journal
  *}
@@ -29,5 +30,5 @@ IS  - {$citationData->issue}
 SE  - {$citationData->section}
 DO  - {$citationData->DOI}
 UR  - {$citationData->URL}
-AB  - {$article->getLocalizedAbstract()|replace:"\r\n":""|replace:"\n":""}
+AB  - {$citationData->abstract|replace:"\r\n":""|replace:"\n":""}
 ER  -
