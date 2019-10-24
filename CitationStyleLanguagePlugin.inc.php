@@ -449,7 +449,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 
 		if (empty($issue)) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
-			$issue = $issueDao->getById($article->getIssueId());
+			$issue = $issueDao->getById($article->getCurrentPublication()->getData('issueId'));
 		}
 
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
