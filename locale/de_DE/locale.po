@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
+"PO-Revision-Date: 2019-11-19T13:44:50+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Citation Style Language"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "Ermöglicht es Leser/innen, die bibliografischen Angaben für einen veröffentlichten Artikel in einem von mehreren Formaten in der Citation Style Language zu erhalten."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Herunterladbare Formate"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr "Wählen Sie aus, welche herunterladbaren Formate Sie Ihren Leser/innen anbieten möchten. Diese Formate werden typischerweise verwendet, um bibliografische Angaben in Literaturverwaltungsprogramme wie EndNote oder Zotero zu übernehmen."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Zusätzliche Formate für bibliografische Angaben"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Wählen Sie aus, welche zusätzlichen Formate für bibliografische Angaben Sie anbieten möchten."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Primäres Format für bibliographische Angaben"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig auf der Artikelseite anzeigen möchten."

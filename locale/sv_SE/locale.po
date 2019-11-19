@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-11-19T13:44:52+00:00\n"
+"PO-Revision-Date: 2019-11-19T13:44:52+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Citation Style Language"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "Gör det möjligt för läsare att få en referens till en publicerad artikel i ett av de format som stödjs av Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Nedladdningsbara format"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr "Välj vilka nedladdningsbara format du vill erbjuda dina läsare. Nedladdningsbara format kan användas för att importera till referenshanteringsprogram som EndNote eller Zotero."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Ytterligare referensformat"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Välj vilka ytterligare referensformat du vill erbjuda dina läsare."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Primärt referensformat"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "Välj vilket referensformat du vill ska visas som standard på artiklars landningssida."

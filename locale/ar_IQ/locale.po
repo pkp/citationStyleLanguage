@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
+"PO-Revision-Date: 2019-11-19T13:44:50+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "لغة نمط الاقتباس"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "تسمح للقراء بالحصول على اقتباس المقالة المنشورة بصيغة من بين عدة صيغ تدعمها لغة نمط الاقتباس."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "الصيغ القابلة للتنزيل"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr "إختر أي من الأنماط القابلة للتنزيل تريد توفيرها لقرائك. الصيغ القابلة للتنزيل عادة ما تستعمل لأغراض الاستيراد إلى برامج إدارة السير الشخصية من طرف ثالث، مثل EndNote أو Zotero."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "أنماط اقتباس إضافية"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "إختر الأنماط الإضافية التي تريد توفيرها لقرائك."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "نمط الاقتباس الأولي"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "إختر نمط الاقتباس الذي تريد عرضه إفتراضياً على صفحة عرض المقال."

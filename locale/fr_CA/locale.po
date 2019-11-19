@@ -1,0 +1,78 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
+"PO-Revision-Date: 2019-11-19T13:44:51+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Plugiciel de styles bibliographiques"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "Permettre aux lecteurs-trices d'obtenir la référence d'un article publié dans l'un des styles bibliographiques pris en charge par le plugiciel."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Formats téléchargeables"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr "Sélectionner les formats téléchargeables que vous souhaitez proposer à vos lecteurs-trices. Les formats téléchargeables sont généralement utilisés pour l'importation dans un logiciel de gestion bibliographique tiers, comme EndNote ou Zotero."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Styles bibliographiques supplémentaires"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Sélectionner les styles bibliographiques supplémentaires que vous souhaitez proposer à vos lecteurs."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Style bibliographique principal"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "Sélectionner le style bibliographique que vous souhaitez afficher par défaut sur la page de votre article."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "Lieu de publication"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr "Certains styles bibliographiques requièrent la mention du lieu de la maison d'édition, par exemple « Montréal, Canada »."
