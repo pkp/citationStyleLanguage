@@ -17,7 +17,7 @@
 {assign var="containerTitleShort" value="container-title-short"}
 TY  - JOUR
 {foreach from=$citationData->author item="author"}
-AU  - {$author->given} {$author->family}
+AU  - {$author->family}, {$author->given}
 {/foreach}
 PY  - {$citationData->issued->raw|date_format:"%Y/%m/%d"}
 Y2  - {$citationData->accessed->raw|date_format:"%Y/%m/%d"}
@@ -29,5 +29,6 @@ IS  - {$citationData->issue}
 SE  - {$citationData->section}
 DO  - {$citationData->DOI}
 UR  - {$citationData->URL}
+SP  - {$citationData->page}
 AB  - {$article->getLocalizedAbstract()|replace:"\r\n":""|replace:"\n":""}
 ER  -
