@@ -551,4 +551,3 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		return false;
 	}
 }
-?>

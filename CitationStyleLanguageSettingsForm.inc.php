@@ -104,9 +104,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 	}
 
 	/**
-	 * Save settings.
+	 * @copydoc Form::execute()
 	 */
-	public function execute() {
+	public function execute(...$functionArgs) {
 		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
@@ -122,8 +122,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$user = $request->getUser();
 		$notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('common.changesSaved')));
 
-		return parent::execute();
+		return parent::execute(...$functionArgs);
 	}
 }
 
-?>

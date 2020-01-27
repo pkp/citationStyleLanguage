@@ -145,4 +145,3 @@ class CitationStyleLanguageHandler extends Handler {
 	}
 }
 
-?>

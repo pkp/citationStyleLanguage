@@ -14,7 +14,4 @@
  *
  */
 require_once('CitationStyleLanguagePlugin.inc.php');
-
 return new CitationStyleLanguagePlugin();
-
-?>
