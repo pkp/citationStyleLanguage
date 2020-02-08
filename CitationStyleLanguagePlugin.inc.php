@@ -3,9 +3,9 @@
 /**
  * @file plugins/generic/citationStyleLanguage/CitationStyleLanguagePlugin.inc.php
  *
- * Copyright (c) 2017-2019 Simon Fraser University
- * Copyright (c) 2017-2019 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Copyright (c) 2017-2020 Simon Fraser University
+ * Copyright (c) 2017-2020 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguagePlugin
  * @ingroup plugins_generic_citationStyleLanguage
