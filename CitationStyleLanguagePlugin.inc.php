@@ -357,7 +357,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($publication->getData('datePublished'));
 			$publishedPublications = $article->getPublishedPublications();
-			if (count($publishedPublications > 1)) {
+			if (count($publishedPublications) > 1) {
 				$originalPublication = array_reduce($publishedPublications, function($a, $b) {
 					return $a && $a->getId() < $b->getId() ? $a : $b;
 				});
