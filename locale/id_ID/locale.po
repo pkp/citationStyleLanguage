@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-02-08 03:34+0000\n"
+"PO-Revision-Date: 2020-02-15 10:35+0000\n"
 "Last-Translator: Ramli Baharuddin <ramli.baharuddin@relawanjurnal.id>\n"
 "Language-Team: Indonesian <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/id/>\n"
@@ -82,4 +82,4 @@ msgstr ""
 "oleh Bahasa Gaya Selingkung."
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
-msgstr "Bahasa Gaya Selingkung"
+msgstr "Model Pengutipan"
