@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-02T16:45:26+00:00\n"
+"PO-Revision-Date: 2020-03-02T16:45:26+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Style cytowań"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "Pozwala autorom na wybór różnych stylów cytowań."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Formaty do pobrania"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr "Wybierz formaty cytowań które chcesz udostępnić swoim czytelnikom do pobrania. Formaty cytowań zwykle używane w celu doknania importu do zewnętrznego oprogramowania do zarządzania bibliografią, takiego jak EndNote lub Zotero."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Dodatkowe formaty cytowań"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Wybierz dodatkowe formaty, które chcesz udostępnić do pobrania swoim czytelnikom."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Główny (domyślny) format cytowania"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"\n"
+"Wybierz format cytowania, który chcesz wyświetlać domyślnie na stronie artykułu."
