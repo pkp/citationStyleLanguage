@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-03-02 23:36+0000\n"
+"Last-Translator: Hyongjun Choi <chj2812@dankook.ac.kr>\n"
+"Language-Team: Korean <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/ko/>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "투라비안"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr "독자에게 인용 스타일 언어에서 제공되는 여러가지 양식 중 하나가 적용된 출판된 논문의 참고문헌 인용을 허용하세요."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr "어느 인용 포맷은 \"London, U.K.\"와 같이 출판사의 지리적 위치가 필요합니다."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "출판사 위치"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "당신의 논문 출력 페이지에 기본 설정을 원하는 인용 포맷을 선택하세요."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "주 인용 포맷"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "당신의 독자에게 제공하고자 하는 추가적인 포맷을 선택하세요."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "추가적인 인용 포맷"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"당신의 독자에게 제공하고자 하는 다운로드가 가능한 포맷을 선택하십시오. 다운로드가 가능한 포맷은 엔트노트나 Zotero와 같은 서드파티 "
+"서지관리 소프트웨어에서 가져오기를 위해 사용됩니다."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "다운로드가 가능한 포맷"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "엔드노트/Zotero/멘들리 (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTex"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "벤쿠버"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "하버드"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "시카고"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "인용 스타일 언어"
