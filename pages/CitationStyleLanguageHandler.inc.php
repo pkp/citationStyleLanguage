@@ -85,7 +85,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$context = $request->getContext();
 
 		if (empty($userVars['submissionId']) || !$context || empty($args)) {
-			$request->handle404();
+			$request->getDispatcher()->handle404();
 		}
 
 		// Load plugin categories which might need to add data to the citation
@@ -97,7 +97,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->article = Services::get('submission')->get($userVars['submissionId']);
 
 		if (!$this->article) {
-			$request->handle404();
+			$request->getDispatcher()->handle404();
 		}
 
 		$this->publication = !empty($userVars['publicationId'])
@@ -139,7 +139,7 @@ class CitationStyleLanguageHandler extends Handler {
 			}
 
 			if (!$userCanAccess) {
-				$request->handle404();
+				$request->getDispatcher()->handle404();
 			}
 		}
 	}
