@@ -370,7 +370,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			}
 		} elseif ($issue->getPublished()) {
 			$citationData->issued = new stdClass();
-			$citationData->issued->raw = htmlspecialchars($issue->getPublished());
+			$citationData->issued->raw = htmlspecialchars($issue->getDatePublished());
 		}
 
 		if ($publication->getData('pages')) {
