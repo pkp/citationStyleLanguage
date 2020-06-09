@@ -63,41 +63,24 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
 
-		$primaryCitationStyles = new PKP\components\listPanels\ListPanel('primaryCitationStyles', __('plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary'), array(
-			'description' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription'),
-			'canSelect' => true,
-			'selectorName' => 'primaryCitationStyle',
-			'selectorType' => 'radio',
-			'selected' => $this->getData('primaryCitationStyle'),
-			'items' => $this->plugin->getCitationStyles(),
-		));
+		$allStyles = [];
+		foreach ($this->plugin->getCitationStyles() as $style) {
+			$allStyles[$style['id']] = $style['title'];
+		}
 
-		$citationStyles = new PKP\components\listPanels\ListPanel('citationStyles', __('plugins.generic.citationStyleLanguage.settings.citationFormats'), array(
-			'description' => __('plugins.generic.citationStyleLanguage.settings.citationFormatsDescription'),
-			'canSelect' => true,
-			'selectorName' => 'enabledCitationStyles[]',
-			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
-			'items' => $this->plugin->getCitationStyles(),
-		));
-
-		$citationDownloads = new PKP\components\listPanels\ListPanel('citationDownloads', __('plugins.generic.citationStyleLanguage.settings.citationDownloads'), array(
-			'description' => __('plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription'),
-			'canSelect' => true,
-			'selectorName' => 'enabledCitationDownloads[]',
-			'selected' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
-			'items' => $this->plugin->getCitationDownloads(),
-		));
+		$allDownloads = [];
+		foreach ($this->plugin->getCitationDownloads() as $style) {
+			$allDownloads[$style['id']] = $style['title'];
+		}
 
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
 			'pluginName' => $this->plugin->getName(),
-			'settingsData' => [
-				'components' => [
-					'primaryCitationStyles' => $primaryCitationStyles->getConfig(),
-					'citationStyles' => $citationStyles->getConfig(),
-					'citationDownloads' => $citationDownloads->getConfig(),
-				]
-			]
+			'allDownloads' => $allDownloads,
+			'allStyles' => $allStyles,
+			'primaryCitationStyle' => $this->getData('primaryCitationStyle'),
+			'enabledStyles' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
+			'enabledDownloads' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
 		));
 
 		return parent::fetch($request, $template, $display);
