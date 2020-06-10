@@ -19,32 +19,29 @@
 	{csrf}
 
 	{fbvFormArea id="citationStyleLanguagePluginSettings"}
-		{fbvFormSection}
-			<list-panel
-				v-bind="components.primaryCitationStyles"
-				@set="set"
-			/>
+		{fbvFormSection list=true title="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"}
+			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"}</p>
+			{foreach from=$allStyles item="style" key="id"}
+				{fbvElement type="radio" name="primaryCitationStyle" id="primaryCitationStyle"|concat:$id value=$id checked=($id === $primaryCitationStyle) label=$style translate=false}
+			{/foreach}
 		{/fbvFormSection}
-		{fbvFormSection}
-			<list-panel
-				v-bind="components.citationStyles"
-				@set="set"
-			/>
+		{fbvFormSection list=true title="plugins.generic.citationStyleLanguage.settings.citationFormats"}
+			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"}</p>
+			{foreach from=$allStyles item="style" key="id"}
+				{fbvElement type="checkbox" id="enabledCitationStyles[]" value=$id checked=in_array($id, $enabledStyles) label=$style translate=false}
+			{/foreach}
 		{/fbvFormSection}
-		{fbvFormSection}
-			<list-panel
-				v-bind="components.citationDownloads"
-				@set="set"
-			/>
+		{fbvFormSection list=true title="plugins.generic.citationStyleLanguage.settings.citationDownloads"}
+			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"}</p>
+			{foreach from=$allDownloads item="style" key="id"}
+				{fbvElement type="checkbox" id="enabledCitationDownloads[]" value=$id checked=in_array($id, $enabledDownloads) label=$style translate=false}
+			{/foreach}
 		{/fbvFormSection}
 		{fbvFormSection}
 			<div id="description">{translate key="plugins.generic.citationStyleLanguage.settings.publisherLocation.description"}</div>
 			{fbvElement type="text" id="publisherLocation" value=$publisherLocation label="plugins.generic.citationStyleLanguage.settings.publisherLocation"}
 		{/fbvFormSection}
 	{/fbvFormArea}
-	<script type="text/javascript">
-		pkp.registry.init('citationStyleLanguagePluginSettings', 'Container', {$settingsData|json_encode});
-	</script>
 
 	{fbvFormButtons}
 </form>
