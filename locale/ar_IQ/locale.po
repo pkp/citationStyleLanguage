@@ -2,14 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
+"PO-Revision-Date: 2020-06-15 06:39+0000\n"
+"Last-Translator: M. Ali <vorteem@gmail.com>\n"
+"Language-Team: Arabic <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/ar_IQ/>\n"
+"Language: ar_IQ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2019-11-19T13:44:50+00:00\n"
-"Language: \n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 3.9.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "لغة نمط الاقتباس"
@@ -30,10 +34,10 @@ msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-norm
 msgstr "ABNT"
 
 msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
-msgstr "Chicago"
+msgstr "شيكاغو"
 
 msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
-msgstr "Harvard"
+msgstr "هارفرد"
 
 msgid "plugins.generic.citationStyleLanguage.style.ieee"
 msgstr "IEEE"
@@ -45,7 +49,7 @@ msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliograph
 msgstr "Turabian"
 
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
-msgstr "Vancouver"
+msgstr "فانكوفر"
 
 msgid "plugins.generic.citationStyleLanguage.download.bibtex"
 msgstr "BibTeX"
@@ -70,3 +74,11 @@ msgstr "نمط الاقتباس الأولي"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr "إختر نمط الاقتباس الذي تريد عرضه إفتراضياً على صفحة عرض المقال."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"بعض صيغ الاقتباس تطلب الموقع الجغرافي للناشر، مثلاً \"لندن، المملكة المتحدة\""
+"."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "موقع الناشر"
