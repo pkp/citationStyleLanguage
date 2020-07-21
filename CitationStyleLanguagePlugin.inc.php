@@ -327,7 +327,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData->volume = htmlspecialchars($issue->getData('volume'));
 		// Zotero prefers issue and Mendeley uses `number` to store revisions
 		$citationData->issue = htmlspecialchars($issue->getData('number'));
-		$citationData->section = htmlspecialchars($article->getSectionTitle());
+
+		$sectionDao = DAORegistry::getDAO('SectionDAO'); /** @var $sectionDao SectionDAO */
+		if ($sectionId = $publication->getData('sectionId')) {
+			$section = $sectionDao->getById($sectionId);
+			if ($section && !$section->getHideTitle()) $citationData->section = htmlspecialchars($section->getTitle($context->getPrimaryLocale()));
+		}
+
 		$citationData->URL = $request->getDispatcher()->url(
 			$request,
 			ROUTE_PAGE,
