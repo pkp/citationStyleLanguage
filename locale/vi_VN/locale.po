@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-08-16 10:48+0000\n"
+"Last-Translator: Nguyen Xuan Giao <giaonxb@gmail.com>\n"
+"Language-Team: Vietnamese <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/vi_VN/>\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"Một số định dạng trích dẫn yêu cầu vị trí địa lý của nhà xuất bản, chẳng hạn "
+"như \"London, U.K\"."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "Vị trí nhà xuất bản"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"Chọn định dạng trích dẫn bạn muốn hiển thị theo mặc định trên trang đích bài "
+"viết của bạn."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Định dạng trích dẫn chính"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Chọn định dạng bổ sung mà bạn muốn cung cấp cho độc giả của bạn."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Định dạng trích dẫn bổ sung"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"Chọn định dạng có thể tải xuống mà bạn muốn cung cấp cho độc giả của mình. "
+"Các định dạng có thể tải xuống thường được sử dụng để nhập vào phần mềm quản "
+"lý tài liệu tham khảo của bên thứ ba, như EndNote hoặc Zotero."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Các định dạng có thể tải xuống"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Kiểu Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTex"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Kiểu Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Kiểu Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Kiểu Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"Cho phép người đọc nhận được trích dẫn của một bài báo được xuất bản ở một "
+"trong một số định dạng được hỗ trợ bởi kiểu Ngôn ngữ trích dẫn."
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Ngôn ngữ kiểu trích dẫn"
