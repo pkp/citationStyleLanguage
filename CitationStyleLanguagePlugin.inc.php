@@ -324,9 +324,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$abbreviation = $context->getData('abbreviation', $context->getPrimaryLocale()) ?? $context->getData('acronym', $context->getPrimaryLocale());
 		if ($abbreviation) $citationData->{'container-title-short'} = htmlspecialchars($abbreviation);
 
-		$citationData->volume = htmlspecialchars($issue->getData('volume'));
-		// Zotero prefers issue and Mendeley uses `number` to store revisions
-		$citationData->issue = htmlspecialchars($issue->getData('number'));
+		if ($issue) {
+			$citationData->volume = htmlspecialchars($issue->getData('volume'));
+			// Zotero prefers issue and Mendeley uses `number` to store revisions
+			$citationData->issue = htmlspecialchars($issue->getData('number'));
+		}
 
 		$sectionDao = DAORegistry::getDAO('SectionDAO'); /** @var $sectionDao SectionDAO */
 		if ($sectionId = $publication->getData('sectionId')) {
@@ -374,7 +376,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					$citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
 				}
 			}
-		} elseif ($issue->getPublished()) {
+		} elseif ($issue && $issue->getPublished()) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($issue->getDatePublished());
 		}
