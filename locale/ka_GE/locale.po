@@ -1,2 +1,88 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2021-04-09 08:55+0000\n"
+"Last-Translator: Dimitri Gogelia <dimitri.gogelia@iliauni.edu.ge>\n"
+"Language-Team: Georgian <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/ka_GE/>\n"
+"Language: ka_GE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "ციტირების სტილის ენა"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"მკითხველს მიეცით საშუალება გამოაქვეყნონ სტატიის ციტირება რამდენიმე ფორმატში "
+"ერთ-ერთში, რომელსაც აქვს Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "ჩამოტვირთვის ფორმატები"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"აირჩიეთ რომელი ჩამოსატვირთ ფორმატში გსურთ შესთავაზოთ თქვენს მკითხველს. "
+"ჩამოტვირთვის ფორმატები ჩვეულებრივ გამოიყენება მესამე მხარის ბიბლიოგრაფიის "
+"მართვის პროგრამაში, მაგალითად, EndNote ან Zotero, იმპორტირებისთვის."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "ციტირების დამატებითი ფორმატები"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr ""
+"აირჩიეთ, თუ რომელი დამატებითი ფორმატები გსურთ შესთავაზოთ თქვენს მკითხველებს."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "ციტირების პირველადი ფორმატი"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"შეარჩიეთ ციტირების რომელი ფორმატი გსურთ ნაგულისხმევად აჩვენოთ თქვენი სტატიის "
+"გვერდზე."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "გამომცემლის ადგილმდებარეობა"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"ციტირების ზოგიერთი ფორმა მოითხოვს გამომცემლის გეოგრაფიულ მდებარეობას, "
+"მაგალითად, „ლონდონი, დიდი ბრიტანეთი“."
