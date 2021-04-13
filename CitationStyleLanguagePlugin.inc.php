@@ -473,9 +473,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		// See: https://github.com/citation-style-language/styles/issues/2831
 		$citation = str_replace('\n', "\n", $citation);
 
-		$filename = substr(preg_replace('/[^a-zA-Z0-9_.-]/', '', str_replace(' ', '-', $article->getLocalizedTitle())), 0, 60);
+        $encodedFilename = urlencode(substr($article->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
-		header('Content-Disposition: attachment; filename="' . $filename . '.' . $styleConfig['fileExtension'] . '"');
+		header("Content-Disposition: attachment; filename*=UTF-8''\"$encodedFilename\"");
 		header('Content-Type: ' . $styleConfig['contentType']);
 		echo $citation;
 		exit;
