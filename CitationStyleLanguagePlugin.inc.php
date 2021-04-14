@@ -338,7 +338,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 
 		$citationData->URL = $request->getDispatcher()->url(
 			$request,
-			ROUTE_PAGE,
+			PKPApplication::ROUTE_PAGE,
 			null,
 			'article',
 			'view',
