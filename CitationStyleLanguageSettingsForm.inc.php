@@ -12,8 +12,10 @@
  * @brief Form for site admins to modify Citation Style Language settings.
  */
 
+use PKP\form\Form;
+use PKP\notification\PKPNotification;
 
-import('lib.pkp.classes.form.Form');
+use APP\notification\NotificationManager;
 
 class CitationStyleLanguageSettingsForm extends Form
 {
@@ -29,8 +31,8 @@ class CitationStyleLanguageSettingsForm extends Form
     {
         parent::__construct($plugin->getTemplateResource('settings.tpl'));
         $this->plugin = $plugin;
-        $this->addCheck(new FormValidatorPost($this));
-        $this->addCheck(new FormValidatorCSRF($this));
+        $this->addCheck(new \PKP\form\validation\FormValidatorPost($this));
+        $this->addCheck(new \PKP\form\validation\FormValidatorCSRF($this));
     }
 
     /**
@@ -108,10 +110,9 @@ class CitationStyleLanguageSettingsForm extends Form
         $this->plugin->updateSetting($contextId, 'enabledCitationDownloads', $enabledCitationDownloads);
         $this->plugin->updateSetting($contextId, 'publisherLocation', $this->getData('publisherLocation'));
 
-        import('classes.notification.NotificationManager');
         $notificationMgr = new NotificationManager();
         $user = $request->getUser();
-        $notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, ['contents' => __('common.changesSaved')]);
+        $notificationMgr->createTrivialNotification($user->getId(), PKPNotification::NOTIFICATION_TYPE_SUCCESS, ['contents' => __('common.changesSaved')]);
 
         return parent::execute(...$functionArgs);
     }

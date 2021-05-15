@@ -13,7 +13,9 @@
  * @brief Handle router requests for the citation style language plugin
  */
 
-import('classes.handler.Handler');
+use \PKP\submission\PKPSubmission;
+
+use \APP\handler\Handler;
 
 class CitationStyleLanguageHandler extends Handler
 {
@@ -119,7 +121,7 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // article preview will work for those who can see it.
-        if (!$this->issue || !$this->issue->getPublished() || $this->article->getStatus() != STATUS_PUBLISHED) {
+        if (!$this->issue || !$this->issue->getPublished() || $this->article->getStatus() != PKPSubmission::STATUS_PUBLISHED) {
             $userCanAccess = false;
 
             if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {

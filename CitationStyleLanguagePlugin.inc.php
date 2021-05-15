@@ -13,7 +13,10 @@
  * @brief Citation Style Language plugin class.
  */
 
-import('lib.pkp.classes.plugins.GenericPlugin');
+use PKP\plugins\GenericPlugin;
+use PKP\linkAction\request\AjaxModal;
+use PKP\linkAction\LinkAction;
+
 require_once(__DIR__ . '/lib/vendor/autoload.php');
 use Seboettg\CiteProc\CiteProc;
 
@@ -526,7 +529,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
 
         $router = $request->getRouter();
-        import('lib.pkp.classes.linkAction.request.AjaxModal');
         $linkAction = new LinkAction(
             'settings',
             new AjaxModal(
