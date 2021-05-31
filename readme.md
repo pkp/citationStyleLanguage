@@ -10,4 +10,4 @@ Consult the [citeproc-php](https://github.com/seboettg/citeproc-php) licensing i
 Each CSL file has it's own licensing information attached to the XML.
 
 ## Compatibility
-This plugin is compatible with OJS 3.3.x and OMP 3.3.x.
+This plugin is compatible with OJS 3.2.x, OJS 3.3.x and OMP 3.3.x.
