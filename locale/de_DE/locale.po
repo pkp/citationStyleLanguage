@@ -20,6 +20,9 @@ msgstr "Citation Style Language"
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr "Ermöglicht es Leser/innen, die bibliografischen Angaben für einen veröffentlichten Artikel in einem von mehreren Formaten in der Citation Style Language zu erhalten."
 
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr "Ermöglicht es Leser/innen, die bibliografischen Angaben für ein veröffentlichtes Buch in einem von mehreren Formaten in der Citation Style Language zu erhalten."
+
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
@@ -73,6 +76,9 @@ msgstr "Primäres Format für bibliographische Angaben"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig auf der Artikelseite anzeigen möchten."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig auf der Buchseite anzeigen möchten."
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""

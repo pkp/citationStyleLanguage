@@ -20,7 +20,13 @@
 
 	{fbvFormArea id="citationStyleLanguagePluginSettings"}
 		{fbvFormSection list=true title="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"}
-			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"}</p>
+			<p>
+				{if $isApplicationOmp}
+					{translate key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"}
+				{else}
+					{translate key="plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"}
+				{/if}
+			</p>
 			{foreach from=$allStyles item="style" key="id"}
 				{fbvElement type="radio" name="primaryCitationStyle" id="primaryCitationStyle"|concat:$id value=$id checked=($id === $primaryCitationStyle) label=$style translate=false}
 			{/foreach}

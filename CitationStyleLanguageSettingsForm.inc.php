@@ -81,6 +81,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'primaryCitationStyle' => $this->getData('primaryCitationStyle'),
 			'enabledStyles' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
 			'enabledDownloads' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
+			'isApplicationOmp' => CitationStyleLanguagePlugin::isApplicationOmp(),
 		));
 
 		return parent::fetch($request, $template, $display);

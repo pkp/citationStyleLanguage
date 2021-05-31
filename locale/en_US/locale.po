@@ -17,6 +17,9 @@ msgstr "Citation Style Language"
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr "Allow readers to get a published article's citation in one of several formats supported by the Citation Style Language."
 
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr "Allow readers to get a published book's citation in one of several formats supported by the Citation Style Language."
+
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
@@ -70,6 +73,9 @@ msgstr "Primary Citation Format"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr "Select which citation format you would like to display by default on your article landing page."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr "Select which citation format you would like to display by default on your book landing page."
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Publisher Location"
