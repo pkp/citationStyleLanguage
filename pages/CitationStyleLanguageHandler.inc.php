@@ -115,7 +115,7 @@ class CitationStyleLanguageHandler extends Handler {
 		if ($this->submission && !CitationStyleLanguagePlugin::isApplicationOmp()) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
 			// Support OJS 3.1.x and 3.2
-			$issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
+			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
 			$this->issue = $issueDao->getById($issueId, $context->getId());
 		}
 
