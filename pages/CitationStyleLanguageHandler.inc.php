@@ -31,6 +31,17 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var bool Whether or not to return citation in JSON format */
 	public $returnJson = false;
 
+	/** @var $plugin object */
+	public $plugin;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
+	}
+
 	/**
 	 * Get a citation style
 	 *
@@ -41,12 +52,9 @@ class CitationStyleLanguageHandler extends Handler {
 	public function get($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		if (NULL === $plugin) {
-			if ($this->returnJson) {
-				return new JSONMessage(false);
-			}
-			exit;
+		$plugin = $this->plugin;
+		if (null === $plugin) {
+			$request->getDispatcher()->handle404();
 		}
 		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
 
@@ -74,8 +82,8 @@ class CitationStyleLanguageHandler extends Handler {
 	public function download($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		if (NULL !== $plugin) {
+		$plugin = $this->plugin;
+		if (null !== $plugin) {
 			$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
 		}
 		exit;
@@ -112,7 +120,7 @@ class CitationStyleLanguageHandler extends Handler {
 			? Services::get('publication')->get($userVars['publicationId'])
 			: $this->submission->getCurrentPublication();
 
-		if ($this->submission && !CitationStyleLanguagePlugin::isApplicationOmp()) {
+		if ($this->submission && !$this->plugin->isApplicationOmp()) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
 			// Support OJS 3.1.x and 3.2
 			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
@@ -123,8 +131,8 @@ class CitationStyleLanguageHandler extends Handler {
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
 		if ($this->submission->getData('status') !== STATUS_PUBLISHED
-			|| (!CitationStyleLanguagePlugin::isApplicationOmp() && !$this->issue )
-			|| (!CitationStyleLanguagePlugin::isApplicationOmp() && !$this->issue->getPublished())) {
+			|| (!$this->plugin->isApplicationOmp() && !$this->issue )
+			|| (!$this->plugin->isApplicationOmp() && !$this->issue->getPublished())) {
 			$userCanAccess = false;
 
 			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {

@@ -10,7 +10,7 @@
 					{$citation}
 				</div>
 				<div class="citation_formats">
-					<button class="cmp_button citation_formats_button" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
+					<button class="citation_formats_button label" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
 						{translate key="submission.howToCite.citationFormats"}
 					</button>
 					<div id="cslCitationFormats" class="citation_formats_list" aria-hidden="true">

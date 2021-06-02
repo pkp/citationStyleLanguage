@@ -64,8 +64,8 @@ SN  - {$serialNumber}
 {foreach from=$citationData->keywords item="keyword"}
 KW  - {$keyword}
 {/foreach}
-DO  - {$citationData->DOI}
 {if $citationData->DOI}
+DO  - {$citationData->DOI}
 UR  - https://doi.org/{$citationData->DOI}
 {else}
 UR  - {$citationData->URL}

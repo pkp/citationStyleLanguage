@@ -24,6 +24,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/** @var array List of citation download formats available */
 	public $_citationDownloads = array();
 
+	/** @var bool $applicationOmp */
+	private bool $applicationOmp;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		parent::__construct();
+		$applicationName = Application::get()->getName();
+		$this->applicationOmp =  stripos($applicationName, 'omp') !== false;
+	}
+
 	/**
 	 * @copydoc Plugin::getDisplayName()
 	 */
@@ -35,7 +47,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @copydoc Plugin::getDescription()
 	 */
 	public function getDescription() {
-		return self::isApplicationOmp() ? __('plugins.generic.citationStyleLanguage.description.omp')
+		return $this->isApplicationOmp() ? __('plugins.generic.citationStyleLanguage.description.omp')
 			: __('plugins.generic.citationStyleLanguage.description');
 	}
 
@@ -46,12 +58,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$success = parent::register($category, $path, $mainContextId);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled($mainContextId)) {
-			if (self::isApplicationOmp()) {
-				HookRegistry::register('CatalogBookHandler::book', array($this, 'getTemplateData'));
-				HookRegistry::register('Templates::Catalog::Book::Details', array($this, 'displayCitationMonograph'));
-			} else {
-				HookRegistry::register('ArticleHandler::view', array($this, 'getTemplateData'));
-			}
+			HookRegistry::register('CatalogBookHandler::book', array($this, 'getTemplateData'));
+			HookRegistry::register('Templates::Catalog::Book::Details', array($this, 'displayCitationMonograph'));
+			HookRegistry::register('ArticleHandler::view', array($this, 'getTemplateData'));
 			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
 		}
 		return $success;
@@ -266,12 +275,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	public function getTemplateData($hookName, $args) {
 		$templateMgr = TemplateManager::getManager();
 		$request = $args[0];
-		if (self::isApplicationOmp()) {
+		if ($this->isApplicationOmp()) {
 			$submission =& $args[1];
 			$publication = $submission->getCurrentPublication();
-			$issue = NULL;
-			if (NULL === $publication) {
-				return FALSE;
+			$issue = null;
+			if (null === $publication) {
+				return false;
 			}
 			$templateMgr->addStyleSheet(
 				'cslPluginStyles',
@@ -279,7 +288,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				array(
 					'priority' => STYLE_SEQUENCE_LAST,
 					'contexts' => array('frontend'),
-					'inline'   => FALSE,
+					'inline'   => false,
 				)
 			);
 		} else {
@@ -330,7 +339,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$output =& $params[2];
 		$output .= $smarty->fetch($this->getTemplateResource('citationblock.tpl'));
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -356,22 +365,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		import('lib.pkp.classes.core.PKPString');
 
 		$citationData = new stdClass();
-		if (self::isApplicationOmp()){
+		if ($this->isApplicationOmp()){
 			$citationData->type = 'book';
 			$citationData->risType = 'BOOK';
 			$citationData->publisher = htmlspecialchars($context->getLocalizedName());
-
-			/* @var $submissionKeywordDao SubmissionKeywordDAO */
-			$submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
-			$keywords = $submissionKeywordDao->getKeywords($publication->getId(), array(AppLocale::getLocale()));
-			$citationData->keywords = $keywords[AppLocale::getLocale()];
-
-			/* @var $submissionLanguageDao SubmissionLanguageDAO */
-			$submissionLanguageDao = DAORegistry::getDAO('SubmissionLanguageDAO');
-			$languages = $submissionLanguageDao->getLanguages($publication->getId(), array(AppLocale::getLocale()));
-			if (array_key_exists(AppLocale::getLocale(), $languages)) {
-				$citationData->languages = $languages[AppLocale::getLocale()];
-			}
 			$citationData->serialNumber = array();
 			$publicationFormats = $publication->getData('publicationFormats');
 			/** @var PublicationFormat $publicationFormat */
@@ -389,18 +386,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			if ($seriesId) {
 				/** @var SeriesDAO $seriesDao */
 				$seriesDao = DAORegistry::getDAO('SeriesDAO');
-				if (NULL !== $seriesDao) {
+				if (null !== $seriesDao) {
 					$series = $seriesDao->getById($seriesId);
-					if (NULL !== $series) {
+					if (null !== $series) {
 						$citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
 						$citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
 						$citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
 						$onlineISSN = $series->getOnlineISSN();
-						if (NULL !== $onlineISSN && !empty($onlineISSN)) {
+						if (null !== $onlineISSN && !empty($onlineISSN)) {
 							$citationData->serialNumber[] = htmlspecialchars($onlineISSN);
 						}
 						$printISSN = $series->getPrintISSN();
-						if (NULL !== $printISSN && !empty($printISSN)) {
+						if (null !== $printISSN && !empty($printISSN)) {
 							$citationData->serialNumber[] = htmlspecialchars($printISSN);
 						}
 					}
@@ -424,6 +421,19 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				if ($section && !$section->getHideTitle()) $citationData->section = htmlspecialchars($section->getTitle($context->getPrimaryLocale()));
 			}
 		}
+
+		/* @var $submissionKeywordDao SubmissionKeywordDAO */
+		$submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
+		$keywords = $submissionKeywordDao->getKeywords($publication->getId(), array(AppLocale::getLocale()));
+		$citationData->keywords = $keywords[AppLocale::getLocale()];
+
+		/* @var $submissionLanguageDao SubmissionLanguageDAO */
+		$submissionLanguageDao = DAORegistry::getDAO('SubmissionLanguageDAO');
+		$languages = $submissionLanguageDao->getLanguages($publication->getId(), array(AppLocale::getLocale()));
+		if (array_key_exists(AppLocale::getLocale(), $languages)) {
+			$citationData->languages = $languages[AppLocale::getLocale()];
+		}
+
 		$citationData->id = $submission->getId();
 		$citationData->title = htmlspecialchars($publication->getLocalizedFullTitle());
 		$citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
@@ -436,8 +446,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$request,
 			ROUTE_PAGE,
 			null,
-			self::isApplicationOmp() ? 'catalog' : 'article',
-			self::isApplicationOmp() ? 'book' : 'view',
+			$this->isApplicationOmp() ? 'catalog' : 'article',
+			$this->isApplicationOmp() ? 'book' : 'view',
 			(string) $submission->getId()
 		);
 		$citationData->accessed = new stdClass();
@@ -454,33 +464,30 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					$currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
 					$currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
 				}
-				if (self::isApplicationOmp() ) {
-					$userGroup = $author->getUserGroup();
-					if (NULL !== $userGroup) {
-						switch ($userGroup->getData('nameLocaleKey')) {
-							case 'default.groups.name.volumeEditor':
-								if (!isset($citationData->editor)) {
-									$citationData->editor = array();
-								}
-								$citationData->editor[] = $currentAuthor;
-								break;
-							case 'default.groups.name.author':
-								if (!isset($citationData->author)) {
-									$citationData->author = array();
-								}
-								$citationData->author[] = $currentAuthor;
-								break;
-							case 'default.groups.name.translator':
-								if (!isset($citationData->translator)) {
-									$citationData->translator = array();
-								}
-								$citationData->translator[] = $currentAuthor;
-								break;
-							default:
-						}
+				$userGroup = $author->getUserGroup();
+				if (null !== $userGroup) {
+					switch ($userGroup->getId()) {
+						case $this->getEditorGroup($context->getId()):
+							if (!isset($citationData->editor)) {
+								$citationData->editor = array();
+							}
+							$citationData->editor[] = $currentAuthor;
+							break;
+						case $this->getTranslatorGroup($context->getId()):
+							if (!isset($citationData->translator)) {
+								$citationData->translator = array();
+							}
+							$citationData->translator[] = $currentAuthor;
+							break;
+						case $this->getAuthorGroup($context->getId()):
+							if (!isset($citationData->author)) {
+								$citationData->author = array();
+							}
+							$citationData->author[] = $currentAuthor;
+							break;
+						default:
+							break;
 					}
-				} else {
-					$citationData->author[] = $currentAuthor;
 				}
 			}
 		}
@@ -499,13 +506,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					$citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
 				}
 			}
-		} elseif ( !self::isApplicationOmp() && $issue && $issue->getPublished()) {
+		} elseif ( !$this->isApplicationOmp() && $issue && $issue->getPublished()) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($issue->getDatePublished());
-		}
-
-		if ($publication->getData('pub-id::doi')) {
-			$citationData->DOI = htmlspecialchars($publication->getData('pub-id::doi'));
 		}
 
 		if ($publication->getData('pages')) {
@@ -522,20 +525,23 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if (!empty($styleConfig)) {
 			if (!empty($styleConfig['useTemplate'])) {
 				$templateMgr = TemplateManager::getManager($request);
-				$assignArray = array(
+				$templateMgr->assign([
 					'citationData' => $citationData,
 					'citationStyle' => $citationStyle,
 					'publication' => $publication,
-				);
-				if (self::isApplicationOmp()) {
-					$assignArray['book'] = $submission;
-					$assignArray['press'] = $context;
+				]);
+				if ($this->isApplicationOmp()) {
+					$templateMgr->assign([
+						'book' => $submission,
+						'press' => $context,
+					]);
 				} else {
-					$assignArray['article'] = $submission;
-					$assignArray['issue'] = $issue;
-					$assignArray['journal'] = $context;
+					$templateMgr->assign([
+						'article' => $submission,
+						'issue' => $issue,
+						'journal' => $context,
+					]);
 				}
-				$templateMgr->assign($assignArray);
 				$citation = $templateMgr->fetch($styleConfig['useTemplate']);
 			} else {
 				$style = $this->loadStyle($styleConfig);
@@ -587,8 +593,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @return string
 	 */
 	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null) {
-		if ( !self::isApplicationOmp() )
-		{
+		if (!$this->isApplicationOmp()) {
 			$journal = $request->getContext();
 
 			if (empty($issue)) {
@@ -697,8 +702,49 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		return false;
 	}
 
-	public static function isApplicationOmp() : bool {
-		$applicationName = Application::get()->getName();
-		return stripos($applicationName, 'omp') !== FALSE;
+	/**
+	 * @return bool
+	 */
+	public function isApplicationOmp() : bool {
+		return $this->applicationOmp;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return int|null
+	 */
+	public function getEditorGroup(int $contextId = 0) : ?int {
+		$editorGroup = $this->getSetting($contextId, 'groupEditor');
+		if ($editorGroup) {
+			return (int) $editorGroup;
+		}
+		return null;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return int|null
+	 */
+	public function getTranslatorGroup(int $contextId = 0) : ?int {
+		$translatorGroup = $this->getSetting($contextId, 'groupTranslator');
+		if ($translatorGroup) {
+			return (int) $translatorGroup;
+		}
+		return null;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return int|null
+	 */
+	public function getAuthorGroup(int $contextId = 0) : ?int {
+		$authorGroup = $this->getSetting($contextId, 'groupAuthor');
+		if ($authorGroup) {
+			return (int) $authorGroup;
+		}
+		return null;
 	}
 }
