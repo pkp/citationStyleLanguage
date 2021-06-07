@@ -109,6 +109,9 @@ msgstr "Herausgeber:"
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
 msgstr "Übersetzer:"
 
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Kapitelautor:"
+
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
 msgstr "Bitte wählen Sie eine Rolle für die Autoren"
 
@@ -117,4 +120,7 @@ msgstr "Bitte wählen Sie eine Rolle für die Herausgeber"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
 msgstr "Bitte wählen Sie eine Rolle für die Übersetzer"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Bitte wählen Sie eine Rolle für die Kapitelautoren"
 

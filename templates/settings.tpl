@@ -60,6 +60,22 @@
 				</p>
 			</div>
 			{if $isApplicationOmp}
+				{if $isChapterFrontendPagePluginEnabled}
+					<div class="pkp_helpers_quarter inline">
+						<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor'}
+							<select name="groupChapterAuthor" id="groupChapterAuthor">
+								<option value="" disabled {if $groupChapterAuthor == 0 } selected{/if}>
+									{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor'}
+								</option>
+								{foreach from=$allUserGroups item="group" key="id"}
+									<option value="{$id}"{if $id == $groupChapterAuthor} selected{/if}>
+										{$group}
+									</option>
+								{/foreach}
+							</select>
+						</p>
+					</div>
+				{/if}
 				<div class="pkp_helpers_quarter inline">
 					<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseEditor'}
 						<select name="groupEditor" id="groupEditor">

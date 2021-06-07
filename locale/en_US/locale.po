@@ -104,6 +104,9 @@ msgstr "Editor:"
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
 msgstr "Translator:"
 
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Chapter Author:"
+
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
 msgstr "Please choose a role for authors"
 
@@ -112,3 +115,6 @@ msgstr "Please choose a role for editors"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
 msgstr "Please choose a role for translators"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Please choose a role for chapter authors"
