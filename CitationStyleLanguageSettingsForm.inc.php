@@ -20,8 +20,8 @@ class CitationStyleLanguageSettingsForm extends Form {
 	/** @var $plugin object */
 	public $plugin;
 
-	/** @var bool $isChapterFrontendPagePluginEnabled */
-	private bool $isChapterFrontendPagePluginEnabled;
+	/** @var null|bool ChapterFrontendPagePluginEnabled */
+	private ?bool $ChapterFrontendPagePluginEnabled;
 
 	/**
 	 * Constructor
@@ -32,13 +32,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$this->plugin = $plugin;
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
-		if ($this->plugin->isApplicationOmp()) {
-			$request = Application::get()->getRequest();
-			$context = $request->getContext();
-			$contextId = $context ? $context->getId() : 0;
-			$chapterPlugin = PluginRegistry::getPlugin('generic', 'chapterfrontendpageplugin');
-			$this->isChapterFrontendPagePluginEnabled = NULL !== $chapterPlugin && $chapterPlugin->getEnabled($contextId);
-		}
+		$this->ChapterFrontendPagePluginEnabled = null;
 	}
 
 	/**
@@ -52,12 +46,12 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles($contextId)));
 		$this->setData('enabledCitationDownloads', $this->plugin->getEnabledCitationDownloads($contextId));
 		$this->setData('publisherLocation', $this->plugin->getSetting($contextId, 'publisherLocation'));
-		$this->setData('groupAuthor', $this->plugin->getSetting($contextId, 'groupAuthor'));
-		$this->setData('groupTranslator', $this->plugin->getSetting($contextId, 'groupTranslator'));
-		if( $this->plugin->isApplicationOmp()){
-			$this->setData('groupEditor', $this->plugin->getSetting($contextId, 'groupEditor'));
-			if( $this->isChapterFrontendPagePluginEnabled ){
-				$this->setData('groupChapterAuthor', $this->plugin->getSetting($contextId, 'groupChapterAuthor'));
+		$this->setData('groupAuthor', $this->plugin->getAuthorGroup($contextId));
+		$this->setData('groupTranslator', $this->plugin->getTranslatorGroup($contextId));
+		if ($this->plugin->isApplicationOmp()) {
+			$this->setData('groupEditor', $this->plugin->getEditorGroup($contextId));
+			if ($this->isChapterFrontendPagePluginEnabled()) {
+				$this->setData('groupChapterAuthor', $this->plugin->getChapterAuthorGroup($contextId));
 			}
 		}
 	}
@@ -74,9 +68,9 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'groupAuthor',
 			'groupTranslator'
 		));
-		if( $this->plugin->isApplicationOmp()){
+		if ($this->plugin->isApplicationOmp()) {
 			$this->readUserVars(['groupEditor']);
-			if( $this->isChapterFrontendPagePluginEnabled ){
+			if ($this->isChapterFrontendPagePluginEnabled()) {
 				$this->readUserVars(['groupChapterAuthor']);
 			}
 		}
@@ -101,10 +95,11 @@ class CitationStyleLanguageSettingsForm extends Form {
 
 		$allUserGroups = [];
 		$userGroupDao = DAORegistry::getDAO('UserGroupDAO'); /* @var $userGroupDao UserGroupDAO */
-		$userGroups = $userGroupDao->getByContextId($contextId);
+		$userGroups = $userGroupDao->getByRoleId( $contextId, ROLE_ID_AUTHOR );
 		while ($userGroup = $userGroups->next()) {
 			$allUserGroups[(int) $userGroup->getId()] = $userGroup->getLocalizedName();
 		}
+		asort($allUserGroups);
 
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
@@ -115,18 +110,17 @@ class CitationStyleLanguageSettingsForm extends Form {
 			'enabledStyles' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
 			'enabledDownloads' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
 			'isApplicationOmp' => $this->plugin->isApplicationOmp(),
-			'groupAuthor' => $this->getData('groupAuthor') ? (int) $this->getData('groupAuthor') : 0,
-			'groupEditor' => $this->getData('groupEditor') ? (int) $this->getData('groupEditor') : 0,
-			'groupTranslator' => $this->getData('groupTranslator') ? (int) $this->getData('groupTranslator') : 0,
+			'groupAuthor' => $this->getData('groupAuthor'),
+			'groupTranslator' => $this->getData('groupTranslator'),
 			'allUserGroups' => $allUserGroups,
 		));
-		if( $this->plugin->isApplicationOmp()){
+		if ($this->plugin->isApplicationOmp()) {
 			$templateMgr->assign([
-				'groupEditor' => $this->getData('groupEditor') ? (int) $this->getData('groupEditor') : 0,
-				'isChapterFrontendPagePluginEnabled' => $this->isChapterFrontendPagePluginEnabled
+				'groupEditor' => $this->getData('groupEditor'),
+				'isChapterFrontendPagePluginEnabled' => $this->isChapterFrontendPagePluginEnabled()
 			]);
-			if( $this->isChapterFrontendPagePluginEnabled ){
-				$templateMgr->assign(['groupChapterAuthor' => $this->getData('groupChapterAuthor') ? (int) $this->getData('groupChapterAuthor') : 0]);
+			if ($this->isChapterFrontendPagePluginEnabled()) {
+				$templateMgr->assign(['groupChapterAuthor' => $this->getData('groupChapterAuthor')]);
 			}
 		}
 
@@ -150,7 +144,7 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$this->plugin->updateSetting($contextId, 'groupTranslator', $this->getData('groupTranslator'));
 		if( $this->plugin->isApplicationOmp()){
 			$this->plugin->updateSetting($contextId, 'groupEditor', $this->getData('groupEditor'));
-			if( $this->isChapterFrontendPagePluginEnabled ){
+			if( $this->isChapterFrontendPagePluginEnabled() ){
 				$this->plugin->updateSetting($contextId, 'groupChapterAuthor', $this->getData('groupChapterAuthor'));
 			}
 		}
@@ -161,5 +155,23 @@ class CitationStyleLanguageSettingsForm extends Form {
 		$notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('common.changesSaved')));
 
 		return parent::execute(...$functionArgs);
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isChapterFrontendPagePluginEnabled() : bool {
+		if (null === $this->ChapterFrontendPagePluginEnabled) {
+			if ($this->plugin->isApplicationOmp()) {
+				$request = Application::get()->getRequest();
+				$context = $request->getContext();
+				$contextId = $context ? $context->getId() : 0;
+				$chapterPlugin = PluginRegistry::getPlugin('generic', 'chapterfrontendpageplugin');
+				$this->ChapterFrontendPagePluginEnabled = null !== $chapterPlugin && $chapterPlugin->getEnabled($contextId);
+			} else {
+				$this->ChapterFrontendPagePluginEnabled = false;
+			}
+		}
+		return $this->ChapterFrontendPagePluginEnabled;
 	}
 }

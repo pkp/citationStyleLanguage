@@ -84,37 +84,31 @@ msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.descript
 msgstr "Some citation formats request the geographic location of the publisher, such as \"London, U.K.\"."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Author and Translator"
+msgstr "Contributors"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr "In some cases beside authors there also exists translators. Please choose a role for authors and translators."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups.omp"
-msgstr "Author, Editor and Translator"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription.omp"
-msgstr "In some cases beside authors there also exist editors or translators. Please choose a role for authors, editors and translators."
+msgstr "In some citation styles, contributors must be identified differently depending on their role. Please identify the appropriate roles."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Author:"
+msgstr "Authors"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editor:"
+msgstr "Editors"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Translator:"
+msgstr "Translators"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Chapter Author:"
+msgstr "Chapter Authors"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Please choose a role for authors"
+msgstr "Select the roles that should be identified as authors."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Please choose a role for editors"
+msgstr "Select the roles that should be identified as editors."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Please choose a role for translators"
+msgstr "Select the roles that should be identified as translators."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Please choose a role for chapter authors"
+msgstr "Select the roles that should be identified as chapter authors."

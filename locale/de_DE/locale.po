@@ -20,9 +20,6 @@ msgstr "Citation Style Language"
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr "Ermöglicht es Leser/innen, die bibliografischen Angaben für einen veröffentlichten Artikel in einem von mehreren Formaten in der Citation Style Language zu erhalten."
 
-msgid "plugins.generic.citationStyleLanguage.description.omp"
-msgstr "Ermöglicht es Leser/innen, die bibliografischen Angaben für ein veröffentlichtes Buch in einem von mehreren Formaten in der Citation Style Language zu erhalten."
-
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
@@ -77,9 +74,6 @@ msgstr "Primäres Format für bibliographische Angaben"
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig auf der Artikelseite anzeigen möchten."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
-msgstr "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig auf der Buchseite anzeigen möchten."
-
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
 "Einige Zitierstile erfordern die Angabe des geografischen Standortes des "
@@ -87,40 +81,3 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Standort des Verlags"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Autoren und Übersetzer"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr "In manchen Fällen gibt es neben den Autoren noch Übersetzer. Wählen Sie bitte je eine Rolle für Autoren und Übersetzer."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups.omp"
-msgstr "Autoren, Herausgeber und Übersetzer"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription.omp"
-msgstr "In manchen Fällen gibt es neben den Autoren noch Herausgeber oder Übersetzer. Wählen Sie bitte je eine Rolle für Autoren, Herausgeber und Übersetzer."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autor:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Herausgeber:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Übersetzer:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Kapitelautor:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Bitte wählen Sie eine Rolle für die Autoren"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Bitte wählen Sie eine Rolle für die Herausgeber"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Bitte wählen Sie eine Rolle für die Übersetzer"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Bitte wählen Sie eine Rolle für die Kapitelautoren"
-

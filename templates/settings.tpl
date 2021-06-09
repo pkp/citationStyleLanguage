@@ -43,69 +43,38 @@
 				{fbvElement type="checkbox" id="enabledCitationDownloads[]" value=$id checked=in_array($id, $enabledDownloads) label=$style translate=false}
 			{/foreach}
 		{/fbvFormSection}
-		{fbvFormSection list=true title="{if $isApplicationOmp}plugins.generic.citationStyleLanguage.settings.citationUserGroups.omp{else}plugins.generic.citationStyleLanguage.settings.citationUserGroups{/if}"}
-			<p>{if $isApplicationOmp}{translate key="plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription.omp"}{else}{translate key="plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"}{/if}</p>
-			<div class="pkp_helpers_quarter inline">
-				<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseAuthor'}
-					<select name="groupAuthor" id="groupAuthor">
-						<option value="" disabled {if $groupAuthor == 0 } selected{/if}>
-							{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor'}
-						</option>
-						{foreach from=$allUserGroups item="group" key="id"}
-							<option value="{$id}"{if $id == $groupAuthor} selected{/if}>
-								{$group}
-							</option>
-						{/foreach}
-					</select>
-				</p>
-			</div>
+		{fbvFormArea title="plugins.generic.citationStyleLanguage.settings.citationUserGroups" class="pkpFormField--options"}
+			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"}</p>
+			{fbvFormSection list=true label="plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"}
+				<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor'}</p>
+				{foreach from=$allUserGroups item="group" key="id"}
+					{fbvElement type="checkbox" id="groupAuthor[]" value=$id checked=in_array($id, $groupAuthor) label=$group translate=false}
+				{/foreach}
+			{/fbvFormSection}
 			{if $isApplicationOmp}
 				{if $isChapterFrontendPagePluginEnabled}
-					<div class="pkp_helpers_quarter inline">
-						<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor'}
-							<select name="groupChapterAuthor" id="groupChapterAuthor">
-								<option value="" disabled {if $groupChapterAuthor == 0 } selected{/if}>
-									{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor'}
-								</option>
-								{foreach from=$allUserGroups item="group" key="id"}
-									<option value="{$id}"{if $id == $groupChapterAuthor} selected{/if}>
-										{$group}
-									</option>
-								{/foreach}
-							</select>
-						</p>
-					</div>
-				{/if}
-				<div class="pkp_helpers_quarter inline">
-					<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseEditor'}
-						<select name="groupEditor" id="groupEditor">
-							<option value="" disabled {if $groupEditor == 0 } selected{/if}>
-								{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor'}
-							</option>
-							{foreach from=$allUserGroups item="group" key="id"}
-								<option value="{$id}"{if $id == $groupEditor} selected{/if}>
-									{$group}
-								</option>
-							{/foreach}
-						</select>
-					</p>
-				</div>
-			{/if}
-			<div class="pkp_helpers_quarter inline">
-				<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationChooseTranslator'}
-					<select name="groupTranslator" id="groupTranslator">
-						<option value="" disabled {if $groupTranslator == 0 } selected{/if}>
-							{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator'}
-						</option>
+					{fbvFormSection list=true label="plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"}
+						<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor'}</p>
 						{foreach from=$allUserGroups item="group" key="id"}
-							<option value="{$id}"{if $id == $groupTranslator} selected{/if}>
-								{$group}
-							</option>
+							{fbvElement type="checkbox" id="groupChapterAuthor[]" value=$id checked=in_array($id, $groupChapterAuthor) label=$group translate=false}
 						{/foreach}
-					</select>
-				</p>
-			</div>
-		{/fbvFormSection}
+					{/fbvFormSection}
+				{/if}
+				{fbvFormSection list=true label="plugins.generic.citationStyleLanguage.settings.citationChooseEditor"}
+					<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor'}</p>
+					{foreach from=$allUserGroups item="group" key="id"}
+						{fbvElement type="checkbox" id="groupEditor[]" value=$id checked=in_array($id, $groupEditor) label=$group translate=false}
+					{/foreach}
+				{/fbvFormSection}
+			{/if}
+			{fbvFormSection list=true label="plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"}
+				<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator'}</p>
+				{foreach from=$allUserGroups item="group" key="id"}
+					{fbvElement type="checkbox" id="groupTranslator[]" value=$id checked=in_array($id, $groupTranslator) label=$group translate=false}
+				{/foreach}
+			{/fbvFormSection}
+		{/fbvFormArea}
+		<br/>
 		{fbvFormSection}
 			<div id="description">{translate key="plugins.generic.citationStyleLanguage.settings.publisherLocation.description"}</div>
 			{fbvElement type="text" id="publisherLocation" value=$publisherLocation label="plugins.generic.citationStyleLanguage.settings.publisherLocation"}

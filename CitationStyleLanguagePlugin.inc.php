@@ -279,9 +279,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$submission =& $args[1];
 			$publication = $submission->getCurrentPublication();
 			$issue = null;
-			if (null === $publication) {
-				return false;
-			}
 			$templateMgr->addStyleSheet(
 				'cslPluginStyles',
 				$request->getBaseUrl() . '/' . $this->getPluginPath() . '/css/citationStyleLanguagePlugin.css',
@@ -454,6 +451,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationData->accessed->raw = date('Y-m-d');
 
 		$authors = $publication->getData('authors');
+		$authorsGroup = $this->getAuthorGroup($context->getId());
+		$editorsGroup = $this->getEditorGroup($context->getId());
+		$translatorsGroup = $this->getTranslatorGroup($context->getId());
 		if (count($authors)) {
 			$citationData->author = array();
 			foreach ($authors as $author) {
@@ -466,20 +466,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				}
 				$userGroup = $author->getUserGroup();
 				if (null !== $userGroup) {
-					switch ($userGroup->getId()) {
-						case $this->getEditorGroup($context->getId()):
+					switch (true) {
+						case in_array($userGroup->getId(),$editorsGroup,false):
 							if (!isset($citationData->editor)) {
 								$citationData->editor = array();
 							}
 							$citationData->editor[] = $currentAuthor;
 							break;
-						case $this->getTranslatorGroup($context->getId()):
+						case in_array($userGroup->getId(),$translatorsGroup,false):
 							if (!isset($citationData->translator)) {
 								$citationData->translator = array();
 							}
 							$citationData->translator[] = $currentAuthor;
 							break;
-						case $this->getAuthorGroup($context->getId()):
+						case in_array($userGroup->getId(),$authorsGroup,false):
 							if (!isset($citationData->author)) {
 								$citationData->author = array();
 							}
@@ -615,7 +615,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		// See: https://github.com/citation-style-language/styles/issues/2831
 		$citation = str_replace('\n', "\n", $citation);
 
-        $encodedFilename = urlencode(substr(($publication ? $publication->getLocalizedTitle() : ''), 0, 60)) . '.' . $styleConfig['fileExtension'];
+        $encodedFilename = urlencode(substr(($publication	?	$publication->getLocalizedTitle()	:	''), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
 		header("Content-Disposition: attachment; filename*=UTF-8''\"$encodedFilename\"");
 		header('Content-Type: ' . $styleConfig['contentType']);
@@ -712,39 +712,64 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/**
 	 * @param int $contextId
 	 *
-	 * @return int|null
+	 * @return array
 	 */
-	public function getEditorGroup(int $contextId = 0) : ?int {
+	public function getEditorGroup(int $contextId = 0) : array {
 		$editorGroup = $this->getSetting($contextId, 'groupEditor');
-		if ($editorGroup) {
-			return (int) $editorGroup;
+		$editors = array();
+		if (is_array($editorGroup)) {
+			$editors = $editorGroup;
+		} else if ($editorGroup) {
+			$editors[] = $editorGroup;
 		}
-		return null;
+		return $editors;
 	}
 
 	/**
 	 * @param int $contextId
 	 *
-	 * @return int|null
+	 * @return array
 	 */
-	public function getTranslatorGroup(int $contextId = 0) : ?int {
+	public function getTranslatorGroup(int $contextId = 0) : array {
 		$translatorGroup = $this->getSetting($contextId, 'groupTranslator');
-		if ($translatorGroup) {
-			return (int) $translatorGroup;
+		$translators = array();
+		if (is_array($translatorGroup)) {
+			$translators = $translatorGroup;
+		} else if ($translatorGroup) {
+			$translators[] = $translatorGroup;
 		}
-		return null;
+		return $translators;
 	}
 
 	/**
 	 * @param int $contextId
 	 *
-	 * @return int|null
+	 * @return array
 	 */
-	public function getAuthorGroup(int $contextId = 0) : ?int {
+	public function getAuthorGroup(int $contextId = 0) : array {
 		$authorGroup = $this->getSetting($contextId, 'groupAuthor');
-		if ($authorGroup) {
-			return (int) $authorGroup;
+		$authors = array();
+		if (is_array($authorGroup)) {
+			$authors = $authorGroup;
+		} else if ($authorGroup) {
+			$authors[] = $authorGroup;
 		}
-		return null;
+		return $authors;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return array
+	 */
+	public function getChapterAuthorGroup(int $contextId = 0) : array {
+		$chapterAuthorGroup = $this->getSetting($contextId, 'groupChapterAuthor');
+		$chapterAuthors = array();
+		if (is_array($chapterAuthorGroup)) {
+			$chapterAuthors = $chapterAuthorGroup;
+		} else if ($chapterAuthorGroup) {
+			$chapterAuthors[] = $chapterAuthorGroup;
+		}
+		return $chapterAuthors;
 	}
 }
