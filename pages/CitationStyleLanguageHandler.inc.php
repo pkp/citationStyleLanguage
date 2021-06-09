@@ -13,10 +13,11 @@
  * @brief Handle router requests for the citation style language plugin
  */
 
+use APP\handler\Handler;
+use APP\facades\Repo;
+use PKP\plugins\PluginRegistry;
 use PKP\submission\PKPSubmission;
 use PKP\security\Role;
-
-use APP\handler\Handler;
 
 class CitationStyleLanguageHandler extends Handler
 {
@@ -102,14 +103,14 @@ class CitationStyleLanguageHandler extends Handler
 
         $this->citationStyle = $args[0];
         $this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
-        $this->article = Services::get('submission')->get($userVars['submissionId']);
+        $this->article = Repo::submission()->get($userVars['submissionId']);
 
         if (!$this->article) {
             $request->getDispatcher()->handle404();
         }
 
         $this->publication = !empty($userVars['publicationId'])
-            ? Services::get('publication')->get($userVars['publicationId'])
+            ? Repo::publication()->get($userVars['publicationId'])
             : $this->article->getCurrentPublication();
 
         if ($this->article) {
