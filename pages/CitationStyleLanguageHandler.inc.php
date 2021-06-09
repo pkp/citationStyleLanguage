@@ -16,8 +16,8 @@
 import('classes.handler.Handler');
 
 class CitationStyleLanguageHandler extends Handler {
-	/** @var Submission article being requested */
-	public $article = null;
+	/** @var Submission $submission being requested */
+	public $submission = null;
 
 	/** @var Publication publication being requested */
 	public $publication = null;
@@ -31,6 +31,17 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var bool Whether or not to return citation in JSON format */
 	public $returnJson = false;
 
+	/** @var $plugin object */
+	public $plugin;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
+	}
+
 	/**
 	 * Get a citation style
 	 *
@@ -41,8 +52,11 @@ class CitationStyleLanguageHandler extends Handler {
 	public function get($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
+		$plugin = $this->plugin;
+		if (null === $plugin) {
+			$request->getDispatcher()->handle404();
+		}
+		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -68,8 +82,10 @@ class CitationStyleLanguageHandler extends Handler {
 	public function download($args, $request) {
 		$this->_setupRequest($args, $request);
 
-		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
+		$plugin = $this->plugin;
+		if (null !== $plugin) {
+			$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
+		}
 		exit;
 	}
 
@@ -94,34 +110,36 @@ class CitationStyleLanguageHandler extends Handler {
 
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
-		$this->article = Services::get('submission')->get($userVars['submissionId']);
+		$this->submission = Services::get('submission')->get($userVars['submissionId']);
 
-		if (!$this->article) {
+		if (!$this->submission) {
 			$request->getDispatcher()->handle404();
 		}
 
 		$this->publication = !empty($userVars['publicationId'])
 			? Services::get('publication')->get($userVars['publicationId'])
-			: $this->article->getCurrentPublication();
+			: $this->submission->getCurrentPublication();
 
-		if ($this->article) {
+		if ($this->submission && !$this->plugin->isApplicationOmp()) {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
 			// Support OJS 3.1.x and 3.2
-			$issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
+			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
 			$this->issue = $issueDao->getById($issueId, $context->getId());
 		}
 
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
-		if (!$this->issue || !$this->issue->getPublished() || $this->article->getStatus() != STATUS_PUBLISHED) {
+		if ($this->submission->getData('status') !== STATUS_PUBLISHED
+			|| (!$this->plugin->isApplicationOmp() && !$this->issue )
+			|| (!$this->plugin->isApplicationOmp() && !$this->issue->getPublished())) {
 			$userCanAccess = false;
 
 			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
 				$isAssigned = false;
 				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
 				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-				$assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->article->getId());
+				$assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
 				foreach ($assignments as $assignment) {
 					if ($assignment->getUser()->getId() !== $user->getId()) {
 						continue;

@@ -24,6 +24,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/** @var array List of citation download formats available */
 	public $_citationDownloads = array();
 
+	/** @var bool $applicationOmp */
+	private bool $applicationOmp;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		parent::__construct();
+		$applicationName = Application::get()->getName();
+		$this->applicationOmp =  stripos($applicationName, 'omp') !== false;
+	}
+
 	/**
 	 * @copydoc Plugin::getDisplayName()
 	 */
@@ -35,7 +47,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @copydoc Plugin::getDescription()
 	 */
 	public function getDescription() {
-		return __('plugins.generic.citationStyleLanguage.description');
+		return $this->isApplicationOmp() ? __('plugins.generic.citationStyleLanguage.description.omp')
+			: __('plugins.generic.citationStyleLanguage.description');
 	}
 
 	/**
@@ -45,7 +58,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$success = parent::register($category, $path, $mainContextId);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled($mainContextId)) {
-			HookRegistry::register('ArticleHandler::view', array($this, 'getArticleTemplateData'));
+			HookRegistry::register('CatalogBookHandler::book', array($this, 'getTemplateData'));
+			HookRegistry::register('Templates::Catalog::Book::Details', array($this, 'displayCitationMonograph'));
+			HookRegistry::register('ArticleHandler::view', array($this, 'getTemplateData'));
 			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
 		}
 		return $success;
@@ -257,24 +272,40 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $args array
 	 * @return false
 	 */
-	public function getArticleTemplateData($hookName, $args) {
+	public function getTemplateData($hookName, $args) {
+		$templateMgr = TemplateManager::getManager();
 		$request = $args[0];
-		$issue = $args[1];
-		$article = $args[2];
-		$publication = $args[3];
+		if ($this->isApplicationOmp()) {
+			$submission =& $args[1];
+			$publication = $submission->getCurrentPublication();
+			$issue = null;
+			$templateMgr->addStyleSheet(
+				'cslPluginStyles',
+				$request->getBaseUrl() . '/' . $this->getPluginPath() . '/css/citationStyleLanguagePlugin.css',
+				array(
+					'priority' => STYLE_SEQUENCE_LAST,
+					'contexts' => array('frontend'),
+					'inline'   => false,
+				)
+			);
+		} else {
+			$issue = $args[1];
+			$submission = $args[2];
+			$publication = $args[3];
+		}
+
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : 0;
-		$templateMgr = TemplateManager::getManager();
 
 		$citationArgs = array(
-			'submissionId' => $article->getId(),
+			'submissionId' => $submission->getId(),
 			'publicationId' => $publication->getId(),
 		);
 		$citationArgsJson = $citationArgs;
 		$citationArgsJson['return'] = 'json';
 
 		$templateMgr->assign(array(
-			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue, $publication),
+			'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $publication),
 			'citationArgs' => $citationArgs,
 			'citationArgsJson' => $citationArgsJson,
 			'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -290,6 +321,25 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Add citation style language to book view page
+	 * Hooked to `Templates::Catalog::Book::Main`
+	 *
+	 * @param $hookName string
+	 * @param $params   array array [
+	 * @option Smarty
+	 * @option string HTML output to return
+	 * ]
+	 * @return false
+	 */
+	public function displayCitationMonograph($hookName, $params) {
+		$smarty =& $params[1];
+		$output =& $params[2];
+		$output .= $smarty->fetch($this->getTemplateResource('citationblock.tpl'));
+
+		return false;
+	}
+
+	/**
 	 * Get a specified citation for a given article
 	 *
 	 * This citation format follows the csl-json schema and takes some direction
@@ -299,55 +349,111 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
 	 * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
 	 * @param $request Request
-	 * @param $article Submission
+	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @param $publication Publication Optional. A particular version
 	 * @return string
 	 */
-	public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null) {
-		$publication = $publication ?? $article->getCurrentPublication();
-		$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-		$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+	public function getCitation($request, Submission $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
+		$publication = $publication ?? $submission->getCurrentPublication();
 		$context = $request->getContext();
 
 		import('lib.pkp.classes.core.PKPString');
 
 		$citationData = new stdClass();
-		$citationData->type = 'article-journal';
-		$citationData->id = $article->getId();
-		$citationData->title = $publication->getLocalizedFullTitle();
-		$citationData->{'container-title'} = htmlspecialchars($context->getLocalizedName());
+		if ($this->isApplicationOmp()){
+			$citationData->type = 'book';
+			$citationData->risType = 'BOOK';
+			$citationData->publisher = htmlspecialchars($context->getLocalizedName());
+			$citationData->serialNumber = array();
+			$publicationFormats = $publication->getData('publicationFormats');
+			/** @var PublicationFormat $publicationFormat */
+			foreach ($publicationFormats as $publicationFormat) {
+				if ($publicationFormat->getIsApproved()) {
+					$identificationCodes = $publicationFormat->getIdentificationCodes();
+					$identificationCodes = $identificationCodes->toArray();
+					foreach ($identificationCodes as $identificationCode) {
+						$citationData->serialNumber[] = htmlspecialchars($identificationCode->getValue());
+					}
+				}
+			}
+
+			$seriesId = $publication->getData('seriesId');
+			if ($seriesId) {
+				/** @var SeriesDAO $seriesDao */
+				$seriesDao = DAORegistry::getDAO('SeriesDAO');
+				if (null !== $seriesDao) {
+					$series = $seriesDao->getById($seriesId);
+					if (null !== $series) {
+						$citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
+						$citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
+						$citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
+						$onlineISSN = $series->getOnlineISSN();
+						if (null !== $onlineISSN && !empty($onlineISSN)) {
+							$citationData->serialNumber[] = htmlspecialchars($onlineISSN);
+						}
+						$printISSN = $series->getPrintISSN();
+						if (null !== $printISSN && !empty($printISSN)) {
+							$citationData->serialNumber[] = htmlspecialchars($printISSN);
+						}
+					}
+				}
+			}
+		} else {
+			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
+			$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+			$citationData->type = 'article-journal';
+			$citationData->risType = 'JOUR';
+			$citationData->{'container-title'} = htmlspecialchars($context->getLocalizedName());
+			if ($issue) {
+				$citationData->volume = htmlspecialchars($issue->getData('volume'));
+				// Zotero prefers issue and Mendeley uses `number` to store revisions
+				$citationData->issue = htmlspecialchars($issue->getData('number'));
+			}
+
+			$sectionDao = DAORegistry::getDAO('SectionDAO'); /** @var $sectionDao SectionDAO */
+			if ($sectionId = $publication->getData('sectionId')) {
+				$section = $sectionDao->getById($sectionId);
+				if ($section && !$section->getHideTitle()) $citationData->section = htmlspecialchars($section->getTitle($context->getPrimaryLocale()));
+			}
+		}
+
+		/* @var $submissionKeywordDao SubmissionKeywordDAO */
+		$submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
+		$keywords = $submissionKeywordDao->getKeywords($publication->getId(), array(AppLocale::getLocale()));
+		$citationData->keywords = $keywords[AppLocale::getLocale()];
+
+		/* @var $submissionLanguageDao SubmissionLanguageDAO */
+		$submissionLanguageDao = DAORegistry::getDAO('SubmissionLanguageDAO');
+		$languages = $submissionLanguageDao->getLanguages($publication->getId(), array(AppLocale::getLocale()));
+		if (array_key_exists(AppLocale::getLocale(), $languages)) {
+			$citationData->languages = $languages[AppLocale::getLocale()];
+		}
+
+		$citationData->id = $submission->getId();
+		$citationData->title = htmlspecialchars($publication->getLocalizedFullTitle());
 		$citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
-		$citationData->abstract = htmlspecialchars($publication->getLocalizedData('abstract'));
+		$citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
 
 		$abbreviation = $context->getData('abbreviation', $context->getPrimaryLocale()) ?? $context->getData('acronym', $context->getPrimaryLocale());
 		if ($abbreviation) $citationData->{'container-title-short'} = htmlspecialchars($abbreviation);
-
-		if ($issue) {
-			$citationData->volume = htmlspecialchars($issue->getData('volume'));
-			// Zotero prefers issue and Mendeley uses `number` to store revisions
-			$citationData->issue = htmlspecialchars($issue->getData('number'));
-		}
-
-		$sectionDao = DAORegistry::getDAO('SectionDAO'); /** @var $sectionDao SectionDAO */
-		if ($sectionId = $publication->getData('sectionId')) {
-			$section = $sectionDao->getById($sectionId);
-			if ($section && !$section->getHideTitle()) $citationData->section = htmlspecialchars($section->getTitle($context->getPrimaryLocale()));
-		}
 
 		$citationData->URL = $request->getDispatcher()->url(
 			$request,
 			ROUTE_PAGE,
 			null,
-			'article',
-			'view',
-			$article->getBestId()
+			$this->isApplicationOmp() ? 'catalog' : 'article',
+			$this->isApplicationOmp() ? 'book' : 'view',
+			(string) $submission->getId()
 		);
 		$citationData->accessed = new stdClass();
 		$citationData->accessed->raw = date('Y-m-d');
 
 		$authors = $publication->getData('authors');
+		$authorsGroup = $this->getAuthorGroup($context->getId());
+		$editorsGroup = $this->getEditorGroup($context->getId());
+		$translatorsGroup = $this->getTranslatorGroup($context->getId());
 		if (count($authors)) {
 			$citationData->author = array();
 			foreach ($authors as $author) {
@@ -358,14 +464,38 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					$currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
 					$currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
 				}
-				$citationData->author[] = $currentAuthor;
+				$userGroup = $author->getUserGroup();
+				if (null !== $userGroup) {
+					switch (true) {
+						case in_array($userGroup->getId(),$editorsGroup,false):
+							if (!isset($citationData->editor)) {
+								$citationData->editor = array();
+							}
+							$citationData->editor[] = $currentAuthor;
+							break;
+						case in_array($userGroup->getId(),$translatorsGroup,false):
+							if (!isset($citationData->translator)) {
+								$citationData->translator = array();
+							}
+							$citationData->translator[] = $currentAuthor;
+							break;
+						case in_array($userGroup->getId(),$authorsGroup,false):
+							if (!isset($citationData->author)) {
+								$citationData->author = array();
+							}
+							$citationData->author[] = $currentAuthor;
+							break;
+						default:
+							break;
+					}
+				}
 			}
 		}
 
 		if ($publication->getData('datePublished')) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($publication->getData('datePublished'));
-			$publishedPublications = $article->getPublishedPublications();
+			$publishedPublications = $submission->getPublishedPublications();
 			if (count($publishedPublications) > 1) {
 				$originalPublication = array_reduce($publishedPublications, function($a, $b) {
 					return $a && $a->getId() < $b->getId() ? $a : $b;
@@ -376,7 +506,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 					$citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
 				}
 			}
-		} elseif ($issue && $issue->getPublished()) {
+		} elseif ( !$this->isApplicationOmp() && $issue && $issue->getPublished()) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($issue->getDatePublished());
 		}
@@ -385,7 +515,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->page = htmlspecialchars($publication->getData('pages'));
 		}
 
-		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $article, $issue, $context, $publication));
+		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $submission, $issue, $context, $publication));
 
 		$citation = '';
 
@@ -395,14 +525,23 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if (!empty($styleConfig)) {
 			if (!empty($styleConfig['useTemplate'])) {
 				$templateMgr = TemplateManager::getManager($request);
-				$templateMgr->assign(array(
+				$templateMgr->assign([
 					'citationData' => $citationData,
 					'citationStyle' => $citationStyle,
-					'article' => $article,
 					'publication' => $publication,
-					'issue' => $issue,
-					'journal' => $context,
-				));
+				]);
+				if ($this->isApplicationOmp()) {
+					$templateMgr->assign([
+						'book' => $submission,
+						'press' => $context,
+					]);
+				} else {
+					$templateMgr->assign([
+						'article' => $submission,
+						'issue' => $issue,
+						'journal' => $context,
+					]);
+				}
 				$citation = $templateMgr->fetch($styleConfig['useTemplate']);
 			} else {
 				$style = $this->loadStyle($styleConfig);
@@ -448,17 +587,19 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * software.
 	 *
 	 * @param $request Request
-	 * @param $article Submission
+	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function downloadCitation($request, $article, $citationStyle = 'ris', $issue = null) {
-		$journal = $request->getContext();
+	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null) {
+		if (!$this->isApplicationOmp()) {
+			$journal = $request->getContext();
 
-		if (empty($issue)) {
-			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-			$issue = $issueDao->getById($article->getCurrentPublication()->getData('issueId'));
+			if (empty($issue)) {
+				$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
+				$issue = $issueDao->getById($submission->getCurrentPublication()->getData('issueId'));
+			}
 		}
 
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
@@ -466,14 +607,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			return false;
 		}
 
-		$citation = trim(strip_tags($this->getCitation($request, $article, $citationStyle, $issue)));
+		$publication = $submission->getCurrentPublication();
+		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue)));
 		// TODO this is likely going to cause an error in a citation some day,
 		// but is necessary to get the .ris downloadable format working. The
 		// CSL language doesn't seem to offer a way to indicate a line break.
 		// See: https://github.com/citation-style-language/styles/issues/2831
 		$citation = str_replace('\n', "\n", $citation);
 
-        $encodedFilename = urlencode(substr($article->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
+        $encodedFilename = urlencode(substr(($publication	?	$publication->getLocalizedTitle()	:	''), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
 		header("Content-Disposition: attachment; filename*=UTF-8''\"$encodedFilename\"");
 		header('Content-Type: ' . $styleConfig['contentType']);
@@ -558,5 +700,76 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isApplicationOmp() : bool {
+		return $this->applicationOmp;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return array
+	 */
+	public function getEditorGroup(int $contextId = 0) : array {
+		$editorGroup = $this->getSetting($contextId, 'groupEditor');
+		$editors = array();
+		if (is_array($editorGroup)) {
+			$editors = $editorGroup;
+		} else if ($editorGroup) {
+			$editors[] = $editorGroup;
+		}
+		return $editors;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return array
+	 */
+	public function getTranslatorGroup(int $contextId = 0) : array {
+		$translatorGroup = $this->getSetting($contextId, 'groupTranslator');
+		$translators = array();
+		if (is_array($translatorGroup)) {
+			$translators = $translatorGroup;
+		} else if ($translatorGroup) {
+			$translators[] = $translatorGroup;
+		}
+		return $translators;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return array
+	 */
+	public function getAuthorGroup(int $contextId = 0) : array {
+		$authorGroup = $this->getSetting($contextId, 'groupAuthor');
+		$authors = array();
+		if (is_array($authorGroup)) {
+			$authors = $authorGroup;
+		} else if ($authorGroup) {
+			$authors[] = $authorGroup;
+		}
+		return $authors;
+	}
+
+	/**
+	 * @param int $contextId
+	 *
+	 * @return array
+	 */
+	public function getChapterAuthorGroup(int $contextId = 0) : array {
+		$chapterAuthorGroup = $this->getSetting($contextId, 'groupChapterAuthor');
+		$chapterAuthors = array();
+		if (is_array($chapterAuthorGroup)) {
+			$chapterAuthors = $chapterAuthorGroup;
+		} else if ($chapterAuthorGroup) {
+			$chapterAuthors[] = $chapterAuthorGroup;
+		}
+		return $chapterAuthors;
 	}
 }
