@@ -13,6 +13,7 @@
  * @brief Citation Style Language plugin class.
  */
 
+use APP\facades\Repo;
 use PKP\plugins\GenericPlugin;
 use PKP\linkAction\request\AjaxModal;
 use PKP\linkAction\LinkAction;
@@ -334,8 +335,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null)
     {
         $publication = $publication ?? $article->getCurrentPublication();
-        $issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-        $issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+        $issue = $issue ?? Repo::issue()->get($publication->getData('issueId'));
         $context = $request->getContext();
 
         import('lib.pkp.classes.core.PKPString');
@@ -493,8 +493,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $journal = $request->getContext();
 
         if (empty($issue)) {
-            $issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-            $issue = $issueDao->getById($article->getCurrentPublication()->getData('issueId'));
+            $issue = Repo::issue()->get($article->getCurrentPublication()->getData('issueId'));
         }
 
         $styleConfig = $this->getCitationStyleConfig($citationStyle);
