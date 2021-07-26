@@ -344,7 +344,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $citationData->type = 'article-journal';
         $citationData->id = $article->getId();
         $citationData->title = $publication->getLocalizedFullTitle();
-        $citationData->{'container-title'} = htmlspecialchars($context->getLocalizedName());
+        $citationData->{'container-title'} = $context->getLocalizedName();
         $citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
         $citationData->abstract = htmlspecialchars($publication->getLocalizedData('abstract'));
 
