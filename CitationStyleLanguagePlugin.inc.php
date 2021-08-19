@@ -45,6 +45,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$success = parent::register($category, $path, $mainContextId);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled($mainContextId)) {
+			HookRegistry::register('PreprintHandler::view', array($this, 'getPreprintTemplateData'));
 			HookRegistry::register('ArticleHandler::view', array($this, 'getArticleTemplateData'));
 			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
 		}
@@ -249,6 +250,47 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
+     * Retrieve citation information for the preprint details template, in OJS. This
+     * method is hooked in before a template displays.
+     *
+     * @see PreprintHandler::view()
+     * @param $hookname string
+     * @param $args array
+     * @return false
+     */
+    public function getPreprintTemplateData($hookName, $args)
+    {
+        $request = $args[0];
+        $preprint = $args[1];
+        $publication = $args[2];
+		$context = $request->getContext();
+        $contextId = $context ? $context->getId() : 0;
+        $templateMgr = TemplateManager::getManager();
+
+        $citationArgs = array(
+            'submissionId' => $preprint->getId(),
+            'publicationId' => $publication->getId(),
+        );
+        $citationArgsJson = $citationArgs;
+        $citationArgsJson['return'] = 'json';
+
+        $templateMgr->assign(array(
+            'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), $publication),
+            'citationArgs' => $citationArgs,
+            'citationArgsJson' => $citationArgsJson,
+            'citationStyles' => $this->getEnabledCitationStyles($contextId),
+            'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
+        ));
+
+        $templateMgr->addJavaScript(
+            'citationStyleLanguage',
+            $request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
+        );
+
+        return false;
+    }
+
+	/**
 	 * Retrieve citation information for the article details template. This
 	 * method is hooked in before a template displays.
 	 *
@@ -305,17 +347,22 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $publication Publication Optional. A particular version
 	 * @return string
 	 */
-	public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null) {
-		$publication = $publication ?? $article->getCurrentPublication();
-		$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-		$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
+		$publication = $publication ?? $submission->getCurrentPublication();
+		$application = Application::get();
+
+		if ($application->getName() == "ojs") {
+			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
+			$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+		}
+
 		$context = $request->getContext();
 
 		import('lib.pkp.classes.core.PKPString');
 
 		$citationData = new stdClass();
 		$citationData->type = 'article-journal';
-		$citationData->id = $article->getId();
+		$citationData->id = $submission->getId();
 		$citationData->title = $publication->getLocalizedFullTitle();
 		$citationData->{'container-title'} = $context->getLocalizedName();
 		$citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
@@ -342,7 +389,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			null,
 			'article',
 			'view',
-			$article->getBestId()
+			$submission->getBestId()
 		);
 		$citationData->accessed = new stdClass();
 		$citationData->accessed->raw = date('Y-m-d');
@@ -365,7 +412,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		if ($publication->getData('datePublished')) {
 			$citationData->issued = new stdClass();
 			$citationData->issued->raw = htmlspecialchars($publication->getData('datePublished'));
-			$publishedPublications = $article->getPublishedPublications();
+			$publishedPublications = $submission->getPublishedPublications();
 			if (count($publishedPublications) > 1) {
 				$originalPublication = array_reduce($publishedPublications, function($a, $b) {
 					return $a && $a->getId() < $b->getId() ? $a : $b;
@@ -385,7 +432,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$citationData->page = htmlspecialchars($publication->getData('pages'));
 		}
 
-		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $article, $issue, $context, $publication));
+		HookRegistry::call('CitationStyleLanguage::citation', array(&$citationData, &$citationStyle, $submission, $issue, $context, $publication));
 
 		$citation = '';
 
@@ -398,7 +445,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 				$templateMgr->assign(array(
 					'citationData' => $citationData,
 					'citationStyle' => $citationStyle,
-					'article' => $article,
+					'article' => $submission,
 					'publication' => $publication,
 					'issue' => $issue,
 					'journal' => $context,
