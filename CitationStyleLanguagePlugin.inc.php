@@ -250,8 +250,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
-     * Retrieve citation information for the preprint details template, in OJS. This
-     * method is hooked in before a template displays.
+     * Retrieve citation information for the preprint details template, in OJS.
+	 * This method is hooked in before a template displays.
      *
      * @see PreprintHandler::view()
      * @param $hookname string
@@ -275,7 +275,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign(array(
-            'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), $publication),
+            'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), null, $publication),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -332,7 +332,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
-	 * Get a specified citation for a given article
+	 * Get a specified citation for a given Submission (article or preprint)
 	 *
 	 * This citation format follows the csl-json schema and takes some direction
 	 * from existing CSL mappings documented by Zotero and Mendeley.
@@ -348,12 +348,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @return string
 	 */
 	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
-		$publication = $publication ?? $submission->getCurrentPublication();
 		$application = Application::get();
 
-		if ($application->getName() == "ojs") {
+		if ($application->getName() == "ojs2") {
 			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
 			$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+			$publication = $publication ?? $submission->getCurrentPublication();
 		}
 
 		$context = $request->getContext();
