@@ -332,7 +332,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
-	 * Get a specified citation for a given Submission (article or preprint)
+	 * Get a specified citation for a given Submission
 	 *
 	 * This citation format follows the csl-json schema and takes some direction
 	 * from existing CSL mappings documented by Zotero and Mendeley.
@@ -341,7 +341,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
 	 * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
 	 * @param $request Request
-	 * @param $article Submission
+	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @param $publication Publication Optional. A particular version
@@ -349,8 +349,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 */
 	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
 		$application = Application::get();
+		$applicationName = $application->getName();
 
-		if ($application->getName() == "ojs2") {
+		if ($applicationName == "ojs2") {
 			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
 			$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
 			$publication = $publication ?? $submission->getCurrentPublication();
@@ -387,7 +388,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$request,
 			ROUTE_PAGE,
 			null,
-			'article',
+			$applicationName == 'ojs2' ? 'article' : 'preprint',
 			'view',
 			$submission->getBestId()
 		);

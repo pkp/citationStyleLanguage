@@ -105,8 +105,9 @@ class CitationStyleLanguageHandler extends Handler {
 		: $this->submission->getCurrentPublication();
 		
 		$application = Application::get();
-
-		if ($application->getName() == 'ojs2') {
+		$applicationName = $application->getName();
+		
+		if ($applicationName == 'ojs2') {
 			$issueDao = DAORegistry::getDAO('IssueDAO');
 			// Support OJS 3.1.x and 3.2
 			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
@@ -115,35 +116,32 @@ class CitationStyleLanguageHandler extends Handler {
 
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
-		// article/preprint preview will work for those who can see it.
-		if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
-			$userCanAccess = false;
-
-			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
-				$isAssigned = false;
-				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-				$assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
-				foreach ($assignments as $assignment) {
-					if ($assignment->getUser()->getId() !== $user->getId()) {
-						continue;
+		// article preview will work for those who can see it.
+        if ($applicationName == 'ojs2') {
+			if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
+				$userCanAccess = false;
+				if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
+					$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+					$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
+					$assignmentsResults = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
+					while ($assignment = $assignmentsResults->next()) {
+                        if ($assignment->getUserId() !== $user->getId()) continue;
+						$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
+						if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
+							$userCanAccess = true;
+							break;
+						}
 					}
-					$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
-					if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
-						$userCanAccess = true;
-						break;
-					}
-				}
-			}
+                }
+				
+				if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
+                    $userCanAccess = true;
+                }
 
-			if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
-				$userCanAccess = true;
-			}
-
-			if (!$userCanAccess) {
-				$request->getDispatcher()->handle404();
-			}
-		}
+				if (!$userCanAccess) {
+                    $request->getDispatcher()->handle404();
+                }
+            }
+        }
 	}
 }
-
