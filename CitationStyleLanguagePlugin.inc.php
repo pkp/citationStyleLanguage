@@ -496,17 +496,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * software.
 	 *
 	 * @param $request Request
-	 * @param $article Submission
+	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function downloadCitation($request, $article, $citationStyle = 'ris', $issue = null) {
-		$journal = $request->getContext();
-
-		if (empty($issue)) {
+	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null, $publication = null) {
+		$publication ?? $submission->getCurrentPublication();
+		
+		$application = Application::get();
+		if ($application->getName() == 'ojs2' && empty($issue)) {
 			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-			$issue = $issueDao->getById($article->getCurrentPublication()->getData('issueId'));
+			$issue = $issueDao->getById($publication->getData('issueId'));
 		}
 
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
@@ -514,14 +515,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			return false;
 		}
 
-		$citation = trim(strip_tags($this->getCitation($request, $article, $citationStyle, $issue)));
+		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $publication)));
 		// TODO this is likely going to cause an error in a citation some day,
 		// but is necessary to get the .ris downloadable format working. The
 		// CSL language doesn't seem to offer a way to indicate a line break.
 		// See: https://github.com/citation-style-language/styles/issues/2831
 		$citation = str_replace('\n', "\n", $citation);
 
-        $encodedFilename = urlencode(substr($article->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
+        $encodedFilename = urlencode(substr($submission->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
 		header("Content-Disposition: attachment; filename*=UTF-8''\"$encodedFilename\"");
 		header('Content-Type: ' . $styleConfig['contentType']);
