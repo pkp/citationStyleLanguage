@@ -24,6 +24,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	/** @var array List of citation download formats available */
 	public $_citationDownloads = array();
 
+	/** @var string Name of the application */
+	public $applicationName = '';
+
 	/**
 	 * @copydoc Plugin::getDisplayName()
 	 */
@@ -45,8 +48,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$success = parent::register($category, $path, $mainContextId);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled($mainContextId)) {
-			HookRegistry::register('PreprintHandler::view', array($this, 'getPreprintTemplateData'));
-			HookRegistry::register('ArticleHandler::view', array($this, 'getArticleTemplateData'));
+			HookRegistry::register('PreprintHandler::view', array($this, 'getSubmissionTemplateData'));
+			HookRegistry::register('ArticleHandler::view', array($this, 'getSubmissionTemplateData'));
 			HookRegistry::register('LoadHandler', array($this, 'setPageHandler'));
 		}
 		return $success;
@@ -250,85 +253,51 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
-     * Retrieve citation information for the preprint details template, in OJS.
+     * Retrieve citation information for the submission details template.
 	 * This method is hooked in before a template displays.
      *
-     * @see PreprintHandler::view()
+	 * @see PreprintHandler::view()
      * @param $hookname string
      * @param $args array
      * @return false
      */
-    public function getPreprintTemplateData($hookName, $args)
-    {
-        $request = $args[0];
-        $preprint = $args[1];
-        $publication = $args[2];
+    public function getSubmissionTemplateData($hookName, $args)
+	{
+		$request = $args[0];
+		$application = Application::get();
+		$this->applicationName = $application->getName();
+		if ($this->applicationName == 'ojs2') {
+            $submission = $args[2];
+            $publication = $args[3];
+        } else {
+			$submission = $args[1];
+			$publication = $args[2];
+		}
 		$context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
         $templateMgr = TemplateManager::getManager();
 
         $citationArgs = array(
-            'submissionId' => $preprint->getId(),
+            'submissionId' => $submission->getId(),
             'publicationId' => $publication->getId(),
         );
         $citationArgsJson = $citationArgs;
         $citationArgsJson['return'] = 'json';
 
-        $templateMgr->assign(array(
-            'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), null, $publication),
+		$templateMgr->assign(array(
+            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId)),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
             'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
         ));
 
-        $templateMgr->addJavaScript(
+		$templateMgr->addJavaScript(
             'citationStyleLanguage',
             $request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
         );
 
         return false;
-    }
-
-	/**
-	 * Retrieve citation information for the article details template. This
-	 * method is hooked in before a template displays.
-	 *
-	 * @see ArticleHandler::view()
-	 * @param $hookname string
-	 * @param $args array
-	 * @return false
-	 */
-	public function getArticleTemplateData($hookName, $args) {
-		$request = $args[0];
-		$issue = $args[1];
-		$article = $args[2];
-		$publication = $args[3];
-		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
-		$templateMgr = TemplateManager::getManager();
-
-		$citationArgs = array(
-			'submissionId' => $article->getId(),
-			'publicationId' => $publication->getId(),
-		);
-		$citationArgsJson = $citationArgs;
-		$citationArgsJson['return'] = 'json';
-
-		$templateMgr->assign(array(
-			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue, $publication),
-			'citationArgs' => $citationArgs,
-			'citationArgsJson' => $citationArgsJson,
-			'citationStyles' => $this->getEnabledCitationStyles($contextId),
-			'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
-		));
-
-		$templateMgr->addJavaScript(
-			'citationStyleLanguage',
-			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
-		);
-
-		return false;
 	}
 
 	/**
@@ -343,24 +312,17 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $request Request
 	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
-	 * @param $issue Issue Optional. Will fetch from db if not passed.
-	 * @param $publication Publication Optional. A particular version
 	 * @return string
 	 */
-	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
-		$application = Application::get();
-		$applicationName = $application->getName();
-
-		if ($applicationName == "ojs2") {
-			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-			$issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
-			$publication = $publication ?? $submission->getCurrentPublication();
-		}
-
+	public function getCitation($request, $submission, $citationStyle = 'apa') {
+		$publication = $submission->getCurrentPublication();
 		$context = $request->getContext();
-
+		$issue = null;
+		if ($this->applicationName == "ojs2") {
+			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
+			$issue = $issueDao->getById($publication->getData('issueId'));
+		}
 		import('lib.pkp.classes.core.PKPString');
-
 		$citationData = new stdClass();
 		$citationData->type = 'article-journal';
 		$citationData->id = $submission->getId();
@@ -388,7 +350,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$request,
 			ROUTE_PAGE,
 			null,
-			$applicationName == 'ojs2' ? 'article' : 'preprint',
+			$this->applicationName == 'ojs2' ? 'article' : 'preprint',
 			'view',
 			$submission->getBestId()
 		);
@@ -498,24 +460,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $request Request
 	 * @param $submission Submission
 	 * @param $citationStyle string Name of the citation style to use.
-	 * @param $issue Issue Optional. Will fetch from db if not passed.
 	 * @return string
 	 */
-	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null, $publication = null) {
-		$publication ?? $submission->getCurrentPublication();
-		
-		$application = Application::get();
-		if ($application->getName() == 'ojs2' && empty($issue)) {
-			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-			$issue = $issueDao->getById($publication->getData('issueId'));
-		}
-
+	public function downloadCitation($request, $submission, $citationStyle = 'ris') {		
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
 		if (empty($styleConfig)) {
 			return false;
 		}
 
-		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $publication)));
+		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle)));
 		// TODO this is likely going to cause an error in a citation some day,
 		// but is necessary to get the .ris downloadable format working. The
 		// CSL language doesn't seem to offer a way to indicate a line break.

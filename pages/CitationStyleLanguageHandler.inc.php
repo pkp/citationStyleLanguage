@@ -22,9 +22,6 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var Publication publication being requested */
 	public $publication = null;
 
-	/** @var Issue issue of the publication being requested */
-	public $issue = null;
-
 	/** @var array citation style being requested */
 	public $citationStyle = '';
 
@@ -42,7 +39,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
+		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -69,7 +66,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
+		$plugin->downloadCitation($request, $this->submission, $this->citationStyle);
 		exit;
 	}
 
@@ -100,25 +97,17 @@ class CitationStyleLanguageHandler extends Handler {
 			$request->getDispatcher()->handle404();
 		}
 		
-		$this->publication = !empty($userVars['publicationId'])
-		? Services::get('publication')->get($userVars['publicationId'])
-		: $this->submission->getCurrentPublication();
-		
 		$application = Application::get();
 		$applicationName = $application->getName();
 		
-		if ($applicationName == 'ojs2') {
-			$issueDao = DAORegistry::getDAO('IssueDAO');
-			// Support OJS 3.1.x and 3.2
-			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
-			$this->issue = $issueDao->getById($issueId, $context->getId());
-		}
-
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
         if ($applicationName == 'ojs2') {
-			if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
+			$issueDao = DAORegistry::getDAO('IssueDAO');
+			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
+			$issue = $issueDao->getById($issueId, $context->getId());
+			if (!$issue || !$issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
 				$userCanAccess = false;
 				if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
 					$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
