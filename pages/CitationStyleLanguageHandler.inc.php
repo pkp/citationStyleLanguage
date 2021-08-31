@@ -114,10 +114,11 @@ class CitationStyleLanguageHandler extends Handler
             : $this->article->getCurrentPublication();
 
         if ($this->article) {
-            $issueDao = DAORegistry::getDAO('IssueDAO');
             // Support OJS 3.1.x and 3.2
             $issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
-            $this->issue = $issueDao->getById($issueId, $context->getId());
+            $issue = Repo::issue()->get($issueId);
+            $issue = $issue->getJournalId() == $context->getId() ? $issue : null;
+            $this->issue = $issue;
         }
 
         // Disallow access to unpublished submissions, unless the user is a
