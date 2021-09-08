@@ -22,11 +22,17 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var Publication publication being requested */
 	public $publication = null;
 
+	/** @var Issue issue being requested */
+	public $issue = null;
+
 	/** @var array citation style being requested */
 	public $citationStyle = '';
 
 	/** @var bool Whether or not to return citation in JSON format */
 	public $returnJson = false;
+
+	/** @var string application-specific submission noun */
+	public $submissionNoun = '';
 
 	/**
 	 * Get a citation style
@@ -39,7 +45,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle);
+		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -66,7 +72,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($request, $this->submission, $this->citationStyle);
+		$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
 		exit;
 	}
 
@@ -92,7 +98,9 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
 		$this->submission = Services::get('submission')->get($userVars['submissionId']);
-
+		$this->issue = $userVars['issueId'] ? Services::get('issue')->get($userVars['issueId']) : null;
+		$this->submissionNoun = $userVars['submissionNoun'];
+		
 		if (!$this->submission) {
 			$request->getDispatcher()->handle404();
 		}
@@ -104,10 +112,7 @@ class CitationStyleLanguageHandler extends Handler {
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// article preview will work for those who can see it.
         if ($applicationName == 'ojs2') {
-			$issueDao = DAORegistry::getDAO('IssueDAO');
-			$issueId = method_exists($this->submission, 'getCurrentPublication') ? $this->submission->getCurrentPublication()->getData('issueId') : $this->submission->getIssueId();
-			$issue = $issueDao->getById($issueId, $context->getId());
-			if (!$issue || !$issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
+			if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
 				$userCanAccess = false;
 				if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
 					$userGroupDao = DAORegistry::getDAO('UserGroupDAO');

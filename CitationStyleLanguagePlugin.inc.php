@@ -267,25 +267,32 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$application = Application::get();
 		$this->applicationName = $application->getName();
 		if ($this->applicationName == 'ojs2') {
-            $submission = $args[2];
-            $publication = $args[3];
-        } else {
+			$issue = $args[1];
+			$submission = $args[2];
+			$publication = $args[3];
+			$submissionNoun = 'article';
+		} elseif ($this->applicationName == 'ops') {
+			$issue = null;
 			$submission = $args[1];
 			$publication = $args[2];
+			$submissionNoun = 'preprint';
 		}
 		$context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
+		$issueId = $issue ? $issue->getId() : null;
         $templateMgr = TemplateManager::getManager();
 
         $citationArgs = array(
             'submissionId' => $submission->getId(),
             'publicationId' => $publication->getId(),
+			'issueId' => $issueId,
+			'submissionNoun' => $submissionNoun,
         );
         $citationArgsJson = $citationArgs;
         $citationArgsJson['return'] = 'json';
 
 		$templateMgr->assign(array(
-            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId)),
+            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $submissionNoun),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -314,14 +321,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @return string
 	 */
-	public function getCitation($request, $submission, $citationStyle = 'apa') {
+	public function getCitation($request, $submission, $citationStyle = 'apa', $issue, $submissionNoun) {
 		$publication = $submission->getCurrentPublication();
 		$context = $request->getContext();
-		$issue = null;
-		if ($this->applicationName == "ojs2") {
-			$issueDao = DAORegistry::getDAO('IssueDAO'); /* @var $issueDao IssueDAO */
-			$issue = $issueDao->getById($publication->getData('issueId'));
-		}
 		import('lib.pkp.classes.core.PKPString');
 		$citationData = new stdClass();
 		$citationData->type = 'article-journal';
@@ -350,7 +352,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$request,
 			ROUTE_PAGE,
 			null,
-			$this->applicationName == 'ojs2' ? 'article' : 'preprint',
+			$submissionNoun,
 			'view',
 			$submission->getBestId()
 		);
@@ -462,13 +464,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @return string
 	 */
-	public function downloadCitation($request, $submission, $citationStyle = 'ris') {		
+	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue, $submissionNoun) {		
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
 		if (empty($styleConfig)) {
 			return false;
 		}
 
-		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle)));
+		$citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $submissionNoun)));
 		// TODO this is likely going to cause an error in a citation some day,
 		// but is necessary to get the .ris downloadable format working. The
 		// CSL language doesn't seem to offer a way to indicate a line break.
