@@ -14,6 +14,7 @@
  */
 
 use APP\facades\Repo;
+use PKP\facades\Locale;
 use PKP\plugins\GenericPlugin;
 use PKP\linkAction\request\AjaxModal;
 use PKP\linkAction\LinkAction;
@@ -455,8 +456,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     // Fall back English if none found.
                     $tryLocale = null;
                     foreach ([
-                        str_replace('_', '-', substr(AppLocale::getLocale(), 0, 5)),
-                        substr(AppLocale::getLocale(), 0, 2),
+                        str_replace('_', '-', substr(Locale::getLocale(), 0, 5)),
+                        substr(Locale::getLocale(), 0, 2),
                         'en-US'
                     ] as $tryLocale) {
                         if (file_exists(dirname(__FILE__) . '/lib/vendor/citation-style-language/locales/locales-' . $tryLocale . '.xml')) {
