@@ -13,14 +13,20 @@
  * @brief Citation Style Language plugin class.
  */
 
-use APP\facades\Repo;
-use PKP\facades\Locale;
-use PKP\plugins\GenericPlugin;
-use PKP\linkAction\request\AjaxModal;
-use PKP\linkAction\LinkAction;
-use PKP\core\JSONMessage;
+require_once __DIR__ . '/lib/vendor/autoload.php';
 
-require_once(__DIR__ . '/lib/vendor/autoload.php');
+use APP\core\Application;
+use APP\facades\Repo;
+use APP\template\TemplateManager;
+use PKP\config\Config;
+use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\AjaxModal;
+use PKP\plugins\GenericPlugin;
+use PKP\plugins\HookRegistry;
 use Seboettg\CiteProc\CiteProc;
 
 class CitationStyleLanguagePlugin extends GenericPlugin
@@ -55,7 +61,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function register($category, $path, $mainContextId = null)
     {
         $success = parent::register($category, $path, $mainContextId);
-        if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) {
+        if (!Application::isReady()) {
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
