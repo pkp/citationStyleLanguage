@@ -17,6 +17,7 @@ use APP\facades\Repo;
 use PKP\plugins\GenericPlugin;
 use PKP\linkAction\request\AjaxModal;
 use PKP\linkAction\LinkAction;
+use PKP\core\JSONMessage;
 
 require_once(__DIR__ . '/lib/vendor/autoload.php');
 use Seboettg\CiteProc\CiteProc;
