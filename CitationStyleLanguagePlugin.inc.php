@@ -350,13 +350,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$authors = $publication->getData('authors');
 		if (count($authors)) {
 			$citationData->author = array();
+			$currentLocale = AppLocale::getLocale();
 			foreach ($authors as $author) {
 				$currentAuthor = new stdClass();
-				if (empty($author->getLocalizedFamilyName())) {
-					$currentAuthor->family = htmlspecialchars($author->getLocalizedGivenName());
+				if (empty($author->getLocalizedFamilyName($currentLocale))) {
+					$currentAuthor->family = htmlspecialchars($author->getLocalizedGivenName($currentLocale));
 				} else {
-					$currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
-					$currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
+					$currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName($currentLocale));
+					$currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName($currentLocale));
 				}
 				$citationData->author[] = $currentAuthor;
 			}
