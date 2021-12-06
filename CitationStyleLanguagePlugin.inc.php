@@ -127,6 +127,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'title' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
                 'isEnabled' => true,
             ],
+		  [
+                'id' => 'ama',
+                'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
+                'isEnabled' => true,
+            ],
         ];
 
         // If hooking in to add a custom .csl file, add a `useCsl` key to your

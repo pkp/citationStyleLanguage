@@ -62,6 +62,9 @@ msgstr "Turabian"
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
 msgstr "Vancouver"
 
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
 msgid "plugins.generic.citationStyleLanguage.download.bibtex"
 msgstr "BibTeX"
 

@@ -54,6 +54,9 @@ msgstr "BibTeX"
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
 msgstr "Vancouver"
 
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
 msgstr "Turabian"
 
