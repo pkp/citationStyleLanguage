@@ -51,9 +51,6 @@ msgstr "БибТекс"
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
 msgstr "Ванкувер"
 
-msgid "plugins.generic.citationStyleLanguage.style.ama"
-msgstr "AMA"
-
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
 msgstr "Турабиски"
 

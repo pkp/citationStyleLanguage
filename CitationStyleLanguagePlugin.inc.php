@@ -127,7 +127,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'title' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
                 'isEnabled' => true,
             ],
-		  [
+            [
                 'id' => 'ama',
                 'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
                 'isEnabled' => true,

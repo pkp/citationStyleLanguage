@@ -54,9 +54,6 @@ msgstr "BibTex"
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
 msgstr "Kiểu Vancouver"
 
-msgid "plugins.generic.citationStyleLanguage.style.ama"
-msgstr "AMA"
-
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
 msgstr "Kiểu Turabian"
 
