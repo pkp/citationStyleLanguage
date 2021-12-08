@@ -1,15 +1,19 @@
+# Cyril Kamburov <cc@intermedia.bg>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
+"PO-Revision-Date: 2021-09-15 21:05+0000\n"
+"Last-Translator: Cyril Kamburov <cc@intermedia.bg>\n"
+"Language-Team: Bulgarian <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/bg_BG/>\n"
+"Language: bg_BG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2019-11-19T13:44:50+00:00\n"
-"Language: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Език за стил на цитиране"
@@ -30,10 +34,10 @@ msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-norm
 msgstr "ABNT"
 
 msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
-msgstr "Chicago"
+msgstr "Чикаго"
 
 msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
-msgstr "Harvard"
+msgstr "Харвард"
 
 msgid "plugins.generic.citationStyleLanguage.style.ieee"
 msgstr "IEEE"
@@ -42,16 +46,16 @@ msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
 msgstr "MLA"
 
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
-msgstr "Turabian"
+msgstr "Турабиан"
 
 msgid "plugins.generic.citationStyleLanguage.style.vancouver"
-msgstr "Vancouver"
+msgstr "Ванкувър"
 
 msgid "plugins.generic.citationStyleLanguage.download.bibtex"
-msgstr "BibTeX"
+msgstr "БибТекс (BibTeX)"
 
 msgid "plugins.generic.citationStyleLanguage.download.ris"
-msgstr "Endnote/Zotero/Mendeley (RIS)"
+msgstr "Endnote/Zotero/Mendeley (РИС - RIS)"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
 msgstr "Формати за изтегляне"
