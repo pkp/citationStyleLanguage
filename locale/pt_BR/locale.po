@@ -1,9 +1,10 @@
+# Diego José Macêdo <diegojmacedo@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
-"PO-Revision-Date: 2021-02-27 17:54+0000\n"
+"PO-Revision-Date: 2021-12-11 02:15+0000\n"
 "Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/"
 "plugins/citation-style-language-plugin/pt_BR/>\n"
@@ -18,7 +19,9 @@ msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Linguagem de Estilo de Citação"
 
 msgid "plugins.generic.citationStyleLanguage.description"
-msgstr "Permite aos leitores recuperar a citação de um artigo publicado em um dos diferentes formatos apoiados pela Linguagem de Estilos de Citação."
+msgstr ""
+"Permite aos leitores recuperar a citação de um artigo publicado em um dos "
+"diferentes formatos apoiados pela Linguagem de Estilo de Citação."
 
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
@@ -84,3 +87,6 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Localização do Editor"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
