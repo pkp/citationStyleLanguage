@@ -1,8 +1,94 @@
 # OBIDJON ABDULLOYEV <obidjon1987@mail.ru>, 2021.
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2021-12-26 18:18+0000\n"
+"Last-Translator: OBIDJON ABDULLOYEV <obidjon1987@mail.ru>\n"
+"Language-Team: Uzbek <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/uz_UZ@latin/>\n"
 "Language: uz_UZ@latin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Weblate\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"Ba'zi iqtibos formatlari nashriyotning geografik joylashuvini talab qiladi, "
+"masalan, \"London, Buyuk Britaniya\"."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "Nashriyotning joylashuvi"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"Maqolaning ochilish sahifasida odatdagi bo'yicha qaysi iqtibos formatini "
+"ko'rsatishni tanlang."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Birlamchi iqtibos formati"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr ""
+"O'quvchilaringizga qaysi qo'shimcha formatlarni taklif qilishni tanlang."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Qo'shimcha iqtibos formatlari"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"O'quvchilaringizga qaysi yuklab olinadigan formatlarni taklif qilishni "
+"tanlang. Yuklab olinadigan formatlar odatda EndNote yoki Zotero kabi "
+"uchinchi tomon bibliografiyasini boshqarish dasturlariga import qilish uchun "
+"ishlatiladi."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Yuklab olish formatlari"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vankuver"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turobiya uslubi"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Garvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chikago"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "BTSU"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"O'quvchilarga Iqtiboslar uslubi tili tomonidan qo'llab-quvvatlanadigan bir "
+"nechta formatlardan birida nashr etilgan maqoladan iqtibos olishiga ruxsat "
+"bering."
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Iqtibos uslubi tili"
