@@ -1,12 +1,13 @@
+# Margit Dellatorre <margit.dellatorre@hbz.uzh.ch>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
-"PO-Revision-Date: 2019-12-29 17:34+0000\n"
-"Last-Translator: Lucia Steele <lucia.steele@aboutscience.eu>\n"
+"PO-Revision-Date: 2022-01-13 14:25+0000\n"
+"Last-Translator: Margit Dellatorre <margit.dellatorre@hbz.uzh.ch>\n"
 "Language-Team: Italian <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/it/>\n"
+"citation-style-language-plugin/it_IT/>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,3 +85,6 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Localizzazione del publisher"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
