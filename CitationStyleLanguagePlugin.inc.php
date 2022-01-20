@@ -18,7 +18,6 @@ require_once __DIR__ . '/lib/vendor/autoload.php';
 use APP\core\Application;
 use APP\facades\Repo;
 use APP\template\TemplateManager;
-use PKP\config\Config;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\db\DAORegistry;
@@ -188,11 +187,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return array_filter($styles, function ($style) {
                 return !empty($style['isEnabled']);
             });
-        } else {
-            return array_filter($styles, function ($style) use ($enabled) {
-                return in_array($style['id'], $enabled);
-            });
         }
+        return array_filter($styles, function ($style) use ($enabled) {
+            return in_array($style['id'], $enabled);
+        });
     }
 
     /**
@@ -247,11 +245,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return array_filter($downloads, function ($style) {
                 return !empty($style['isEnabled']);
             });
-        } else {
-            return array_filter($downloads, function ($style) use ($enabled) {
-                return in_array($style['id'], $enabled);
-            });
         }
+        return array_filter($downloads, function ($style) use ($enabled) {
+            return in_array($style['id'], $enabled);
+        });
     }
 
     /**
@@ -486,11 +483,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function loadStyle($styleConfig)
     {
-        if (!empty($styleConfig['useCsl'])) {
-            return file_get_contents($styleConfig['useCsl']);
-        } else {
-            return file_get_contents($this->getPluginPath() . '/citation-styles/' . $styleConfig['id'] . '.csl');
-        }
+        $path = empty($styleConfig['useCsl'])
+            ? $this->getPluginPath() . '/citation-styles/' . $styleConfig['id'] . '.csl'
+            : $styleConfig['useCsl'];
+        return file_get_contents($path);
     }
 
     /**

@@ -15,6 +15,8 @@
 
 use APP\facades\Repo;
 use APP\handler\Handler;
+use PKP\core\JSONMessage;
+use PKP\db\DAORegistry;
 use PKP\plugins\PluginRegistry;
 use PKP\security\Role;
 use PKP\submission\PKPSubmission;
@@ -102,7 +104,7 @@ class CitationStyleLanguageHandler extends Handler
         PluginRegistry::loadCategory('metadata', true);
 
         $this->citationStyle = $args[0];
-        $this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
+        $this->returnJson = ($userVars['return'] ?? null) === 'json';
         $this->article = Repo::submission()->get($userVars['submissionId']);
 
         if (!$this->article) {
