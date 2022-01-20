@@ -152,7 +152,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get the primary style name or default to the first available style
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return string
      */
@@ -176,7 +176,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get enabled citation styles
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return array
      */
@@ -235,7 +235,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get enabled citation styles
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return array
      */
@@ -257,7 +257,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Pluck citation IDs from array of citations
      *
-     * @param $citations array See getCitationStyles()
+     * @param array $citations See getCitationStyles()
      *
      * @return array
      */
@@ -271,7 +271,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get citation config for a citation ID
      *
-     * @param $styleId string Example: 'apa'
+     * @param string $styleId Example: 'apa'
      *
      * @return array
      */
@@ -290,7 +290,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @see ArticleHandler::view()
      *
-     * @param $args array
+     * @param array $args
      *
      * @return false
      */
@@ -337,18 +337,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
      * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
      *
-     * @param $request Request
-     * @param $article Submission
-     * @param $citationStyle string Name of the citation style to use.
-     * @param $issue Issue Optional. Will fetch from db if not passed.
-     * @param $publication Publication Optional. A particular version
+     * @param Request $request
+     * @param Submission $article
+     * @param string $citationStyle Name of the citation style to use.
+     * @param Issue $issue Optional. Will fetch from db if not passed.
+     * @param Publication $publication Optional. A particular version
      *
      * @return string
      */
     public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null)
     {
-        $publication = $publication ?? $article->getCurrentPublication();
-        $issue = $issue ?? Repo::issue()->get($publication->getData('issueId'));
+        $publication ??= $article->getCurrentPublication();
+        $issue ??= Repo::issue()->get($publication->getData('issueId'));
         $context = $request->getContext();
 
         import('lib.pkp.classes.core.PKPString');
@@ -482,7 +482,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Load a CSL style and return the contents as a string
      *
-     * @param $styleConfig array CSL configuration to load
+     * @param array $styleConfig CSL configuration to load
      */
     public function loadStyle($styleConfig)
     {
@@ -499,10 +499,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * Downloadable citation formats can be used to import into third-party
      * software.
      *
-     * @param $request Request
-     * @param $article Submission
-     * @param $citationStyle string Name of the citation style to use.
-     * @param $issue Issue Optional. Will fetch from db if not passed.
+     * @param Request $request
+     * @param Submission $article
+     * @param string $citationStyle Name of the citation style to use.
+     * @param Issue $issue Optional. Will fetch from db if not passed.
      *
      * @return string
      */
@@ -601,8 +601,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @see PKPPageRouter::route()
      *
-     * @param $hookName string
-     * @param $params array
+     * @param string $hookName
+     * @param array $params
      */
     public function setPageHandler($hookName, $params)
     {

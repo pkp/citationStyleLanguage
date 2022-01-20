@@ -13,11 +13,11 @@
  * @brief Handle router requests for the citation style language plugin
  */
 
-use APP\handler\Handler;
 use APP\facades\Repo;
+use APP\handler\Handler;
 use PKP\plugins\PluginRegistry;
-use PKP\submission\PKPSubmission;
 use PKP\security\Role;
+use PKP\submission\PKPSubmission;
 
 class CitationStyleLanguageHandler extends Handler
 {
@@ -39,8 +39,8 @@ class CitationStyleLanguageHandler extends Handler
     /**
      * Get a citation style
      *
-     * @param $args array
-     * @param $request PKPRequest
+     * @param array $args
+     * @param PKPRequest $request
      *
      * @return null|JSONMessage
      */
@@ -69,8 +69,8 @@ class CitationStyleLanguageHandler extends Handler
     /**
      * Download a citation in a downloadable format
      *
-     * @param $args array
-     * @param $request PKPRequest
+     * @param array $args
+     * @param PKPRequest $request
      */
     public function download($args, $request)
     {
@@ -84,8 +84,8 @@ class CitationStyleLanguageHandler extends Handler
     /**
      * Generate a citation based on page parameters
      *
-     * @param $args array
-     * @param $request PKPRequest
+     * @param array $args
+     * @param PKPRequest $request
      */
     public function _setupRequest($args, $request)
     {

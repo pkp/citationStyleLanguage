@@ -12,10 +12,10 @@
  * @brief Form for site admins to modify Citation Style Language settings.
  */
 
-use PKP\form\Form;
-use PKP\notification\PKPNotification;
-
 use APP\notification\NotificationManager;
+use PKP\form\Form;
+
+use PKP\notification\PKPNotification;
 
 class CitationStyleLanguageSettingsForm extends Form
 {
@@ -25,7 +25,7 @@ class CitationStyleLanguageSettingsForm extends Form
     /**
      * Constructor
      *
-     * @param $plugin object
+     * @param object $plugin
      */
     public function __construct($plugin)
     {
