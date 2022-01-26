@@ -1,9 +1,10 @@
+# M. Ali <vorteem@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2020-06-15 06:39+0000\n"
+"PO-Revision-Date: 2022-01-27 03:25+0000\n"
 "Last-Translator: M. Ali <vorteem@gmail.com>\n"
 "Language-Team: Arabic <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/ar_IQ/>\n"
@@ -82,3 +83,6 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "موقع الناشر"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
