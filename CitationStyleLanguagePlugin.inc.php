@@ -422,6 +422,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->page = htmlspecialchars($publication->getData('pages'));
         }
 
+        // DOI
+        if ($issue && $issue->getPublished()) {
+            $citationData->DOI = $article->getStoredPubId('doi');
+        }
+
         HookRegistry::call('CitationStyleLanguage::citation', [&$citationData, &$citationStyle, $article, $issue, $context, $publication]);
 
         $citation = '';
