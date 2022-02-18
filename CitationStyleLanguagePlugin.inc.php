@@ -13,13 +13,19 @@
  * @brief Citation Style Language plugin class.
  */
 
-use APP\facades\Repo;
-use PKP\plugins\GenericPlugin;
-use PKP\linkAction\request\AjaxModal;
-use PKP\linkAction\LinkAction;
-use PKP\core\JSONMessage;
+require_once __DIR__ . '/lib/vendor/autoload.php';
 
-require_once(__DIR__ . '/lib/vendor/autoload.php');
+use APP\core\Application;
+use APP\facades\Repo;
+use APP\template\TemplateManager;
+use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\AjaxModal;
+use PKP\plugins\GenericPlugin;
+use PKP\plugins\HookRegistry;
 use Seboettg\CiteProc\CiteProc;
 
 class CitationStyleLanguagePlugin extends GenericPlugin
@@ -54,7 +60,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function register($category, $path, $mainContextId = null)
     {
         $success = parent::register($category, $path, $mainContextId);
-        if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) {
+        if (Application::isUnderMaintenance()) {
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
@@ -145,7 +151,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get the primary style name or default to the first available style
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return string
      */
@@ -169,7 +175,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get enabled citation styles
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return array
      */
@@ -181,11 +187,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return array_filter($styles, function ($style) {
                 return !empty($style['isEnabled']);
             });
-        } else {
-            return array_filter($styles, function ($style) use ($enabled) {
-                return in_array($style['id'], $enabled);
-            });
         }
+        return array_filter($styles, function ($style) use ($enabled) {
+            return in_array($style['id'], $enabled);
+        });
     }
 
     /**
@@ -228,7 +233,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get enabled citation styles
      *
-     * @param $contextId integer Journal ID
+     * @param int $contextId Journal ID
      *
      * @return array
      */
@@ -240,17 +245,16 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return array_filter($downloads, function ($style) {
                 return !empty($style['isEnabled']);
             });
-        } else {
-            return array_filter($downloads, function ($style) use ($enabled) {
-                return in_array($style['id'], $enabled);
-            });
         }
+        return array_filter($downloads, function ($style) use ($enabled) {
+            return in_array($style['id'], $enabled);
+        });
     }
 
     /**
      * Pluck citation IDs from array of citations
      *
-     * @param $citations array See getCitationStyles()
+     * @param array $citations See getCitationStyles()
      *
      * @return array
      */
@@ -264,7 +268,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Get citation config for a citation ID
      *
-     * @param $styleId string Example: 'apa'
+     * @param string $styleId Example: 'apa'
      *
      * @return array
      */
@@ -283,7 +287,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @see ArticleHandler::view()
      *
-     * @param $args array
+     * @param array $args
      *
      * @return false
      */
@@ -330,18 +334,18 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
      * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
      *
-     * @param $request Request
-     * @param $article Submission
-     * @param $citationStyle string Name of the citation style to use.
-     * @param $issue Issue Optional. Will fetch from db if not passed.
-     * @param $publication Publication Optional. A particular version
+     * @param Request $request
+     * @param Submission $article
+     * @param string $citationStyle Name of the citation style to use.
+     * @param Issue $issue Optional. Will fetch from db if not passed.
+     * @param Publication $publication Optional. A particular version
      *
      * @return string
      */
     public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null)
     {
-        $publication = $publication ?? $article->getCurrentPublication();
-        $issue = $issue ?? Repo::issue()->get($publication->getData('issueId'));
+        $publication ??= $article->getCurrentPublication();
+        $issue ??= Repo::issue()->get($publication->getData('issueId'));
         $context = $request->getContext();
 
         import('lib.pkp.classes.core.PKPString');
@@ -455,8 +459,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     // Fall back English if none found.
                     $tryLocale = null;
                     foreach ([
-                        str_replace('_', '-', substr(AppLocale::getLocale(), 0, 5)),
-                        substr(AppLocale::getLocale(), 0, 2),
+                        str_replace('_', '-', substr(Locale::getLocale(), 0, 5)),
+                        substr(Locale::getLocale(), 0, 2),
                         'en-US'
                     ] as $tryLocale) {
                         if (file_exists(dirname(__FILE__) . '/lib/vendor/citation-style-language/locales/locales-' . $tryLocale . '.xml')) {
@@ -475,15 +479,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Load a CSL style and return the contents as a string
      *
-     * @param $styleConfig array CSL configuration to load
+     * @param array $styleConfig CSL configuration to load
      */
     public function loadStyle($styleConfig)
     {
-        if (!empty($styleConfig['useCsl'])) {
-            return file_get_contents($styleConfig['useCsl']);
-        } else {
-            return file_get_contents($this->getPluginPath() . '/citation-styles/' . $styleConfig['id'] . '.csl');
-        }
+        $path = empty($styleConfig['useCsl'])
+            ? $this->getPluginPath() . '/citation-styles/' . $styleConfig['id'] . '.csl'
+            : $styleConfig['useCsl'];
+        return file_get_contents($path);
     }
 
     /**
@@ -492,10 +495,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * Downloadable citation formats can be used to import into third-party
      * software.
      *
-     * @param $request Request
-     * @param $article Submission
-     * @param $citationStyle string Name of the citation style to use.
-     * @param $issue Issue Optional. Will fetch from db if not passed.
+     * @param Request $request
+     * @param Submission $article
+     * @param string $citationStyle Name of the citation style to use.
+     * @param Issue $issue Optional. Will fetch from db if not passed.
      *
      * @return string
      */
@@ -594,8 +597,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @see PKPPageRouter::route()
      *
-     * @param $hookName string
-     * @param $params array
+     * @param string $hookName
+     * @param array $params
      */
     public function setPageHandler($hookName, $params)
     {
