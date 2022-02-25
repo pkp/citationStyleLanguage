@@ -326,7 +326,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$context = $request->getContext();
 		import('lib.pkp.classes.core.PKPString');
 		$citationData = new stdClass();
-		$citationData->type = 'article-journal';
+		$citationData->type = ($this->applicationName == 'ojs2' ? 'article-journal' : 'article');
 		$citationData->id = $submission->getId();
 		$citationData->title = $publication->getLocalizedFullTitle();
 		$citationData->{'container-title'} = $context->getLocalizedName();
