@@ -119,23 +119,23 @@ class CitationStyleLanguageHandler extends Handler {
 					$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
 					$assignmentsResults = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
 					while ($assignment = $assignmentsResults->next()) {
-                        if ($assignment->getUserId() !== $user->getId()) continue;
+						if ($assignment->getUserId() !== $user->getId()) continue;
 						$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
 						if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
 							$userCanAccess = true;
 							break;
 						}
 					}
-                }
+				}
 				
 				if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
-                    $userCanAccess = true;
-                }
+					$userCanAccess = true;
+				}
 
 				if (!$userCanAccess) {
-                    $request->getDispatcher()->handle404();
-                }
-            }
-        }
+					$request->getDispatcher()->handle404();
+				}
+			}
+		}
 	}
 }

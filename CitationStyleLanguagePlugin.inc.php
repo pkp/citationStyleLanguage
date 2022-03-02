@@ -253,15 +253,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	}
 
 	/**
-     * Retrieve citation information for the submission details template.
+	 * Retrieve citation information for the submission details template.
 	 * This method is hooked in before a template displays.
-     *
+	 *
 	 * @see PreprintHandler::view()
-     * @param $hookname string
-     * @param $args array
-     * @return false
-     */
-    public function getSubmissionTemplateData($hookName, $args)
+	 * @param $hookname string
+	 * @param $args array
+	 * @return false
+	 */
+	public function getSubmissionTemplateData($hookName, $args)
 	{
 		$request = $args[0];
 		$application = Application::get();
@@ -278,33 +278,33 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 			$submissionNoun = 'preprint';
 		}
 		$context = $request->getContext();
-        $contextId = $context ? $context->getId() : 0;
+		$contextId = $context ? $context->getId() : 0;
 		$issueId = $issue ? $issue->getId() : null;
-        $templateMgr = TemplateManager::getManager();
+		$templateMgr = TemplateManager::getManager();
 
-        $citationArgs = array(
-            'submissionId' => $submission->getId(),
-            'publicationId' => $publication->getId(),
+		$citationArgs = array(
+			'submissionId' => $submission->getId(),
+			'publicationId' => $publication->getId(),
 			'issueId' => $issueId,
 			'submissionNoun' => $submissionNoun,
-        );
-        $citationArgsJson = $citationArgs;
-        $citationArgsJson['return'] = 'json';
+		);
+		$citationArgsJson = $citationArgs;
+		$citationArgsJson['return'] = 'json';
 
 		$templateMgr->assign(array(
-            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $submissionNoun),
-            'citationArgs' => $citationArgs,
-            'citationArgsJson' => $citationArgsJson,
-            'citationStyles' => $this->getEnabledCitationStyles($contextId),
-            'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
-        ));
+			'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $submissionNoun),
+			'citationArgs' => $citationArgs,
+			'citationArgsJson' => $citationArgsJson,
+			'citationStyles' => $this->getEnabledCitationStyles($contextId),
+			'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
+		));
 
 		$templateMgr->addJavaScript(
-            'citationStyleLanguage',
-            $request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
-        );
+			'citationStyleLanguage',
+			$request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
+		);
 
-        return false;
+		return false;
 	}
 
 	/**
