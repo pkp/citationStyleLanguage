@@ -36,6 +36,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /** @var array List of citation download formats available */
     public $_citationDownloads = [];
 
+	/** @var string Name of the application */
+	public $applicationName = '';
+
     /**
      * @copydoc Plugin::getDisplayName()
      */
@@ -64,7 +67,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
-            HookRegistry::register('ArticleHandler::view', [$this, 'getArticleTemplateData']);
+            HookRegistry::register('ArticleHandler::view', [$this, 'getSubmissionTemplateData']);
+			HookRegistry::register('PreprintHandler::view', array($this, 'getSubmissionTemplateData'));
             HookRegistry::register('LoadHandler', [$this, 'setPageHandler']);
         }
         return $success;
@@ -282,7 +286,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     }
 
     /**
-     * Retrieve citation information for the article details template. This
+     * Retrieve citation information for the submission details template. This
      * method is hooked in before a template displays.
      *
      * @see ArticleHandler::view()
@@ -291,25 +295,39 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return false
      */
-    public function getArticleTemplateData($hookName, $args)
+    public function getSubmissionTemplateData($hookName, $args)
     {
         $request = $args[0];
-        $issue = $args[1];
-        $article = $args[2];
-        $publication = $args[3];
+		$application = Application::get();
+		$this->applicationName = $application->getName();
+		if ($this->applicationName == 'ojs2') {
+			$issue = $args[1];
+			$submission = $args[2];
+			$publication = $args[3];
+			$submissionNoun = 'article';
+		} elseif ($this->applicationName == 'ops') {
+			$issue = null;
+			$submission = $args[1];
+			$publication = $args[2];
+			$submissionNoun = 'preprint';
+		}
+		
         $context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
+		$issueId = $issue ? $issue->getId() : null;
         $templateMgr = TemplateManager::getManager();
 
         $citationArgs = [
-            'submissionId' => $article->getId(),
+            'submissionId' => $submission->getId(),
             'publicationId' => $publication->getId(),
+			'issueId' => $issueId,
+			'submissionNoun' => $submissionNoun,
         ];
         $citationArgsJson = $citationArgs;
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign([
-            'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue, $publication),
+            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $submissionNoun),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -325,7 +343,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     }
 
     /**
-     * Get a specified citation for a given article
+     * Get a specified citation for a given submission
      *
      * This citation format follows the csl-json schema and takes some direction
      * from existing CSL mappings documented by Zotero and Mendeley.
@@ -335,24 +353,23 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
      *
      * @param Request $request
-     * @param Submission $article
+     * @param Submission $submission
      * @param string $citationStyle Name of the citation style to use.
      * @param Issue $issue Optional. Will fetch from db if not passed.
      * @param Publication $publication Optional. A particular version
      *
      * @return string
      */
-    public function getCitation($request, $article, $citationStyle = 'apa', $issue = null, $publication = null)
+    public function getCitation($request, $submission, $citationStyle = 'apa', $issue, $submissionNoun)
     {
-        $publication ??= $article->getCurrentPublication();
-        $issue ??= Repo::issue()->get($publication->getData('issueId'));
+        $publication ??= $submission->getCurrentPublication();
         $context = $request->getContext();
 
         import('lib.pkp.classes.core.PKPString');
 
         $citationData = new stdClass();
-        $citationData->type = 'article-journal';
-        $citationData->id = $article->getId();
+        $citationData->type = ($this->applicationName == 'ojs2' ? 'article-journal' : 'article');
+        $citationData->id = $submission->getId();
         $citationData->title = $publication->getLocalizedFullTitle();
         $citationData->{'container-title'} = $context->getLocalizedName();
         $citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
@@ -381,9 +398,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $request,
             PKPApplication::ROUTE_PAGE,
             null,
-            'article',
+            $submissionNoun,
             'view',
-            $article->getBestId()
+            $submission->getBestId()
         );
         $citationData->accessed = new stdClass();
         $citationData->accessed->raw = date('Y-m-d');
@@ -406,7 +423,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         if ($publication->getData('datePublished')) {
             $citationData->issued = new stdClass();
             $citationData->issued->raw = htmlspecialchars($publication->getData('datePublished'));
-            $publishedPublications = $article->getPublishedPublications();
+            $publishedPublications = $submission->getPublishedPublications();
             if (count($publishedPublications) > 1) {
                 $originalPublication = array_reduce($publishedPublications, function ($a, $b) {
                     return $a && $a->getId() < $b->getId() ? $a : $b;
@@ -428,10 +445,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         // DOI
         if ($issue && $issue->getPublished()) {
-            $citationData->DOI = $article->getStoredPubId('doi');
+            $citationData->DOI = $submission->getStoredPubId('doi');
         }
 
-        HookRegistry::call('CitationStyleLanguage::citation', [&$citationData, &$citationStyle, $article, $issue, $context, $publication]);
+        HookRegistry::call('CitationStyleLanguage::citation', [&$citationData, &$citationStyle, $submission, $issue, $context, $publication]);
 
         $citation = '';
 
@@ -444,7 +461,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $templateMgr->assign([
                     'citationData' => $citationData,
                     'citationStyle' => $citationStyle,
-                    'article' => $article,
+                    'article' => $submission,
                     'publication' => $publication,
                     'issue' => $issue,
                     'journal' => $context,
@@ -496,33 +513,27 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * software.
      *
      * @param Request $request
-     * @param Submission $article
+     * @param Submission $submission
      * @param string $citationStyle Name of the citation style to use.
      * @param Issue $issue Optional. Will fetch from db if not passed.
      *
      * @return string
      */
-    public function downloadCitation($request, $article, $citationStyle = 'ris', $issue = null)
+    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue, $submissionNoun)
     {
-        $journal = $request->getContext();
-
-        if (empty($issue)) {
-            $issue = Repo::issue()->get($article->getCurrentPublication()->getData('issueId'));
-        }
-
         $styleConfig = $this->getCitationStyleConfig($citationStyle);
         if (empty($styleConfig)) {
             return false;
         }
 
-        $citation = trim(strip_tags($this->getCitation($request, $article, $citationStyle, $issue)));
+        $citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $submissionNoun)));
         // TODO this is likely going to cause an error in a citation some day,
         // but is necessary to get the .ris downloadable format working. The
         // CSL language doesn't seem to offer a way to indicate a line break.
         // See: https://github.com/citation-style-language/styles/issues/2831
         $citation = str_replace('\n', "\n", $citation);
 
-        $encodedFilename = urlencode(substr($article->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
+        $encodedFilename = urlencode(substr($submission->getLocalizedTitle(), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
         header("Content-Disposition: attachment; filename*=UTF-8''\"${encodedFilename}\"");
         header('Content-Type: ' . $styleConfig['contentType']);

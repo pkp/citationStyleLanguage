@@ -23,8 +23,8 @@ use PKP\submission\PKPSubmission;
 
 class CitationStyleLanguageHandler extends Handler
 {
-    /** @var Submission article being requested */
-    public $article = null;
+    /** @var Submission article or preprint being requested */
+    public $submission = null;
 
     /** @var Publication publication being requested */
     public $publication = null;
@@ -37,6 +37,9 @@ class CitationStyleLanguageHandler extends Handler
 
     /** @var bool Whether or not to return citation in JSON format */
     public $returnJson = false;
+
+    /** @var string application-specific submission noun */
+	public $submissionNoun = '';
 
     /**
      * Get a citation style
@@ -51,7 +54,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->_setupRequest($args, $request);
 
         $plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-        $citation = $plugin->getCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
+        $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
 
         if ($citation === false) {
             if ($this->returnJson) {
@@ -79,7 +82,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->_setupRequest($args, $request);
 
         $plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-        $plugin->downloadCitation($request, $this->article, $this->citationStyle, $this->issue, $this->publication);
+        $plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
         exit;
     }
 
@@ -105,53 +108,47 @@ class CitationStyleLanguageHandler extends Handler
 
         $this->citationStyle = $args[0];
         $this->returnJson = ($userVars['return'] ?? null) === 'json';
-        $this->article = Repo::submission()->get($userVars['submissionId']);
+        $this->submission = Repo::submission()->get($userVars['submissionId']);
+        $this->issue = $userVars['issueId'] ? Repo::issue()->get($userVars['issueId']) : null;
+        $this->submissionNoun = $userVars['submissionNoun'];
 
-        if (!$this->article) {
+        if (!$this->submission) {
             $request->getDispatcher()->handle404();
         }
 
-        $this->publication = !empty($userVars['publicationId'])
-            ? Repo::publication()->get($userVars['publicationId'])
-            : $this->article->getCurrentPublication();
-
-        if ($this->article) {
-            // Support OJS 3.1.x and 3.2
-            $issueId = method_exists($this->article, 'getCurrentPublication') ? $this->article->getCurrentPublication()->getData('issueId') : $this->article->getIssueId();
-            $issue = Repo::issue()->get($issueId);
-            $issue = $issue->getJournalId() == $context->getId() ? $issue : null;
-            $this->issue = $issue;
-        }
+        $applicationName = Application::get()->getName();
 
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
-        // article preview will work for those who can see it.
-        if (!$this->issue || !$this->issue->getPublished() || $this->article->getStatus() != PKPSubmission::STATUS_PUBLISHED) {
-            $userCanAccess = false;
+        // submission preview will work for those who can see it.
+        if($applicationName == 'ojs2'){
+            if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != PKPSubmission::STATUS_PUBLISHED) {
+                $userCanAccess = false;
 
-            if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
-                $isAssigned = false;
-                $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-                $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-                $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->article->getId());
-                foreach ($assignments as $assignment) {
-                    if ($assignment->getUser()->getId() !== $user->getId()) {
-                        continue;
-                    }
-                    $userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
-                    if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
-                        $userCanAccess = true;
-                        break;
+                if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
+                    $isAssigned = false;
+                    $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+                    $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
+                    $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
+                    foreach ($assignments as $assignment) {
+                        if ($assignment->getUser()->getId() !== $user->getId()) {
+                            continue;
+                        }
+                        $userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
+                        if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
+                            $userCanAccess = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if ($user && $user->hasRole(Role::ROLE_ID_MANAGER, $context->getId())) {
-                $userCanAccess = true;
-            }
+                if ($user && $user->hasRole(Role::ROLE_ID_MANAGER, $context->getId())) {
+                    $userCanAccess = true;
+                }
 
-            if (!$userCanAccess) {
-                $request->getDispatcher()->handle404();
+                if (!$userCanAccess) {
+                    $request->getDispatcher()->handle404();
+                }
             }
         }
     }
