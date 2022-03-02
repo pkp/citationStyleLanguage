@@ -39,7 +39,7 @@ class CitationStyleLanguageHandler extends Handler
     public $returnJson = false;
 
     /** @var string application-specific submission noun */
-	public $submissionNoun = '';
+    public $submissionNoun = '';
 
     /**
      * Get a citation style

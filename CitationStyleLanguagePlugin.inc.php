@@ -36,8 +36,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /** @var array List of citation download formats available */
     public $_citationDownloads = [];
 
-	/** @var string Name of the application */
-	public $applicationName = '';
+    /** @var string Name of the application */
+    public $applicationName = '';
 
     /**
      * @copydoc Plugin::getDisplayName()
@@ -68,7 +68,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
         if ($success && $this->getEnabled($mainContextId)) {
             HookRegistry::register('ArticleHandler::view', [$this, 'getSubmissionTemplateData']);
-			HookRegistry::register('PreprintHandler::view', array($this, 'getSubmissionTemplateData'));
+            HookRegistry::register('PreprintHandler::view', array($this, 'getSubmissionTemplateData'));
             HookRegistry::register('LoadHandler', [$this, 'setPageHandler']);
         }
         return $success;
@@ -298,30 +298,30 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function getSubmissionTemplateData($hookName, $args)
     {
         $request = $args[0];
-		$application = Application::get();
-		$this->applicationName = $application->getName();
-		if ($this->applicationName == 'ojs2') {
-			$issue = $args[1];
-			$submission = $args[2];
-			$publication = $args[3];
-			$submissionNoun = 'article';
-		} elseif ($this->applicationName == 'ops') {
-			$issue = null;
-			$submission = $args[1];
-			$publication = $args[2];
-			$submissionNoun = 'preprint';
-		}
-		
+        $application = Application::get();
+        $this->applicationName = $application->getName();
+        if ($this->applicationName == 'ojs2') {
+            $issue = $args[1];
+            $submission = $args[2];
+            $publication = $args[3];
+            $submissionNoun = 'article';
+        } elseif ($this->applicationName == 'ops') {
+            $issue = null;
+            $submission = $args[1];
+            $publication = $args[2];
+            $submissionNoun = 'preprint';
+        }
+        
         $context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
-		$issueId = $issue ? $issue->getId() : null;
+        $issueId = $issue ? $issue->getId() : null;
         $templateMgr = TemplateManager::getManager();
 
         $citationArgs = [
             'submissionId' => $submission->getId(),
             'publicationId' => $publication->getId(),
-			'issueId' => $issueId,
-			'submissionNoun' => $submissionNoun,
+            'issueId' => $issueId,
+            'submissionNoun' => $submissionNoun,
         ];
         $citationArgsJson = $citationArgs;
         $citationArgsJson['return'] = 'json';
