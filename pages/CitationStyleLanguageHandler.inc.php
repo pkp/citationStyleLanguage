@@ -123,33 +123,33 @@ class CitationStyleLanguageHandler extends Handler
         // submission preview will work for those who can see it.
         if($applicationName == 'ojs2'){
             if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != PKPSubmission::STATUS_PUBLISHED) {
-                $userCanAccess = false;
-
-                if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
-                    $isAssigned = false;
-                    $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-                    $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-                    $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
-                    foreach ($assignments as $assignment) {
-                        if ($assignment->getUser()->getId() !== $user->getId()) {
-                            continue;
-                        }
-                        $userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
-                        if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
-                            $userCanAccess = true;
-                            break;
-                        }
-                    }
-                }
-
-                if ($user && $user->hasRole(Role::ROLE_ID_MANAGER, $context->getId())) {
-                    $userCanAccess = true;
-                }
-
-                if (!$userCanAccess) {
+                if (!$this->canUserAccess($context, $user)) {
                     $request->getDispatcher()->handle404();
                 }
             }
         }
+    }
+
+    private function canUserAccess($context, $user) {
+        if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
+            $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+            $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
+            $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
+            foreach ($assignments as $assignment) {
+                if ($assignment->getUser()->getId() == $user->getId()) {
+                    continue;
+                }
+                $userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
+                if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
+                    return true;
+                }
+            }
+        }
+
+        if ($user && $user->hasRole(Role::ROLE_ID_MANAGER, $context->getId())) {
+            return true;
+        }
+
+        return false;
     }
 }
