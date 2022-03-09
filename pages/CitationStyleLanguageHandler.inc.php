@@ -110,9 +110,6 @@ class CitationStyleLanguageHandler extends Handler {
 			$request->getDispatcher()->handle404();
 		}
 		
-		$application = Application::get();
-		$applicationName = $application->getName();
-		
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
 		// submission preview will work for those who can see it.
