@@ -38,9 +38,6 @@ class CitationStyleLanguageHandler extends Handler
     /** @var bool Whether or not to return citation in JSON format */
     public $returnJson = false;
 
-    /** @var string application-specific submission noun */
-    public $submissionNoun = '';
-
     /**
      * Get a citation style
      *
@@ -54,7 +51,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->_setupRequest($args, $request);
 
         $plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-        $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
+        $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue);
 
         if ($citation === false) {
             if ($this->returnJson) {
@@ -82,9 +79,18 @@ class CitationStyleLanguageHandler extends Handler
         $this->_setupRequest($args, $request);
 
         $plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-        $plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
+        $plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue);
         exit;
     }
+
+	protected function isSubmissionUnpublished($issue, $submission) {
+		$applicationName = Application::get()->getName();
+
+		if($applicationName == 'ojs2')
+			return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+		else if ($applicationName == 'ops')
+			return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+	}
 
     /**
      * Generate a citation based on page parameters
@@ -108,9 +114,8 @@ class CitationStyleLanguageHandler extends Handler
 
         $this->citationStyle = $args[0];
         $this->returnJson = ($userVars['return'] ?? null) === 'json';
-        $this->submission = Repo::submission()->get($userVars['submissionId']);
-        $this->issue = $userVars['issueId'] ? Repo::issue()->get($userVars['issueId']) : null;
-        $this->submissionNoun = $userVars['submissionNoun'];
+        $this->submission = Repo::submission()->get((int) $userVars['submissionId']);
+        $this->issue = $userVars['issueId'] ? Repo::issue()->get((int) $userVars['issueId']) : null;
 
         if (!$this->submission) {
             $request->getDispatcher()->handle404();
@@ -122,7 +127,7 @@ class CitationStyleLanguageHandler extends Handler
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
         if($applicationName == 'ojs2'){
-            if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != PKPSubmission::STATUS_PUBLISHED) {
+            if ($this->isSubmissionUnpublished($this->issue, $this->submission)) {
                 if (!$this->canUserAccess($context, $user)) {
                     $request->getDispatcher()->handle404();
                 }
@@ -130,7 +135,7 @@ class CitationStyleLanguageHandler extends Handler
         }
     }
 
-    private function canUserAccess($context, $user) {
+    protected function canUserAccess($context, $user) {
         if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
             $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
             $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');

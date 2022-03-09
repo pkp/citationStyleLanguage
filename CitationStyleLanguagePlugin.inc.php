@@ -67,8 +67,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
-            HookRegistry::register('ArticleHandler::view', [$this, 'getSubmissionTemplateData']);
-            HookRegistry::register('PreprintHandler::view', array($this, 'getSubmissionTemplateData'));
+			$this->applicationName = Application::get()->getName();
+
+            HookRegistry::register('ArticleHandler::view', [$this, 'getArticleTemplateData']);
+            HookRegistry::register('PreprintHandler::view', array($this, 'getPreprintTemplateData'));
             HookRegistry::register('LoadHandler', [$this, 'setPageHandler']);
         }
         return $success;
@@ -285,8 +287,16 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         return array_shift($styleConfig);
     }
 
-    /**
-     * Retrieve citation information for the submission details template. This
+	protected function getPublicationTypeUrlPath(): string {
+		switch ($this->applicationName) {
+			case 'ojs2': return 'article';
+			case 'ops': return 'preprint';
+		}
+		return '';
+	}
+
+	/**
+     * Retrieve citation information for the article details template. This
      * method is hooked in before a template displays.
      *
      * @see ArticleHandler::view()
@@ -295,39 +305,67 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return false
      */
-    public function getSubmissionTemplateData($hookName, $args)
+    public function getArticleTemplateData($hookName, $args)
     {
         $request = $args[0];
-        $application = Application::get();
-        $this->applicationName = $application->getName();
-        if ($this->applicationName == 'ojs2') {
-            $issue = $args[1];
-            $submission = $args[2];
-            $publication = $args[3];
-            $submissionNoun = 'article';
-        } elseif ($this->applicationName == 'ops') {
-            $issue = null;
-            $submission = $args[1];
-            $publication = $args[2];
-            $submissionNoun = 'preprint';
-        }
-        
+		$issue = $args[1];
+		$article = $args[2];
+		$publication = $args[3];
         $context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
-        $issueId = $issue ? $issue->getId() : null;
         $templateMgr = TemplateManager::getManager();
 
         $citationArgs = [
-            'submissionId' => $submission->getId(),
+            'submissionId' => $article->getId(),
             'publicationId' => $publication->getId(),
-            'issueId' => $issueId,
-            'submissionNoun' => $submissionNoun,
         ];
         $citationArgsJson = $citationArgs;
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign([
-            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $submissionNoun),
+            'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue),
+            'citationArgs' => $citationArgs,
+            'citationArgsJson' => $citationArgsJson,
+            'citationStyles' => $this->getEnabledCitationStyles($contextId),
+            'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
+        ]);
+
+        $templateMgr->addJavaScript(
+            'citationStyleLanguage',
+            $request->getBaseUrl() . '/' . $this->getPluginPath() . '/js/articleCitation.js'
+        );
+
+        return false;
+    }
+
+    /**
+     * Retrieve citation information for the preprint details template. This
+     * method is hooked in before a template displays.
+     *
+     * @see PreprintHandler::view()
+     *
+     * @param array $args
+     *
+     * @return false
+     */
+    public function getPreprintTemplateData($hookName, $args)
+    {
+        $request = $args[0];
+		$preprint = $args[1];
+		$publication = $args[2];
+        $context = $request->getContext();
+        $contextId = $context ? $context->getId() : 0;
+        $templateMgr = TemplateManager::getManager();
+
+        $citationArgs = [
+            'submissionId' => $preprint->getId(),
+            'publicationId' => $publication->getId(),
+        ];
+        $citationArgsJson = $citationArgs;
+        $citationArgsJson['return'] = 'json';
+
+        $templateMgr->assign([
+            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId)),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -360,8 +398,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return string
      */
-    public function getCitation($request, $submission, $citationStyle = 'apa', $issue, $submissionNoun)
-    {
+    public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null) {
         $publication ??= $submission->getCurrentPublication();
         $context = $request->getContext();
 
@@ -398,7 +435,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $request,
             PKPApplication::ROUTE_PAGE,
             null,
-            $submissionNoun,
+            $this->getPublicationTypeUrlPath(),
             'view',
             $submission->getBestId()
         );
@@ -519,7 +556,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return string
      */
-    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue, $submissionNoun)
+    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue)
     {
         $styleConfig = $this->getCitationStyleConfig($citationStyle);
         if (empty($styleConfig)) {
