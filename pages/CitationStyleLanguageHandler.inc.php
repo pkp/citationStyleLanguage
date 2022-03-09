@@ -31,9 +31,6 @@ class CitationStyleLanguageHandler extends Handler {
 	/** @var bool Whether or not to return citation in JSON format */
 	public $returnJson = false;
 
-	/** @var string application-specific submission noun */
-	public $submissionNoun = '';
-
 	/**
 	 * Get a citation style
 	 *
@@ -45,7 +42,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
+		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -72,8 +69,17 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->submissionNoun);
+		$plugin->downloadCitation($request, $this->submission, $this->citationStyle, $this->issue);
 		exit;
+	}
+
+	protected function isSubmissionUnpublished($issue, $submission) {
+		$applicationName = Application::get()->getName();
+
+		if($applicationName == 'ojs2')
+			return !$issue || !$issue->getPublished() || $submission->getStatus() != STATUS_PUBLISHED;
+		else if ($applicationName == 'ops')
+			return $submission->getStatus() != STATUS_PUBLISHED;
 	}
 
 	/**
@@ -97,9 +103,8 @@ class CitationStyleLanguageHandler extends Handler {
 
 		$this->citationStyle = $args[0];
 		$this->returnJson = isset($userVars['return']) && $userVars['return'] === 'json';
-		$this->submission = Services::get('submission')->get($userVars['submissionId']);
-		$this->issue = $userVars['issueId'] ? Services::get('issue')->get($userVars['issueId']) : null;
-		$this->submissionNoun = $userVars['submissionNoun'];
+		$this->submission = Services::get('submission')->get((int) $userVars['submissionId']);
+		$this->issue = $userVars['issueId'] ? Services::get('issue')->get((int) $userVars['issueId']) : null;
 		
 		if (!$this->submission) {
 			$request->getDispatcher()->handle404();
@@ -110,31 +115,29 @@ class CitationStyleLanguageHandler extends Handler {
 		
 		// Disallow access to unpublished submissions, unless the user is a
 		// journal manager or an assigned subeditor or assistant. This ensures the
-		// article preview will work for those who can see it.
-        if ($applicationName == 'ojs2') {
-			if (!$this->issue || !$this->issue->getPublished() || $this->submission->getStatus() != STATUS_PUBLISHED) {
-				$userCanAccess = false;
-				if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
-					$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-					$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-					$assignmentsResults = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
-					while ($assignment = $assignmentsResults->next()) {
-						if ($assignment->getUserId() !== $user->getId()) continue;
-						$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
-						if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
-							$userCanAccess = true;
-							break;
-						}
+		// submission preview will work for those who can see it.
+		if ($this->isSubmissionUnpublished($this->issue, $this->submission)) {
+			$userCanAccess = false;
+			if ($user && $user->hasRole([ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT], $context->getId())) {
+				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+				$stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
+				$assignmentsResults = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
+				while ($assignment = $assignmentsResults->next()) {
+					if ($assignment->getUserId() !== $user->getId()) continue;
+					$userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
+					if (in_array($userGroup->getRoleId(), [ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT])) {
+						$userCanAccess = true;
+						break;
 					}
 				}
-				
-				if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
-					$userCanAccess = true;
-				}
+			}
+			
+			if ($user && $user->hasRole(ROLE_ID_MANAGER, $context->getId())) {
+				$userCanAccess = true;
+			}
 
-				if (!$userCanAccess) {
-					$request->getDispatcher()->handle404();
-				}
+			if (!$userCanAccess) {
+				$request->getDispatcher()->handle404();
 			}
 		}
 	}
