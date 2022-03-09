@@ -67,7 +67,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
-			$this->applicationName = Application::get()->getName();
+            $this->applicationName = Application::get()->getName();
 
             HookRegistry::register('ArticleHandler::view', [$this, 'getArticleTemplateData']);
             HookRegistry::register('PreprintHandler::view', array($this, 'getPreprintTemplateData'));
@@ -287,13 +287,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         return array_shift($styleConfig);
     }
 
-	protected function getPublicationTypeUrlPath(): string {
-		switch ($this->applicationName) {
-			case 'ojs2': return 'article';
-			case 'ops': return 'preprint';
-		}
-		return '';
-	}
+    protected function getPublicationTypeUrlPath(): string {
+        switch ($this->applicationName) {
+            case 'ojs2': return 'article';
+            case 'ops': return 'preprint';
+        }
+        return '';
+    }
 
 	/**
      * Retrieve citation information for the article details template. This
@@ -308,9 +308,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function getArticleTemplateData($hookName, $args)
     {
         $request = $args[0];
-		$issue = $args[1];
-		$article = $args[2];
-		$publication = $args[3];
+        $issue = $args[1];
+        $article = $args[2];
+        $publication = $args[3];
         $context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
         $templateMgr = TemplateManager::getManager();
@@ -351,8 +351,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     public function getPreprintTemplateData($hookName, $args)
     {
         $request = $args[0];
-		$preprint = $args[1];
-		$publication = $args[2];
+        $preprint = $args[1];
+        $publication = $args[2];
         $context = $request->getContext();
         $contextId = $context ? $context->getId() : 0;
         $templateMgr = TemplateManager::getManager();

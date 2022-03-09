@@ -83,14 +83,14 @@ class CitationStyleLanguageHandler extends Handler
         exit;
     }
 
-	protected function isSubmissionUnpublished($issue, $submission) {
-		$applicationName = Application::get()->getName();
+    protected function isSubmissionUnpublished($issue, $submission) {
+        $applicationName = Application::get()->getName();
 
-		if($applicationName == 'ojs2')
-			return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
-		else if ($applicationName == 'ops')
-			return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
-	}
+        if($applicationName == 'ojs2')
+            return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+        else if ($applicationName == 'ops')
+            return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+    }
 
     /**
      * Generate a citation based on page parameters
@@ -121,16 +121,12 @@ class CitationStyleLanguageHandler extends Handler
             $request->getDispatcher()->handle404();
         }
 
-        $applicationName = Application::get()->getName();
-
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if($applicationName == 'ojs2'){
-            if ($this->isSubmissionUnpublished($this->issue, $this->submission)) {
-                if (!$this->canUserAccess($context, $user)) {
-                    $request->getDispatcher()->handle404();
-                }
+        if ($this->isSubmissionUnpublished($this->issue, $this->submission)) {
+            if (!$this->canUserAccess($context, $user)) {
+                $request->getDispatcher()->handle404();
             }
         }
     }
