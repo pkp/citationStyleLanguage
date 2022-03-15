@@ -51,7 +51,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->_setupRequest($args, $request);
 
         $plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-        $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue);
+        $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
 
         if ($citation === false) {
             if ($this->returnJson) {
@@ -83,13 +83,14 @@ class CitationStyleLanguageHandler extends Handler
         exit;
     }
 
-    protected function isSubmissionUnpublished($issue, $submission) {
+    protected function isSubmissionUnpublished($submission, $issue = null) {
         $applicationName = Application::get()->getName();
 
-        if($applicationName == 'ojs2')
+        if ($applicationName === 'ojs2') {
             return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
-        else if ($applicationName == 'ops')
-            return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+        }
+        
+        return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
     }
 
     /**
@@ -124,15 +125,16 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if ($this->isSubmissionUnpublished($this->issue, $this->submission)) {
-            if (!$this->canUserAccess($context, $user)) {
+        if ($this->isSubmissionUnpublished($this->submission, $this->issue)) {
+            $userRoles = $this->getAuthorizedContextObject(ASSOC_TYPE_USER_ROLES);
+            if (!$this->canUserAccess($context, $user, $userRoles)) {
                 $request->getDispatcher()->handle404();
             }
         }
     }
 
-    protected function canUserAccess($context, $user) {
-        if ($user && $user->hasRole([Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT], $context->getId())) {
+    protected function canUserAccess($context, $user, $userRoles) {
+        if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
             $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
             $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
             $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
@@ -146,8 +148,8 @@ class CitationStyleLanguageHandler extends Handler
                 }
             }
         }
-
-        if ($user && $user->hasRole(Role::ROLE_ID_MANAGER, $context->getId())) {
+        
+        if ($user && in_array(Role::ROLE_ID_MANAGER, $userRoles)) {
             return true;
         }
 

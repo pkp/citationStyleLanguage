@@ -323,7 +323,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign([
-            'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue),
+            'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue, $publication),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -365,7 +365,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign([
-            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId)),
+            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), null, $publication),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -398,9 +398,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return string
      */
-    public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null) {
+    public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
         $publication ??= $submission->getCurrentPublication();
         $context = $request->getContext();
+        if($this->applicationName == 'ojs2') {
+            $issue ??= Repo::issue()->get($publication->getData('issueId'));
+        }
 
         import('lib.pkp.classes.core.PKPString');
 
@@ -482,7 +485,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         // DOI
         if ($issue && $issue->getPublished()) {
-            $citationData->DOI = $submission->getStoredPubId('doi');
+            $citationData->DOI = $publication->getDoi();
         }
 
         HookRegistry::call('CitationStyleLanguage::citation', [&$citationData, &$citationStyle, $submission, $issue, $context, $publication]);
@@ -556,14 +559,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      *
      * @return string
      */
-    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue)
+    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null)
     {
         $styleConfig = $this->getCitationStyleConfig($citationStyle);
         if (empty($styleConfig)) {
             return false;
         }
 
-        $citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $submissionNoun)));
+        $citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue)));
         // TODO this is likely going to cause an error in a citation some day,
         // but is necessary to get the .ris downloadable format working. The
         // CSL language doesn't seem to offer a way to indicate a line break.
