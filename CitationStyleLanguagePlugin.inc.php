@@ -365,7 +365,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $citationArgsJson['return'] = 'json';
 
         $templateMgr->assign([
-            'citation' => $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), null, $publication),
+            'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), null, $publication),
             'citationArgs' => $citationArgs,
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -484,7 +484,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
 
         // DOI
-        if ($issue && $issue->getPublished()) {
+        if ($publication->getDoi()) {
             $citationData->DOI = $publication->getDoi();
         }
 
