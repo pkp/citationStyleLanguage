@@ -42,7 +42,7 @@ class CitationStyleLanguageHandler extends Handler {
 		$this->_setupRequest($args, $request);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'citationstylelanguageplugin');
-		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue);
+		$citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication);
 
 		if ($citation === false ) {
 			if ($this->returnJson) {
@@ -78,8 +78,8 @@ class CitationStyleLanguageHandler extends Handler {
 
 		if($applicationName == 'ojs2')
 			return !$issue || !$issue->getPublished() || $submission->getStatus() != STATUS_PUBLISHED;
-		else if ($applicationName == 'ops')
-			return $submission->getStatus() != STATUS_PUBLISHED;
+		
+		return $submission->getStatus() != STATUS_PUBLISHED;
 	}
 
 	/**

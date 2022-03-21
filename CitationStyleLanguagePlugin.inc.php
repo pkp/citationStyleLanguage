@@ -288,7 +288,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationArgsJson['return'] = 'json';
 
 		$templateMgr->assign(array(
-			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue),
+			'citation' => $this->getCitation($request, $article, $this->getPrimaryStyleName($contextId), $issue, $publication),
 			'citationArgs' => $citationArgs,
 			'citationArgsJson' => $citationArgsJson,
 			'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -328,7 +328,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 		$citationArgsJson['return'] = 'json';
 
 		$templateMgr->assign(array(
-			'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId)),
+			'citation' => $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), null, $publication),
 			'citationArgs' => $citationArgs,
 			'citationArgsJson' => $citationArgsJson,
 			'citationStyles' => $this->getEnabledCitationStyles($contextId),
@@ -357,9 +357,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @return string
 	 */
-	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null) {
-		$publication = $submission->getCurrentPublication();
+	public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null) {
+		$publication = $publication ?? $submission->getCurrentPublication();
 		$context = $request->getContext();
+		if($this->applicationName == 'ojs2') {
+			$issueDao = DAORegistry::getDAO('IssueDAO');
+            $issue = $issue ?? $issueDao->getById($publication->getData('issueId'));
+        }
+
 		import('lib.pkp.classes.core.PKPString');
 		$citationData = new stdClass();
 		$citationData->type = ($this->applicationName == 'ojs2' ? 'article-journal' : 'article');
@@ -500,7 +505,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin {
 	 * @param $citationStyle string Name of the citation style to use.
 	 * @return string
 	 */
-	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue) {		
+	public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null) {		
 		$styleConfig = $this->getCitationStyleConfig($citationStyle);
 		if (empty($styleConfig)) {
 			return false;
