@@ -1,6 +1,7 @@
+# Dimitri Gogelia <dimitri.gogelia@iliauni.edu.ge>, 2022.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-04-09 08:55+0000\n"
+"PO-Revision-Date: 2022-04-21 09:59+0000\n"
 "Last-Translator: Dimitri Gogelia <dimitri.gogelia@iliauni.edu.ge>\n"
 "Language-Team: Georgian <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/ka_GE/>\n"
@@ -86,3 +87,6 @@ msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.descript
 msgstr ""
 "ციტირების ზოგიერთი ფორმა მოითხოვს გამომცემლის გეოგრაფიულ მდებარეობას, "
 "მაგალითად, „ლონდონი, დიდი ბრიტანეთი“."
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
