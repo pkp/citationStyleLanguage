@@ -1,9 +1,10 @@
+# Manolis Saldaris <omanos@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2020-07-21 12:28+0000\n"
+"PO-Revision-Date: 2022-05-25 20:11+0000\n"
 "Last-Translator: Manolis Saldaris <omanos@gmail.com>\n"
 "Language-Team: Greek <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/el_GR/>\n"
@@ -81,3 +82,6 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Τοποθεσία Εκδότη"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
