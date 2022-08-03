@@ -149,7 +149,7 @@ class CitationStyleLanguageHandler extends Handler
             }
         }
         
-        if ($user && count(array_intersect([Role::ROLE_ID_MANAGER, Role::ROLE_ID_SITE_ADMIN], $userRoles)) {
+        if ($user && count(array_intersect([Role::ROLE_ID_MANAGER, Role::ROLE_ID_SITE_ADMIN], $userRoles))) {
             return true;
         }
 
