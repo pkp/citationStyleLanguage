@@ -405,8 +405,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $issue ??= Repo::issue()->get($publication->getData('issueId'));
         }
 
-        import('lib.pkp.classes.core.PKPString');
-
         $citationData = new stdClass();
         $citationData->type = ($this->applicationName == 'ojs2' ? 'article-journal' : 'article');
         $citationData->id = $submission->getId();
