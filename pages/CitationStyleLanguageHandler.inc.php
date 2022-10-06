@@ -135,14 +135,13 @@ class CitationStyleLanguageHandler extends Handler
 
     protected function canUserAccess($context, $user, $userRoles) {
         if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
-            $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
             $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
             $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
             foreach ($assignments as $assignment) {
                 if ($assignment->getUser()->getId() == $user->getId()) {
                     continue;
                 }
-                $userGroup = $userGroupDao->getById($assignment->getUserGroupId($context->getId()));
+                $userGroup = Repo::userGroup()->get($assignment->getUserGroupId($context->getId()));
                 if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
                     return true;
                 }
