@@ -32,11 +32,7 @@ class CitationStyleLanguageSettingsForm extends Form
     /**
      * Constructor
      *
-<<<<<<< HEAD:CitationStyleLanguageSettingsForm.inc.php
-     * @param object $plugin
-=======
      * @param CitationStyleLanguagePlugin $plugin object
->>>>>>> 680187c... Add namespaces and OMP support:CitationStyleLanguageSettingsForm.php
      */
     public function __construct(CitationStyleLanguagePlugin $plugin)
     {
