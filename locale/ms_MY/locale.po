@@ -1,16 +1,17 @@
 # Ga Ja Poh <gajapo2932@decorbuz.com>, 2021.
+# Mohamad Shabilullah <shabilhamid91@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-10-04 16:06+0000\n"
-"Last-Translator: Ga Ja Poh <gajapo2932@decorbuz.com>\n"
+"PO-Revision-Date: 2023-02-08 13:48+0000\n"
+"Last-Translator: Mohamad Shabilullah <shabilhamid91@gmail.com>\n"
 "Language-Team: Malay <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/ms/>\n"
-"Language: ms\n"
+"citation-style-language-plugin/ms_MY/>\n"
+"Language: ms_MY\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
@@ -36,7 +37,7 @@ msgstr "Format Petikan Tambahan"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
 msgstr ""
-"Pilih format yang boleh dimuat turun yang ingin anda tawarkan kepada pembaca "
+"Pilih format yang boleh dimuat turun yang anda ingin tawarkan kepada pembaca "
 "anda. Format yang boleh dimuat turun biasanya digunakan untuk mengimport ke "
 "dalam perisian pengurusan bibliografi pihak ketiga, seperti EndNote atau "
 "Zotero."
@@ -87,3 +88,6 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Bahasa Gaya Petikan"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
