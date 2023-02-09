@@ -1,10 +1,10 @@
-# Hüseyin Körpeoğlu <yoruyenturk@hotmail.com>, 2021.
+# Hüseyin Körpeoğlu <yoruyenturk@hotmail.com>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:52+00:00\n"
-"PO-Revision-Date: 2021-12-26 11:24+0000\n"
+"PO-Revision-Date: 2023-02-09 15:33+0000\n"
 "Last-Translator: Hüseyin Körpeoğlu <yoruyenturk@hotmail.com>\n"
 "Language-Team: Turkish <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/tr_TR/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Atıf Stili Dili"
@@ -92,3 +92,8 @@ msgstr "Yayın Yeri"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Okuyucuların, Citation Style Language tarafından desteklenen çeşitli "
+"formatlardan birinde yayınlanmış bir kitaptan alıntı almalarına izin verin."
