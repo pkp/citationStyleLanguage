@@ -806,7 +806,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $chapterId = (int) $args[$key];
         if ($chapterId > 0) {
-            return DAORegistry::getDAO('ChapterDAO')->getBySourceChapterId($chapterId, true, $publication->getId());
+            return DAORegistry::getDAO('ChapterDAO')->getChapterBySourceChapterId($chapterId, $publication->getId());
         }
         return null;
     }
