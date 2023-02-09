@@ -435,9 +435,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             }
 
 
-            $sectionDao = Application::getSectionDAO();
             if ($sectionId = $publication->getData('sectionId')) {
-                $section = $sectionDao->getById($sectionId);
+                $section = Repo::section()->get($sectionId);
                 if ($section && !$section->getHideTitle()) {
                     $citationData->section = htmlspecialchars($section->getTitle($context->getPrimaryLocale()));
                 }
