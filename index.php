@@ -13,5 +13,5 @@
  * @brief Wrapper for Citation Style Language plugin.
  *
  */
-require_once('CitationStyleLanguagePlugin.inc.php');
-return new CitationStyleLanguagePlugin();
+require_once('CitationStyleLanguagePlugin.php');
+return new APP\plugins\generic\citationStyleLanguage\CitationStyleLanguagePlugin();

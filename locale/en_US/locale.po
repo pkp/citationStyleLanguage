@@ -17,6 +17,9 @@ msgstr "Citation Style Language"
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr "Allow readers to get a published article's citation in one of several formats supported by the Citation Style Language."
 
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr "Allow readers to get a published book's citation in one of several formats supported by the Citation Style Language."
+
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
@@ -74,8 +77,41 @@ msgstr "Primary Citation Format"
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr "Select which citation format you would like to display by default on your article landing page."
 
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr "Select which citation format you would like to display by default on your book landing page."
+
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Publisher Location"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr "Some citation formats request the geographic location of the publisher, such as \"London, U.K.\"."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Contributors"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr "In some citation styles, contributors must be identified differently depending on their role. Please identify the appropriate roles."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Authors"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editors"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Translators"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Chapter Authors"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Select the roles that should be identified as authors."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Select the roles that should be identified as editors."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Select the roles that should be identified as translators."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Select the roles that should be identified as chapter authors."
