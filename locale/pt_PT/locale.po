@@ -1,10 +1,10 @@
-# Carla Marques <carla.marques@usdb.uminho.pt>, 2021.
+# Carla Marques <carla.marques@usdb.uminho.pt>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
-"PO-Revision-Date: 2021-12-07 17:13+0000\n"
+"PO-Revision-Date: 2023-02-11 12:48+0000\n"
 "Last-Translator: Carla Marques <carla.marques@usdb.uminho.pt>\n"
 "Language-Team: Portuguese (Portugal) <http://translate.pkp.sfu.ca/projects/"
 "plugins/citation-style-language-plugin/pt_PT/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Idioma do Estilo de Citação"
@@ -89,3 +89,46 @@ msgstr "Localização da Editora"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Selecione os papéis que devem ser identificados como autores."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Selecione os papéis que devem ser identificados como editores."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Permitir aos leitores obter uma citação de um livro publicado em um dos "
+"vários formatos suportados pela Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Selecione o formato de citação que deseja dispor como padrão na página do "
+"livro."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Contribuidores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Em alguns estilos de citação, os contribuidores devem ser identificados de "
+"forma diferente de acordo com o seu papel. Identifique os papéis apropriados."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Autores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Tradutores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Autores de capítulos"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Selecione os papéis que devem ser identificados como tradutores."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr ""
+"Selecione os papéis que devem ser identificados como autores de capítulos."
