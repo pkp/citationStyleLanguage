@@ -1,8 +1,8 @@
 # Artashes Mirzoyan <amirzoyan@sci.am>, 2022.
-# Tigran Zargaryan <tigran@flib.sci.am>, 2022.
+# Tigran Zargaryan <tigran@flib.sci.am>, 2022, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-07-03 05:31+0000\n"
+"PO-Revision-Date: 2023-02-16 05:48+0000\n"
 "Last-Translator: Tigran Zargaryan <tigran@flib.sci.am>\n"
 "Language-Team: Armenian <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/hy_AM/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
@@ -91,3 +91,45 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Մեջբերման ոճի լեզու"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Թույլ տվեք ընթերցողներին ստանալ հրատարակված գրքի մեջբերումը մի քանի "
+"ձևաչափերից մեկով, որոնք աջակցվում են Citation Style Language-ով:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Ընտրեք, թե մեջբերումների որ ձևաչափն եք ցանկանում լռելյայն ցուցադրել ձեր գրքի "
+"վայրէջքի էջում:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Աջակիցներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Մեջբերումների որոշ ոճերում աջակիցները պետք է տարբեր կերպ նույնականացվեն՝ "
+"կախված իրենց դերից: Խնդրում ենք նշել համապատասխան դերերը:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Հեղինակներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Խմբագիրներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Թարգմանիչներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Գլխի հեղինակներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես հեղինակներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես խմբագիրներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես թարգմանիչներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես գլխի հեղինակներ:"
