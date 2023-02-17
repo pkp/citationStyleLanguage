@@ -1,10 +1,10 @@
-# Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>, 2021.
+# Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2021-12-07 17:13+0000\n"
+"PO-Revision-Date: 2023-02-14 19:48+0000\n"
 "Last-Translator: Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>\n"
 "Language-Team: Czech <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/cs_CZ/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
 msgstr "Další citační formáty"
@@ -85,3 +85,45 @@ msgstr "Sídlo vydavatele"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Umožňuje čtenářům získat citaci publikované knihy v jednom z několika "
+"formátů podporovaných jazykem Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Přispěvatelé"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Autoři"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editoři"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Překladatelé"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Autoři kapitol"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Vyberte role, které by měly být označeny jako autoři."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Vyberte role, které mají být označeny jako editoři."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Vyberte role, které by měly být označeny jako překladatelé."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Vyberte role, které by měly být označeny jako autoři kapitol."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Vyberte, který formát citací chcete na úvodní stránce knihy zobrazit jako "
+"výchozí."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"V některých citačních stylech musí být přispěvatelé označeni odlišně v "
+"závislosti na jejich roli. Určete prosím příslušné role."

@@ -1,0 +1,135 @@
+# Artashes Mirzoyan <amirzoyan@sci.am>, 2022.
+# Tigran Zargaryan <tigran@flib.sci.am>, 2022, 2023.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-02-16 05:48+0000\n"
+"Last-Translator: Tigran Zargaryan <tigran@flib.sci.am>\n"
+"Language-Team: Armenian <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/hy_AM/>\n"
+"Language: hy_AM\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"Որոշ մեջբերումների ձևաչափեր պահանջում են հրատարակչի աշխարհագրական դիրքը, "
+"օրինակ՝ «Լոնդոն, Մեծ Բրիտանիա»:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "Հրատարակչի գտնվելու վայրը"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"Ընտրեք մեջբերումների որ ձևաչափն եք ցանկանում որպես լռելյայն ցուցադրել ձեր "
+"հոդվածի վայրէջքի էջում:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Առաջնային մեջբերումների ձևաչափ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr ""
+"Ընտրեք լրացուցիչ ձևաչափեր, որոնք ցանկանում եք առաջարկել ձեր ընթերցողներին:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Մեջբերումների լրացուցիչ ձևաչափեր"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"Ընտրեք, թե ներբեռնվող որ ձևաչափերն եք ցանկանում առաջարկել ձեր ընթերցողներին: "
+"Ներբեռնվող ձևաչափերը սովորաբար օգտագործվում են երրորդ կողմի մատենագրության "
+"կառավարման ծրագրակազմ ներմուծելու համար, ինչպիսիք են EndNote-ը կամ Zotero-ն:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Ներբեռնելի ձևաչափեր"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"Թույլ տվեք ընթերցողներին ստանալ հրապարակված հոդվածի մեջբերումը մի քանի "
+"ձևաչափերից մեկով, որոնք աջակցվում են Մեջբերման ոճի լեզվով:"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Մեջբերման ոճի լեզու"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Թույլ տվեք ընթերցողներին ստանալ հրատարակված գրքի մեջբերումը մի քանի "
+"ձևաչափերից մեկով, որոնք աջակցվում են Citation Style Language-ով:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Ընտրեք, թե մեջբերումների որ ձևաչափն եք ցանկանում լռելյայն ցուցադրել ձեր գրքի "
+"վայրէջքի էջում:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Աջակիցներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Մեջբերումների որոշ ոճերում աջակիցները պետք է տարբեր կերպ նույնականացվեն՝ "
+"կախված իրենց դերից: Խնդրում ենք նշել համապատասխան դերերը:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Հեղինակներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Խմբագիրներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Թարգմանիչներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Գլխի հեղինակներ"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես հեղինակներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես խմբագիրներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես թարգմանիչներ:"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես գլխի հեղինակներ:"
