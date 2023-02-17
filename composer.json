@@ -1,12 +1,14 @@
 {
 	"require": {
 		"citation-style-language/locales":"@dev",
-		"seboettg/citeproc-php": "^2.2.0"
+		"seboettg/citeproc-php": "^2.5",
+		"seboettg/collection": "^3.1",
+		"myclabs/php-enum": "^1.8"
 	},
 	"config": {
 		"vendor-dir": "lib/vendor",
 		"platform": {
-			"php": "7.2.0"
+			"php": "7.3.0"
 		}
 	},
 	"repositories": [
