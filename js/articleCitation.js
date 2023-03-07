@@ -37,7 +37,8 @@
  * This script requires jQuery. The format you specify should match
  * a format provided by a CitationFormat plugin.
  */
- (function($) {
+
+(function($) {
 
 	// Require jQuery
 	if (typeof $ === 'undefined') {
@@ -103,4 +104,4 @@
 		citationFormatDropdown.attr('aria-hidden', true);
 	});
 
- })(jQuery);
+})(jQuery);
