@@ -24,10 +24,12 @@ use APP\plugins\generic\citationStyleLanguage\CitationStyleLanguagePlugin;
 use APP\publication\Publication;
 use APP\submission\Submission;
 use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
 use PKP\db\DAORegistry;
 use PKP\plugins\PluginRegistry;
 use PKP\security\Role;
+use PKP\stageAssignment\StageAssignmentDAO;
 use PKP\submission\PKPSubmission;
 
 class CitationStyleLanguageHandler extends Handler
@@ -50,15 +52,11 @@ class CitationStyleLanguageHandler extends Handler
     /** @var bool Whether or not to return citation in JSON format */
     public $returnJson = false;
 
-    /** @var $plugin object */
-    public $plugin;
-
     /**
      * Constructor
      */
-    public function __construct( CitationStyleLanguagePlugin $plugin ) {
+    public function __construct(public CitationStyleLanguagePlugin $plugin) {
         parent::__construct();
-        $this->plugin = $plugin;
     }
 
     /**
@@ -168,7 +166,7 @@ class CitationStyleLanguageHandler extends Handler
         if (($this->plugin->application !== 'omp' && !$this->issue )
             || $this->isSubmissionUnpublished($this->submission, $this->issue)
             || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())) {
-            $userRoles = $this->getAuthorizedContextObject(ASSOC_TYPE_USER_ROLES);
+            $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
             if (!$this->canUserAccess($context, $user, $userRoles)) {
                 $request->getDispatcher()->handle404();
             }
@@ -177,6 +175,7 @@ class CitationStyleLanguageHandler extends Handler
 
     protected function canUserAccess($context, $user, $userRoles) {
         if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
+            /** @var StageAssignmentDAO */
             $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
             $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
             foreach ($assignments as $assignment) {

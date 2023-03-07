@@ -345,6 +345,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             'submissionId' => $submission->getId(),
             'publicationId' => $publication->getId(),
         ];
+        if ($issue) {
+            $citationArgs['issueId'] = $issue->getId();
+        }
         if ($chapter) {
             $citationArgs['chapterId'] = $chapter->getId();
         }
