@@ -427,13 +427,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->id = $submission->getId();
             $citationData->title = $publication->getLocalizedFullTitle();
             $citationData->{'container-title'} = $context->getLocalizedName();
-            $issue ??= Repo::issue()->get($publication->getData('issueId'));
+            $issueId = $publication->getData('issueId');
+            $issue ??= $issueId ? Repo::issue()->get($issueId) : null;
             if ($issue) {
                 $citationData->volume = htmlspecialchars($issue->getData('volume'));
                 // Zotero prefers issue and Mendeley uses `number` to store revisions
                 $citationData->issue = htmlspecialchars($issue->getData('number'));
             }
-
 
             if ($sectionId = $publication->getData('sectionId')) {
                 $section = Repo::section()->get($sectionId);
@@ -522,7 +522,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     $citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
                 }
             }
-        } elseif ($this->isArticle && $issue && $issue->getPublished()) {
+        } elseif ($this->isArticle && $issue?->getPublished()) {
             $citationData->issued = new stdClass();
             $citationData->issued->raw = htmlspecialchars($issue->getDatePublished());
         }
@@ -631,8 +631,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null, $publication = null, $chapter = null)
     {
-        if (($this->isArticle) && empty($issue)) {
-            $issue = Repo::issue()->get($submission->getCurrentPublication()->getData('issueId'));
+        if ($this->isArticle) {
+            $issueId = $submission->getCurrentPublication()->getData('issueId');
+            $issue ??= $issueId ? Repo::issue()->get($issueId) : null;
         }
 
         $styleConfig = $this->getCitationStyleConfig($citationStyle);
