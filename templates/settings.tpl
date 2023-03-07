@@ -43,7 +43,7 @@
 				{fbvElement type="checkbox" id="enabledCitationDownloads[]" value=$id checked=in_array($id, $enabledDownloads) label=$style translate=false}
 			{/foreach}
 		{/fbvFormSection}
-		{fbvFormArea title="plugins.generic.citationStyleLanguage.settings.citationUserGroups" class="pkpFormField--options"}
+		{fbvFormArea id="citationStyleLanguagePluginSettingsCitationUserGroups" title="plugins.generic.citationStyleLanguage.settings.citationUserGroups" class="pkpFormField--options"}
 			<p>{translate key="plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"}</p>
 			{fbvFormSection list=true label="plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"}
 				<p>{translate key='plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor'}</p>
