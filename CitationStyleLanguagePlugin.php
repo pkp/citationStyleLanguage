@@ -19,7 +19,6 @@ require_once(__DIR__ . '/lib/vendor/autoload.php');
 
 use APP\author\Author;
 use APP\core\Application;
-use APP\core\Request;
 use APP\facades\Repo;
 use APP\issue\Issue;
 use APP\monograph\Chapter;
@@ -293,13 +292,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         return array_shift($styleConfig);
     }
 
-    protected function getPublicationTypeUrlPath(): string {
-        switch ($this->application) {
-            case 'ojs2': return 'article';
-            case 'ops': return 'preprint';
-            case 'omp': return 'catalog';
-        }
-        return '';
+    protected function getPublicationTypeUrlPath(): string
+    {
+        return match ($this->application) {
+            'ojs2' => 'article',
+            'ops' => 'preprint',
+            'omp' => 'catalog',
+            default => ''
+        };
     }
 
     /**
@@ -337,10 +337,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $issue = null;
                 $citation = $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $publication);
                 break;
-            default: throw new Exception('Unknown application!');
+            default:
+                throw new Exception('Unknown application!');
         }
-
-
 
         $citationArgs = [
             'submissionId' => $submission->getId(),
@@ -397,17 +396,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @see Zotero's mappings https://aurimasv.github.io/z2csl/typeMap.xml#map-journalArticle
      * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
      *
-     * @param $request       PkPRequest
-     * @param $submission    Submission
-     * @param $citationStyle string Name of the citation style to use.
-     * @param $issue         Issue Optional. Will fetch from db if not passed.
-     * @param $publication   Publication Optional. A particular version
-     * @param $chapter       Chapter Optional. OMP chapter pages only.
+     * @param string $citationStyle Name of the citation style to use.
+     * @param Issue $issue Optional. Will fetch from db if not passed.
+     * @param Publication $publication Optional. A particular version
+     * @param Chapter $chapter Optional. OMP chapter pages only.
      *
-     * @return string
      * @throws Exception
      */
-    public function getCitation($request, $submission, $citationStyle = 'apa', $issue = null, $publication = null, $chapter = null)
+    public function getCitation(PKPRequest $request, Submission $submission, string $citationStyle = 'apa', ?Issue $issue = null, ?Publication $publication = null, ?Chapter $chapter = null): string
     {
         $publication ??= $submission->getCurrentPublication();
         $context = $request->getContext();
@@ -415,7 +411,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $chapter = $this->application === 'omp' ? $this->getChapter($request, $publication) : null;
         }
         $this->setDocumentType($chapter);
-        /* @var $submissionKeywordDao SubmissionKeywordDAO */
+        /** @var SubmissionKeywordDAO $submissionKeywordDao */
         $submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
         $keywords = $submissionKeywordDao->getKeywords($publication->getId(), [Locale::getSupportedLocales()]);
 
@@ -492,7 +488,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             throw new Exception('Unknown submission content type!');
         }
 
-        /* @var $submissionLanguageDao SubmissionLanguageDAO */
+        /** @var SubmissionLanguageDAO $submissionLanguageDao */
         $submissionLanguageDao = DAORegistry::getDAO('SubmissionLanguageDAO');
         $languages = $submissionLanguageDao->getLanguages($publication->getId(), [Locale::getLocale()]);
         if (array_key_exists(Locale::getLocale(), $languages)) {
@@ -620,16 +616,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * Downloadable citation formats can be used to import into third-party
      * software.
      *
-     * @param Request $request
-     * @param Submission $submission
      * @param string $citationStyle Name of the citation style to use.
      * @param Issue $issue Optional. Will fetch from db if not passed.
      * @param $publication Publication Optional.
      * @param $chapter Chapter Optional. OMP chapter pages only.
-     *
-     * @return string
      */
-    public function downloadCitation($request, $submission, $citationStyle = 'ris', $issue = null, $publication = null, $chapter = null)
+    public function downloadCitation(PKPRequest $request, Submission $submission, string $citationStyle = 'ris', ?Issue $issue = null, ?Publication $publication = null, ?Chapter $chapter = null)
     {
         if ($this->isArticle) {
             $issueId = $submission->getCurrentPublication()->getData('issueId');
@@ -651,7 +643,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $encodedFilename = urlencode(substr(($publication ? $publication->getLocalizedTitle() : ''), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
-        header("Content-Disposition: attachment; filename*=UTF-8''\"${encodedFilename}\"");
+        header("Content-Disposition: attachment; filename*=UTF-8''\"{$encodedFilename}\"");
         header('Content-Type: ' . $styleConfig['contentType']);
         echo $citation;
         exit;
