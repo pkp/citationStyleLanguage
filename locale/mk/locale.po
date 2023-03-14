@@ -1,16 +1,17 @@
 # Teodora Fildishevska <t.fildishevska@gmail.com>, 2022.
+# Emilija Andonoska <emilija-andonoska@hotmail.com>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-04 12:26+0000\n"
-"Last-Translator: Teodora Fildishevska <t.fildishevska@gmail.com>\n"
+"PO-Revision-Date: 2023-03-14 20:21+0000\n"
+"Last-Translator: Emilija Andonoska <emilija-andonoska@hotmail.com>\n"
 "Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/mk_MK/>\n"
-"Language: mk_MK\n"
+"citation-style-language-plugin/mk/>\n"
+"Language: mk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
@@ -89,3 +90,47 @@ msgstr "Цитирачки стил на јазикот"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "АМА"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Уредници"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Преведувачи"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Автори на поглавје"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Дозволете им на читателите да добијат цитат на објавена книга во еден од "
+"неколкуте формати поддржани од Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Автори"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Изберете ги улогите што треба да се идентификуваат како автори."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Изберете ги улогите што треба да се идентификуваат како уредници."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Изберете ги улогите што треба да се идентификуваат како преведувачи."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Изберете кој формат на цитат би сакале да се прикаже стандардно на целната "
+"страница на вашата книга."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Соработници"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Во некои стилови на цитати, соработниците мора да се идентификуваат различно "
+"во зависност од нивната улога. Ве молиме идентификувајте ги соодветните "
+"улоги."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr ""
+"Изберете ги улогите што треба да се идентификуваат како автори на поглавја."
