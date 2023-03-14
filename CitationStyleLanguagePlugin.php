@@ -22,8 +22,8 @@ use APP\core\Application;
 use APP\facades\Repo;
 use APP\issue\Issue;
 use APP\monograph\Chapter;
+use APP\monograph\ChapterDAO;
 use APP\plugins\generic\citationStyleLanguage\pages\CitationStyleLanguageHandler;
-use APP\press\SeriesDAO;
 use APP\publication\Publication;
 use APP\publicationFormat\PublicationFormat;
 use APP\submission\Submission;
@@ -767,23 +767,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     protected function addSeriesInformation(stdClass $citationData, Publication $publication): stdClass
     {
         $seriesId = $publication->getData('seriesId');
-        if ($seriesId) {
-            /** @var SeriesDAO $seriesDao */
-            $seriesDao = DAORegistry::getDAO('SeriesDAO');
-            $series = $seriesDao->getById($seriesId);
-                if (null !== $series) {
-                    $citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
-                    $citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
-                    $citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
-                    $onlineISSN = $series->getOnlineISSN();
-                    if (!empty($onlineISSN)) {
-                        $citationData->serialNumber[] = htmlspecialchars($onlineISSN);
-                    }
-                    $printISSN = $series->getPrintISSN();
-                    if (!empty($printISSN)) {
-                        $citationData->serialNumber[] = htmlspecialchars($printISSN);
-                    }
-                }
+        $series = $seriesId ? Repo::section()->get($seriesId) : null;
+        if (!$series) {
+            return $citationData;
+        }
+        $citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
+        $citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
+        $citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
+        $onlineISSN = $series->getOnlineISSN();
+        if (!empty($onlineISSN)) {
+            $citationData->serialNumber[] = htmlspecialchars($onlineISSN);
+        }
+        $printISSN = $series->getPrintISSN();
+        if (!empty($printISSN)) {
+            $citationData->serialNumber[] = htmlspecialchars($printISSN);
         }
         return $citationData;
     }
@@ -802,7 +799,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $chapterId = (int) $args[$key];
         if ($chapterId > 0) {
-            return DAORegistry::getDAO('ChapterDAO')->getBySourceChapterAndPublication($chapterId, $publication->getId());
+            /** @var ChapterDAO */
+            $chapterDao = DAORegistry::getDAO('ChapterDAO');
+            return $chapterDao->getBySourceChapterAndPublication($chapterId, $publication->getId());
         }
         return null;
     }
