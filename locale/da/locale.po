@@ -1,19 +1,19 @@
-# Alexandra Fogtmann-Schulz <alfo@kb.dk>, 2021.
+# Alexandra Fogtmann-Schulz <alfo@kb.dk>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2021-12-07 08:13+0000\n"
+"PO-Revision-Date: 2023-04-01 13:48+0000\n"
 "Last-Translator: Alexandra Fogtmann-Schulz <alfo@kb.dk>\n"
 "Language-Team: Danish <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/da_DK/>\n"
-"Language: da_DK\n"
+"citation-style-language-plugin/da/>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Citation Style Language"
@@ -90,3 +90,45 @@ msgstr "Udgivers lokation"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Tillad læsere at få en offentliggjort bogs citationer i et af flere formater "
+"understøttet af Citation Style Language plugin'et."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Angiv hvilke roller, der skal identificeres som oversættere."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Angiv hvilke roller, der skal identificeres som redaktører."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Angiv hvilke roller, der skal identificeres som kapitelforfattere."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Vælg hvilket citationsformat, du ønsker at vise som standard på din bogs "
+"landing page."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Bidragydere"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"I nogle citationsstyles skal bidragydere identificeres forskelligt afhængigt "
+"af deres rolle. Angiv venligst de passende roller."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Forfattere"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Redaktører"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Oversættere"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Kapitelforfattere"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Angiv hvilke roller, der skal identificeres som forfattere."
