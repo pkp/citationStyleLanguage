@@ -7,6 +7,7 @@
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguageSettingsForm.inc
+ *
  * @ingroup plugins_generic_citationStyleLanguage
  *
  * @brief Form for site admins to modify Citation Style Language settings.
@@ -26,7 +27,6 @@ use PKP\security\Role;
 
 class CitationStyleLanguageSettingsForm extends Form
 {
-    /** @var CitationStyleLanguagePlugin $plugin */
     public CitationStyleLanguagePlugin $plugin;
 
     /**
@@ -102,7 +102,7 @@ class CitationStyleLanguageSettingsForm extends Form
         }
 
         $allUserGroups = [];
-        $userGroups = Repo::userGroup()->getByRoleIds( [Role::ROLE_ID_AUTHOR], $contextId );
+        $userGroups = Repo::userGroup()->getByRoleIds([Role::ROLE_ID_AUTHOR], $contextId);
         $userGroups = $userGroups->toArray();
         foreach ($userGroups as $userGroup) {
             $allUserGroups[(int) $userGroup->getId()] = $userGroup->getLocalizedName();
@@ -149,7 +149,7 @@ class CitationStyleLanguageSettingsForm extends Form
         $this->plugin->updateSetting($contextId, 'publisherLocation', $this->getData('publisherLocation'));
         $this->plugin->updateSetting($contextId, 'groupAuthor', $this->getData('groupAuthor'));
         $this->plugin->updateSetting($contextId, 'groupTranslator', $this->getData('groupTranslator'));
-        if( $this->plugin->application === 'omp') {
+        if ($this->plugin->application === 'omp') {
             $this->plugin->updateSetting($contextId, 'groupEditor', $this->getData('groupEditor'));
             $this->plugin->updateSetting($contextId, 'groupChapterAuthor', $this->getData('groupChapterAuthor'));
         }

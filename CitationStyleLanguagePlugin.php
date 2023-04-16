@@ -8,6 +8,7 @@
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguagePlugin
+ *
  * @ingroup plugins_generic_citationStyleLanguage
  *
  * @brief Citation Style Language plugin class.
@@ -61,7 +62,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->application = Application::get()->getName();
     }
@@ -331,9 +333,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 break;
             case 'omp':
                 /** @var Submission $submission */
-                $submission =& $args[1];
-                $publication =& $args[2];
-                $chapter =& $args[3];
+                $submission = & $args[1];
+                $publication = & $args[2];
+                $chapter = & $args[3];
                 $issue = null;
                 $citation = $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $publication);
                 break;
@@ -368,7 +370,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             [
                 'priority' => TemplateManager::STYLE_SEQUENCE_LAST,
                 'contexts' => ['frontend'],
-                'inline'   => false,
+                'inline' => false,
             ]
         );
 
@@ -382,8 +384,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     public function addCitationMarkup(string $hookName, array $args): bool
     {
-        $smarty =& $args[1];
-        $output =& $args[2];
+        $smarty = & $args[1];
+        $output = & $args[2];
         $output .= $smarty->fetch($this->getTemplateResource('citationblock.tpl'));
 
         return false;
@@ -445,7 +447,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
             }
             $citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
-            $citationData = $this->setArticleAuthors($citationData,$publication, $context);
+            $citationData = $this->setArticleAuthors($citationData, $publication, $context);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'view', $submission->getBestId());
             if ($publication->getDoi()) {
                 $citationData->DOI = $publication->getDoi();
@@ -718,8 +720,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function setPageHandler(string $hookName, array $params): bool
     {
-        $page =& $params[0];
-        $handler =& $params[3];
+        $page = & $params[0];
+        $handler = & $params[3];
         if ($this->getEnabled() && $page === 'citationstylelanguage') {
             $handler = new CitationStyleLanguageHandler($this);
             return true;
@@ -845,13 +847,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
                 $userGroupId = $author->getUserGroupId();
                 switch (true) {
-                    case in_array($userGroupId,$translatorsGroups):
+                    case in_array($userGroupId, $translatorsGroups):
                         if (!isset($citationData->translator)) {
                             $citationData->translator = [];
                         }
                         $citationData->translator[] = $currentAuthor;
                         break;
-                    case in_array($userGroupId,$authorsGroups):
+                    case in_array($userGroupId, $authorsGroups):
                         if (!isset($citationData->author)) {
                             $citationData->author = [];
                         }
@@ -888,19 +890,19 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
                 $userGroupId = $author->getUserGroupId();
                 switch (true) {
-                    case in_array($userGroupId,$editorsGroups):
+                    case in_array($userGroupId, $editorsGroups):
                         if (!isset($citationData->editor)) {
                             $citationData->editor = [];
                         }
                         $citationData->editor[] = $currentAuthor;
                         break;
-                    case in_array($userGroupId,$translatorsGroups):
+                    case in_array($userGroupId, $translatorsGroups):
                         if (!isset($citationData->translator)) {
                             $citationData->translator = [];
                         }
                         $citationData->translator[] = $currentAuthor;
                         break;
-                    case in_array($userGroupId,$authorsGroups):
+                    case in_array($userGroupId, $authorsGroups):
                         if (!isset($citationData->author)) {
                             $citationData->author = [];
                         }
@@ -956,19 +958,19 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
                 $userGroupId = $bookAuthor->getUserGroupId();
                 switch (true) {
-                    case in_array($userGroupId,$editorsGroups):
+                    case in_array($userGroupId, $editorsGroups):
                         if (!isset($citationData->editor)) {
                             $citationData->editor = [];
                         }
                         $citationData->editor[] = $currentAuthor;
                         break;
-                    case in_array($userGroupId,$translatorsGroups):
+                    case in_array($userGroupId, $translatorsGroups):
                         if (!isset($citationData->translator)) {
                             $citationData->translator = [];
                         }
                         $citationData->translator[] = $currentAuthor;
                         break;
-                    case in_array($userGroupId,$authorsGroups):
+                    case in_array($userGroupId, $authorsGroups):
                         if (!isset($citationData->{'container-author'})) {
                             $citationData->{'container-author'} = [];
                         }
@@ -995,6 +997,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     protected function compareAuthors($a, $b): int
     {
-        return 0 === strcmp( $a->family, $b->family ) && 0 === strcmp($a->given, $b->given) ? 0 : 1;
+        return 0 === strcmp($a->family, $b->family) && 0 === strcmp($a->given, $b->given) ? 0 : 1;
     }
 }
