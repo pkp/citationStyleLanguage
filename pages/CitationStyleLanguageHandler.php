@@ -8,6 +8,7 @@
  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguageHandler
+ *
  * @ingroup plugins_generic_citationStyleLanguage
  *
  * @brief Handle router requests for the citation style language plugin
@@ -55,7 +56,8 @@ class CitationStyleLanguageHandler extends Handler
     /**
      * Constructor
      */
-    public function __construct(public CitationStyleLanguagePlugin $plugin) {
+    public function __construct(public CitationStyleLanguagePlugin $plugin)
+    {
         parent::__construct();
     }
 
@@ -109,7 +111,8 @@ class CitationStyleLanguageHandler extends Handler
         exit;
     }
 
-    protected function isSubmissionUnpublished($submission, $issue = null) {
+    protected function isSubmissionUnpublished($submission, $issue = null)
+    {
         $applicationName = Application::get()->getName();
 
         if ($applicationName === 'ojs2') {
@@ -163,7 +166,7 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if (($this->plugin->application !== 'omp' && !$this->issue )
+        if (($this->plugin->application !== 'omp' && !$this->issue)
             || $this->isSubmissionUnpublished($this->submission, $this->issue)
             || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
@@ -173,7 +176,8 @@ class CitationStyleLanguageHandler extends Handler
         }
     }
 
-    protected function canUserAccess($context, $user, $userRoles) {
+    protected function canUserAccess($context, $user, $userRoles)
+    {
         if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
             /** @var StageAssignmentDAO */
             $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
