@@ -1,12 +1,13 @@
-# Marie-Hélène Vézina [UdeMontréal] <marie-helene.vezina@umontreal.ca>, 2022.
+# Marie-Hélène Vézina [UdeMontréal] <marie-helene.vezina@umontreal.ca>, 2022, 2023.
 # Pierre Lasou <pierre.lasou@bibl.ulaval.ca>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
-"PO-Revision-Date: 2023-04-12 13:48+0000\n"
-"Last-Translator: Pierre Lasou <pierre.lasou@bibl.ulaval.ca>\n"
+"PO-Revision-Date: 2023-04-24 10:30+0000\n"
+"Last-Translator: Marie-Hélène Vézina [UdeMontréal] <marie-helene."
+"vezina@umontreal.ca>\n"
 "Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/fr_CA/>\n"
 "Language: fr_CA\n"
@@ -87,27 +88,22 @@ msgstr "Certains styles bibliographiques requièrent la mention du lieu de la ma
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Contributeurs"
+msgstr "Contributeur.trice.s"
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Sélectionnez les rôles devant être considérés comme auteurs-trices."
+msgstr "Sélectionner les rôles devant être considérés comme auteur.trice.s."
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
-"Permettre aux lecteurs d'obtenir la citation du livre dans l'un des formats "
-"du Citation Style Language."
+"Permettre aux lecteur.trice.s d'obtenir la citation du livre dans l'un des "
+"formats pris en charge par le « Citation Style Language »."
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Auteurs-trices"
+msgstr "Auteur.trice.s"
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Sélectionnez les rôles devant être considérés comme rédacteurs-trices."
+msgstr "Sélectionnez les rôles devant être considérés comme rédacteur.trice.s."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
 msgstr "Sélectionnez les rôles devant être considérés comme traducteurs-trices."
@@ -117,25 +113,22 @@ msgstr ""
 "Sélectionnez les rôles devant être considérés comme auteurs-trices de "
 "chapitre."
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
 msgstr ""
-"Dans certains styles de citation, les contributeurs doivent être identifiés "
-"différemment selon leur rôle dans la publication. S'il vous plaît, "
-"identifier les rôles appropriés."
+"Dans certains styles de citation, les contributeur.trice.s doivent être "
+"identifié.e.s différemment selon leur rôle dans la publication. Prière "
+"d'identifier les rôles appropriés."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
 msgstr "Traducteurs-trices"
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Auteurs-trices du chapitre"
+msgstr "Auteur.trice.s du chapitre"
 
-#, fuzzy
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
-"Sélectionnez le format de citation que vous souhaitez voir apparaitre par "
-"défaut sur la page du livre."
+"Sélectionner le format de citation que vous souhaitez voir apparaitre par "
+"défaut sur la page d'accueil du livre."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
 msgstr "Rédacteurs-trices"
