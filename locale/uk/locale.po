@@ -1,28 +1,28 @@
-# Petro Bilous <petrobilous@ukr.net>, 2022.
+# Petro Bilous <petrobilous@ukr.net>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:52+00:00\n"
-"PO-Revision-Date: 2022-03-22 09:56+0000\n"
+"PO-Revision-Date: 2023-04-24 10:30+0000\n"
 "Last-Translator: Petro Bilous <petrobilous@ukr.net>\n"
 "Language-Team: Ukrainian <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/uk_UA/>\n"
-"Language: uk_UA\n"
+"citation-style-language-plugin/uk/>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9.1\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
-msgstr "Мова оформлення цитат"
+msgstr "Мова стилю посилання"
 
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr ""
 "Дозволити читачам отримати бібліографічне посилання на опубліковану статтю в "
-"одному або декількох форматах, які підтримуються мовою оформлення цитат."
+"одному з декількох форматів, підтримуваних мовою стилю посилання."
 
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
@@ -65,7 +65,7 @@ msgstr "Завантажувані формати"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
 msgstr ""
-"Оберіть, які завантажувані формати Ви хочете запропонувати своїм читачам. "
+"Оберіть, які завантажувані формати ви хочете запропонувати своїм читачам. "
 "Завантажувані формати зазвичай використовуються для імпорту в інші програми "
 "керування бібліографією, наприклад EndNote або Zotero."
 
@@ -73,15 +73,15 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
 msgstr "Додаткові формати посилань"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
-msgstr "Оберіть, які додаткові формати Ви хочете запропонувати своїм читачам."
+msgstr "Оберіть, які додаткові формати ви хочете запропонувати своїм читачам."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
 msgstr "Основний формат посилань"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
 msgstr ""
-"Оберіть формат посилань, який Ви хочете відображати усталено на посадковій "
-"сторінці статті."
+"Оберіть формат посилань, який ви хочете відображати усталено на посадковій "
+"сторінці вашої статті."
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
@@ -93,3 +93,46 @@ msgstr "Місцезнаходження видавця"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Автори глав"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Редактори"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Перекладачі"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Виберіть ролі, які слід визначати як перекладачів."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Виберіть ролі, які слід визначати як авторів глав."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Особи, які зробили свій внесок у роботу"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Автори"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Виберіть ролі, які слід визначати як авторів."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Виберіть ролі, які слід визначати як редакторів."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Оберіть формат посилань, який ви хочете відображати усталено на посадковій "
+"сторінці вашої книги."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Дозволити читачам отримати бібліографічне посилання на опубліковану книгу в "
+"одному з декількох форматів, підтримуваних мовою стилю посилання."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"У деяких стилях цитування особи, які зробили свій внесок у роботу, повинні "
+"бути ідентифіковані по-різному залежно від їхньої ролі. Будь ласка, визначте "
+"відповідні ролі."
