@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:52+00:00\n"
-"PO-Revision-Date: 2023-04-24 10:30+0000\n"
+"PO-Revision-Date: 2023-04-26 14:49+0000\n"
 "Last-Translator: Petro Bilous <petrobilous@ukr.net>\n"
 "Language-Team: Ukrainian <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/uk/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
-msgstr "Мова стилю посилання"
+msgstr "Мова стилю бібліографічних посилань"
 
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr ""
@@ -25,16 +25,16 @@ msgstr ""
 "одному з декількох форматів, підтримуваних мовою стилю посилання."
 
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
-msgstr "ACM"
+msgstr "ACM (Association for Computing Machinery)"
 
 msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
-msgstr "ACS"
+msgstr "ACS (American Chemical Society)"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"
-msgstr "APA"
+msgstr "APA (American Psychological Association)"
 
 msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
-msgstr "ABNT"
+msgstr "ABNT (Associação Brasileira de Normas Técnicas)"
 
 msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
 msgstr "Chicago"
@@ -43,10 +43,10 @@ msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
 msgstr "Harvard"
 
 msgid "plugins.generic.citationStyleLanguage.style.ieee"
-msgstr "IEEE"
+msgstr "IEEE (Institute of Electrical and Electronics Engineers)"
 
 msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
-msgstr "MLA"
+msgstr "MLA (Modern Language Association)"
 
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
 msgstr "Turabian"
@@ -58,7 +58,7 @@ msgid "plugins.generic.citationStyleLanguage.download.bibtex"
 msgstr "BibTeX"
 
 msgid "plugins.generic.citationStyleLanguage.download.ris"
-msgstr "Endnote / Zotero / Mendeley (RIS)"
+msgstr "Endnote / Zotero / Mendeley (RIS – Research Information Systems)"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
 msgstr "Завантажувані формати"
@@ -92,7 +92,7 @@ msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Місцезнаходження видавця"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
-msgstr "AMA"
+msgstr "AMA (American Medical Association)"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
 msgstr "Автори глав"
