@@ -1,19 +1,19 @@
-# Pia Piontkowitz <pia.piontkowitz@rub.de>, 2021.
+# Pia Piontkowitz <pia.piontkowitz@rub.de>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:50+00:00\n"
-"PO-Revision-Date: 2021-12-08 14:38+0000\n"
+"PO-Revision-Date: 2023-04-26 14:49+0000\n"
 "Last-Translator: Pia Piontkowitz <pia.piontkowitz@rub.de>\n"
 "Language-Team: German <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/de_DE/>\n"
-"Language: de_DE\n"
+"citation-style-language-plugin/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Citation Style Language"
@@ -85,3 +85,53 @@ msgstr "Standort des Verlags"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Beitragende"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr ""
+"Wählen Sie die Rollen aus, die als Übersetzer/innen identifiziert werden "
+"sollen."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Herausgeber/innen"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr ""
+"Wählen Sie die Rollen aus, die als Herausgeber/innen identifiziert werden "
+"sollen."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr ""
+"Wählen Sie die Rollen aus, die als Autor/innen identifiziert werden sollen."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Ermöglicht es Leser/innen, die bibliografischen Angaben für ein "
+"veröffentlichtes Buch in einem von mehreren Formaten in der Citation Style "
+"Language zu erhalten."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig "
+"auf der Monographieseite anzeigen möchten."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"In einigen Citation Styles muss Beitragenden eine genaue Rolle zugewiesen "
+"werden. Bitte wählen Sie die passenden Rollen."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Autor/innen"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Übersetzer/innen"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Kapitelautor/innen"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr ""
+"Wählen Sie die Rollen aus, die als Kapitelautor/innen identifiziert werden "
+"sollen."
