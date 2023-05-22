@@ -4,11 +4,11 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:52+00:00\n"
-"PO-Revision-Date: 2023-02-09 15:33+0000\n"
+"PO-Revision-Date: 2023-05-23 19:49+0000\n"
 "Last-Translator: Hüseyin Körpeoğlu <yoruyenturk@hotmail.com>\n"
 "Language-Team: Turkish <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/tr_TR/>\n"
-"Language: tr_TR\n"
+"citation-style-language-plugin/tr/>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -97,3 +97,40 @@ msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Okuyucuların, Citation Style Language tarafından desteklenen çeşitli "
 "formatlardan birinde yayınlanmış bir kitaptan alıntı almalarına izin verin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Bazı kaynak gösterme stillerinde, katkıda bulunanlar rollerine bağlı olarak "
+"farklı şekilde tanımlanmaktadır. Lütfen uygun rolleri belirleyin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Yazarlar"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editörler"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Çevirmen olarak tanımlanması gereken rolleri seçin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Katkıda bulunanlar"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Bölüm Yazarları"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Çevirmenler"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Yazar olarak tanımlanması gereken rolleri seçin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Editör olarak tanımlanması gereken rolleri seçin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Bölüm yazarları olarak tanımlanması gereken rolleri seçin."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Sayfada varsayılan olarak hangi kaynak gösterme biçimini görüntülemek "
+"istediğinizi seçin."
