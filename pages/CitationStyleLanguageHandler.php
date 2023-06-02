@@ -155,7 +155,7 @@ class CitationStyleLanguageHandler extends Handler
             : $this->submission->getCurrentPublication();
 
         if (!empty($userVars['chapterId'])) {
-            $chapterDao = DAORegistry::getDAO('ChapterDAO'); /** @var ChapterDAO $chapterDao */
+            $chapterDao = DAORegistry::getDAO('ChapterDAO'); /** @var \APP\monograph\ChapterDAO $chapterDao */
             $this->chapter = $chapterDao->getChapter((int) $userVars['chapterId'], $this->publication->getId());
         }
 
