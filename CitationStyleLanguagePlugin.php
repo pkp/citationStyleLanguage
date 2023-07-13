@@ -96,13 +96,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $success;
         }
         if ($success && $this->getEnabled($mainContextId)) {
-            Hook::add('PreprintHandler::view', [$this, 'getTemplateData']);
-            Hook::add('CatalogBookHandler::book', [$this, 'getTemplateData']);
-            Hook::add('ArticleHandler::view', [$this, 'getTemplateData']);
-            Hook::add('Templates::Article::Details', [$this, 'addCitationMarkup']);
-            Hook::add('Templates::Catalog::Book::Details', [$this, 'addCitationMarkup']);
-            Hook::add('Templates::Catalog::Chapter::Details', [$this, 'addCitationMarkup']);
-            Hook::add('LoadHandler', [$this, 'setPageHandler']);
+            Hook::add('PreprintHandler::view', $this->getTemplateData(...));
+            Hook::add('CatalogBookHandler::book', $this->getTemplateData(...));
+            Hook::add('ArticleHandler::view', $this->getTemplateData(...));
+            Hook::add('Templates::Article::Details', $this->addCitationMarkup(...));
+            Hook::add('Templates::Catalog::Book::Details', $this->addCitationMarkup(...));
+            Hook::add('Templates::Catalog::Chapter::Details', $this->addCitationMarkup(...));
+            Hook::add('LoadHandler', $this->setPageHandler(...));
         }
         return $success;
     }
@@ -986,7 +986,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
 
         if (isset($citationData->{'container-author'})) {
-            $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, [$this, 'compareAuthors']);
+            $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
             if (count($diffChapterAuthorsAuthors) === 0) {
                 $citationData->{'container-author'} = [];
             }
