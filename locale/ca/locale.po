@@ -1,16 +1,16 @@
-# Jordi LC <jordi.lacruz@uab.cat>, 2022.
+# Jordi LC <jordi.lacruz@uab.cat>, 2022, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-07-01 08:31+0000\n"
+"PO-Revision-Date: 2023-07-25 10:58+0000\n"
 "Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
 "Language-Team: Catalan <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/ca_ES/>\n"
-"Language: ca_ES\n"
+"citation-style-language-plugin/ca/>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.citationStyleLanguage.download.ris"
 msgstr "Endnote/Zotero/Mendeley (RIS)"
@@ -89,3 +89,49 @@ msgstr "Llenguatge d'estils de citació"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Autors/ores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Autors/ores del capítol"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Seleccioneu els rols que haurien d'identificar-se com a autors/ores."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr ""
+"Seleccioneu els rols que haurien d'identificar-se com a traductors/ores."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr ""
+"Seleccioneu els rols que haurien d'identificar-se com a autors/ores de "
+"capítol."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Permet als lectors/ores que obtinguin la citació d'un llibre publicat en "
+"algun dels formats compatibles amb Citation Style Language."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Seleccioneu quin format de citació voleu mostrar per defecte en la pàgina "
+"d'aterratge del llibre."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Col·laboradors/ores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"En alguns estils de citació, els col·laboradors/ores han d'identificar-se de "
+"forma diferent segons el seu rol. Per tant, identifiqueu els rols "
+"adequadament."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editors/ores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Traductors/ores"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Seleccioneu els rols que haurien d'identificar-se com a editors/ores."

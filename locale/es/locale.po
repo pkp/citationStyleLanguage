@@ -1,12 +1,13 @@
 # pep sanso <pep.sanso@uab.cat>, 2023.
 # Marc Bria <marc.bria@gmail.com>, 2023.
+# Jordi LC <jordi.lacruz@uab.cat>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T13:44:51+00:00\n"
-"PO-Revision-Date: 2023-04-26 14:49+0000\n"
-"Last-Translator: Marc Bria <marc.bria@gmail.com>\n"
+"PO-Revision-Date: 2023-07-25 10:58+0000\n"
+"Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
 "Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/es/>\n"
 "Language: es\n"
@@ -91,8 +92,8 @@ msgstr "Ubicación del editor"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
-"Seleccionar el formato de citación que desea mostrar por defecto en la "
-"página de inicio de su libro."
+"Seleccione el formato de citación que desea mostrar por defecto en la página "
+"de aterrizaje del libro."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
 msgstr "Autores/as"
@@ -116,7 +117,7 @@ msgstr "Seleccionar los roles que deben identificarse como traductores/as."
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permite a los lectores/as obtener la cita de un libro publicado en alguno de "
-"los formatos admitidos por el lenguaje de estilo de citas."
+"los formatos compatibles con Citation Style Language."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
 msgstr "Colaboradores/as"
