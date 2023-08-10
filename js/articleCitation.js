@@ -38,70 +38,67 @@
  * a format provided by a CitationFormat plugin.
  */
 
-(function($) {
+document.addEventListener('DOMContentLoaded', () => {
+	// Get the citation elements
+	const citationOutput = document.getElementById('citationOutput');
+	const citationFormatLinks = document.querySelectorAll('[data-load-citation]');
+	const citationFormatBtn = document.querySelector(
+		'[aria-controls="cslCitationFormats"]'
+	);
+	const citationFormatDropdown = document.getElementById('cslCitationFormats');
 
-	// Require jQuery
-	if (typeof $ === 'undefined') {
+	// Check if the required elements exist
+	if (!citationOutput || citationFormatLinks.length === 0) {
 		return;
 	}
-
-	var citationOutput = $('#citationOutput'),
-		citationFormatLinks = $('[data-load-citation]'),
-		citationFormatBtn = $('[aria-controls="cslCitationFormats"]'),
-		citationFormatDropdown = $('#cslCitationFormats');
 
 	// Fetch new citations and update diplayed citation
-	if (!citationOutput.length || !citationFormatLinks.length) {
-		return;
-	}
+	citationFormatLinks.forEach((link) => {
+		link.addEventListener('click', (e) => {
+			const jsonHref = link.dataset.jsonHref;
 
-	citationFormatLinks.click(function(e) {
+			if (!jsonHref) {
+				return true;
+			}
 
-		if (!$(this).data('json-href')) {
-			return true;
-		}
+			e.preventDefault();
+			citationOutput.classList.remove('fade-in');
+			citationOutput.style.opacity = '0.5';
 
-		e.preventDefault();
-
-		var url = $(this).data('json-href');
-
-		citationOutput.css('opacity', 0.5);
-
-		$.ajax({url: url, dataType: 'json'})
-			.done(function(r) {
-				citationOutput.html(r.content)
-					.hide()
-					.css('opacity', 1)
-					.fadeIn();
-			})
-			.fail(function(r) {
-				citationOutput.css('opacity', 1);
-			});
+			fetch(jsonHref)
+				.then((response) => response.json())
+				.then((r) => {
+					citationOutput.innerHTML = r.content;
+					citationOutput.classList.add('fade-in');
+					citationOutput.style.opacity = '1';
+				})
+				.catch(() => {
+					citationOutput.style.opacity = '1';
+				});
+		});
 	});
 
-	// Display dropdown with more citation formats
-	if (!citationFormatBtn.length || !citationFormatDropdown.length) {
+	// Check if the required elements for the dropdown exist
+	if (!citationFormatBtn || !citationFormatDropdown) {
 		return;
 	}
 
-	citationFormatBtn.click(function(e) {
+	// Function to handle dropdown display for more citation formats
+	citationFormatBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var state = citationFormatBtn.attr('aria-expanded');
+		const state = citationFormatBtn.getAttribute('aria-expanded') === 'true';
 
-		if (state === "true") {
-			citationFormatBtn.attr('aria-expanded', false);
-			citationFormatDropdown.attr('aria-hidden', true);
-		} else {
-			citationFormatBtn.attr('aria-expanded', true);
-			citationFormatDropdown.attr('aria-hidden', false);
-		}
+		citationFormatBtn.setAttribute('aria-expanded', !state);
+		citationFormatDropdown.setAttribute('aria-hidden', state);
 	});
 
-	$('a, button', citationFormatDropdown).click(function(e) {
-		citationFormatBtn.attr('aria-expanded', false);
-		citationFormatDropdown.attr('aria-hidden', true);
+	// Close the dropdown when any link or button inside is clicked
+	citationFormatDropdown.querySelectorAll('a, button').forEach((elem) => {
+		elem.addEventListener('click', () => {
+			citationFormatBtn.setAttribute('aria-expanded', false);
+			citationFormatDropdown.setAttribute('aria-hidden', true);
+		});
 	});
-
-})(jQuery);
+});
