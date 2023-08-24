@@ -1,12 +1,13 @@
 # Ga Ja Poh <gajapo2932@decorbuz.com>, 2021.
 # Mohamad Shabilullah <shabilhamid91@gmail.com>, 2023.
+# Ahmad Irdha Mokhtar <airdham@icloud.com>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-08 13:48+0000\n"
-"Last-Translator: Mohamad Shabilullah <shabilhamid91@gmail.com>\n"
+"PO-Revision-Date: 2023-08-03 16:58+0000\n"
+"Last-Translator: Ahmad Irdha Mokhtar <airdham@icloud.com>\n"
 "Language-Team: Malay <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/ms_MY/>\n"
-"Language: ms_MY\n"
+"citation-style-language-plugin/ms/>\n"
+"Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -91,3 +92,45 @@ msgstr "Bahasa Gaya Petikan"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Benarkan pembaca mendapatkan petikan buku yang diterbitkan dalam salah satu "
+"daripada beberapa format yang disokong oleh Bahasa Gaya Petikan."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Penyumbang"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Pilih peranan yang harus dikenal pasti sebagai editor."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Dalam beberapa gaya petikan, penyumbang mesti dikenal pasti secara berbeza "
+"bergantung pada peranan mereka. Sila kenal pasti peranan yang sesuai."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Pengarang"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editor"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Pengarang Bab"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Pilih peranan yang harus dikenal pasti sebagai pengarang."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Pilih format petikan yang anda ingin paparkan secara lalai pada halaman "
+"pendaratan buku anda."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Penterjemah"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Pilih peranan yang harus dikenal pasti sebagai penterjemah."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Pilih peranan yang harus dikenal pasti sebagai pengarang bab."
