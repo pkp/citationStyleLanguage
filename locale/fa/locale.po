@@ -1,8 +1,127 @@
 # Kamdin Parsakia <kamdinparsakia@iranmehr.ac.ir>, 2023.
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2023-09-10 22:58+0000\n"
+"Last-Translator: Kamdin Parsakia <kamdinparsakia@iranmehr.ac.ir>\n"
+"Language-Team: Persian <http://translate.pkp.sfu.ca/projects/plugins/"
+"citation-style-language-plugin/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Weblate\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "سبک ارجاع‌دهی"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"این افزونه ارجاع‌دهی به کتاب با انواع فرمت‌های رایج را به صفحه مربوط به کتاب "
+"و فصول آن اضافه می‌کند."
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "شیکاگو"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "هاروارد"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "تورابیان"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "ونکوور"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTeX"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "فرمت‌های قابل دانلود"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "فرمت‌های ارجاع‌دهی بیش‌تر"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr ""
+"فرمت‌های ارجاع‌دهی بیش‌تری که مایلید به خوانندگان ارائه دهید را انتخاب کنید."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "فرمت ارجاع‌دهی اصلی"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr "فرمت ارجاع‌دهی پیشفرض جهت نمایش در صفحه مقالات را انتخاب نمایید."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr "فرمت ارجاع‌دهی پیشفرض جهت نمایش در صفحه کتاب را انتخاب نمایید."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "مکان ناشر"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr "در برخی فرمت‌های ارجاع‌دهی مکان جغرافیایی ناشر ذکر می‌شود."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "مشارکت‌کنندگان"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "نویسندگان"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "ویراستاران"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "مترجمین"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "نویسندگان فصل"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "انتخاب نقش‌هایی که باید به عنوان نویسنده شناخته شوند."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "انتخاب نقش‌هایی که باید به عنوان ویراستار شناخته شوند."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "انتخاب نقش‌هایی که به عنوان مترجمین باید شناسایی شوند."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "انتخاب نقش‌هایی که به عنوان نویسندگان فصل باید شناسایی شوند."
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"این افزونه ارجاع‌دهی به مقاله با انواع فرمت‌های رایج را به صفحه مقاله اضافه "
+"می‌کند."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"در برخی شیوه‌های ارجاع‌دهی، مشارکت‌کنندگان باید بر اساس نقش‌های مختلفی که "
+"دارند مشخص شوند. لطفاً نقش‌های درست را مشخص کنید."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"فرمت‌های قابل دانلودی که مایلید برای استخراج اطلاعات کتابشناسی به کاربران "
+"ارائه داده شود را انتخاب نمایید."
