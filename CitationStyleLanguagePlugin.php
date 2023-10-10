@@ -925,6 +925,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     {
         $chapterAuthorGroups = $this->getChapterAuthorGroups($context->getId());
         $chapterAuthors = $chapter->getAuthors();
+        $citationData->author = [];
 
         /** @var Author $chapterAuthor */
         foreach ($chapterAuthors as $chapterAuthor) {
@@ -978,18 +979,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                         $citationData->{'container-author'}[] = $currentAuthor;
                         break;
                     default:
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
                         break;
                 }
             }
         }
 
         if (isset($citationData->{'container-author'})) {
-            $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
-            if (count($diffChapterAuthorsAuthors) === 0) {
+            if (empty($citationData->author)) {
+                $citationData->author = $citationData->{'container-author'};
                 $citationData->{'container-author'} = [];
+            } else {
+                $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
+                if (count($diffChapterAuthorsAuthors) === 0) {
+                    $citationData->{'container-author'} = [];
+                }
             }
         }
 
