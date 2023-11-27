@@ -493,12 +493,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             throw new Exception('Unknown submission content type!');
         }
 
-        /** @var SubmissionLanguageDAO $submissionLanguageDao */
-        $submissionLanguageDao = DAORegistry::getDAO('SubmissionLanguageDAO');
-        $languages = $submissionLanguageDao->getLanguages($publication->getId(), [Locale::getLocale()]);
-        if (array_key_exists(Locale::getLocale(), $languages)) {
-            $citationData->languages = $languages[Locale::getLocale()];
-        }
+        $citationData->languages = collect($publication->getData('galleys') ?? [])
+            ->map(fn ($g) => $g->getData('locale'))
+            ->push($submission->getData('locale'))
+            ->filter()->unique()->sort()->values()->toArray();
 
         $citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
         $abbreviation = $context->getData('abbreviation', $context->getPrimaryLocale()) ?? $context->getData('acronym', $context->getPrimaryLocale());
