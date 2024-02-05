@@ -448,7 +448,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             }
             $citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
             $citationData = $this->setArticleAuthors($citationData, $publication, $context);
-            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'view', $submission->getBestId());
+            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'view', $publication->getData('urlPath') ?? $submission->getId());
             if ($publication->getDoi()) {
                 $citationData->DOI = $publication->getDoi();
             }
@@ -466,7 +466,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
             $citationData->serialNumber = $this->getSerialNumber($publication);
             $citationData = $this->setBookAuthors($citationData, $publication, $context);
-            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', $submission->getBestId());
+            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', $publication->getData('urlPath') ?? $submission->getId());
             if ($publication->getDoi()) {
                 $citationData->DOI = $publication->getDoi();
             }
@@ -484,7 +484,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->abstract = htmlspecialchars(strip_tags($chapter->getLocalizedData('abstract')));
             $citationData->serialNumber = $this->getSerialNumber($publication);
             $citationData = $this->setBookChapterAuthors($citationData, $publication, $context, $chapter);
-            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', [$submission->getBestId(), 'chapter', $chapter->getSourceChapterId()]);
+            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', [$publication->getData('urlPath') ?? $submission->getId(), 'chapter', $chapter->getSourceChapterId()]);
 
             if ($chapter->getDoi()) {
                 $citationData->DOI = $chapter->getDoi();

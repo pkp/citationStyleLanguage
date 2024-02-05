@@ -116,10 +116,10 @@ class CitationStyleLanguageHandler extends Handler
         $applicationName = Application::get()->getName();
 
         if ($applicationName === 'ojs2') {
-            return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+            return !$issue || !$issue->getPublished() || $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
         }
 
-        return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+        return $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
     }
 
     /**
