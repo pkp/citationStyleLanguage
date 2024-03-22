@@ -160,7 +160,7 @@ class CitationStyleLanguageHandler extends Handler
         }
 
         if ($this->submission && $this->plugin->application === 'ojs2') {
-            $this->issue = $userVars['issueId'] ? Repo::issue()->get((int) $userVars['issueId']) : null;
+            $this->issue = empty($userVars['issueId']) ? null : Repo::issue()->get((int) $userVars['issueId']);
         }
 
         // Disallow access to unpublished submissions, unless the user is a
