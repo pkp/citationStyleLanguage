@@ -1,8 +1,9 @@
 # Margit Dellatorre <margit.dellatorre@hbz.uzh.ch>, 2022.
+# Germán Huélamo Bautista <germanhuelamo@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-13 14:25+0000\n"
-"Last-Translator: Margit Dellatorre <margit.dellatorre@hbz.uzh.ch>\n"
+"PO-Revision-Date: 2024-04-11 18:04+0000\n"
+"Last-Translator: Germán Huélamo Bautista <germanhuelamo@gmail.com>\n"
 "Language-Team: French <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/fr_FR/>\n"
 "Language: fr_FR\n"
@@ -10,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr ""
@@ -92,3 +93,46 @@ msgstr "Module de styles bibliographiques"
 
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Éditeur·rice·s"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Traducteur·rice·s"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Sélectionnez les rôles à identifier en tant qu'éditeur·rice·s."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Sélectionnez les rôles à identifier en tant que traducteur·rice·s."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Auteur·e·s de chapitre"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Sélectionnez les rôles à identifier en tant qu'auteur·e·s de chapitre."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Le module Citation Style Language permet aux lecteur·rice·s d'obtenir la "
+"citation d'un livre dans l'un des formats pris en charge."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Contributeur·rice·s"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Dans certains styles de citation, les contributeur·rice·s doivent être "
+"identifié·e·s différemment en fonction de leur rôle. Veuillez identifier les "
+"rôles appropriés."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Auteur·e·s"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Sélectionnez les rôles à identifier en tant qu'auteur·e·s."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Sélectionnez le format de citation que vous souhaitez afficher par défaut "
+"sur la page d'accueil du livre."
