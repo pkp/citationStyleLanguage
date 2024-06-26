@@ -583,7 +583,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     $additionalMarkup = [
                         'DOI' => [
                             'function' => function ($item, $renderedValue) {
-                                return '<a href="https://doi.org/' . $item->DOI . '">' . $renderedValue . '</a>';
+                                $doiWithUrl = 'https://doi.org/'.$item->DOI;
+                                if (str_contains($renderedValue, $doiWithUrl)) {
+                                    $doiLink = '<a href="' . $doiWithUrl . '">' . $doiWithUrl . '</a>';
+                                    return str_replace($doiWithUrl, $doiLink, $renderedValue);
+                                } else {
+                                    $doiLink = '<a href="' . $doiWithUrl . '">' . $item->DOI . '</a>';
+                                    return str_replace($item->DOI, $doiLink, $renderedValue);
+
+                                }
                             },
                             'affixes' => true
                         ],
@@ -591,7 +599,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                             'function' => function ($item, $renderedValue) {
                                 return '<a href="' . $item->URL . '">' . $renderedValue . '</a>';
                             },
-                            'affixes' => true
+                            'affixes' => false
                         ],
                     ];
 
