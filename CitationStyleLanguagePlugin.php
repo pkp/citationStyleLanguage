@@ -33,6 +33,7 @@ use Exception;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
+use PKP\core\PKPString;
 use PKP\db\DAORegistry;
 use PKP\facades\Locale;
 use PKP\linkAction\LinkAction;
@@ -431,9 +432,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $issueId = $publication->getData('issueId');
             $issue ??= $issueId ? Repo::issue()->get($issueId) : null;
             if ($issue) {
-                $citationData->volume = htmlspecialchars($issue->getData('volume'));
+                $citationData->volume = $issue->getData('volume');
                 // Zotero prefers issue and Mendeley uses `number` to store revisions
-                $citationData->issue = htmlspecialchars($issue->getData('number'));
+                $citationData->issue = $issue->getData('number');
             }
 
             if ($sectionId = $publication->getData('sectionId')) {
@@ -446,7 +447,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             if ($publication->getData('pages')) {
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
             }
-            $citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
+            $citationData->abstract = PKPString::html2text($publication->getLocalizedData('abstract'));
             $citationData = $this->setArticleAuthors($citationData, $publication, $context);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'view', $submission->getBestId());
             if ($publication->getDoi()) {
@@ -458,12 +459,12 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->id = $submission->getId();
             $citationData->title = $publication->getLocalizedFullTitle();
             $citationData = $this->addSeriesInformation($citationData, $publication);
-            $citationData->publisher = htmlspecialchars($context->getLocalizedName());
+            $citationData->publisher = $context->getLocalizedName();
             $citationData->keywords = $keywords[Locale::getLocale()] ?? [];
             if ($publication->getData('pages')) {
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
             }
-            $citationData->abstract = htmlspecialchars(strip_tags($publication->getLocalizedData('abstract')));
+            $citationData->abstract = PKPString::html2text($publication->getLocalizedData('abstract'));
             $citationData->serialNumber = $this->getSerialNumber($publication);
             $citationData = $this->setBookAuthors($citationData, $publication, $context);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', $submission->getBestId());
@@ -477,7 +478,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->title = $chapter->getLocalizedFullTitle();
             $citationData->{'container-title'} = $publication->getLocalizedFullTitle();
             $citationData = $this->addSeriesInformation($citationData, $publication);
-            $citationData->publisher = htmlspecialchars($context->getLocalizedName());
+            $citationData->publisher = $context->getLocalizedName();
             if ($chapter->getPages()) {
                 $citationData->page = htmlspecialchars($chapter->getPages());
             }
@@ -503,7 +504,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
         $abbreviation = $context->getData('abbreviation', $context->getPrimaryLocale()) ?? $context->getData('acronym', $context->getPrimaryLocale());
         if ($abbreviation) {
-            $citationData->{'container-title-short'} = htmlspecialchars($abbreviation);
+            $citationData->{'container-title-short'} = $abbreviation;
         }
 
         $citationData->accessed = new stdClass();
@@ -646,7 +647,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return false;
         }
 
-        $citation = trim(strip_tags($this->getCitation($request, $submission, $citationStyle, $issue, $publication, $chapter)));
+        $citation = trim(PKPString::html2text($this->getCitation($request, $submission, $citationStyle, $issue, $publication, $chapter)));
 
         // TODO this is likely going to cause an error in a citation some day,
         // but is necessary to get the .ris downloadable format working. The
@@ -781,8 +782,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         if (!$series) {
             return $citationData;
         }
-        $citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
-        $citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
+        $citationData->{'collection-title'} = trim($series->getLocalizedFullTitle());
+        $citationData->volume = $publication->getData('seriesPosition');
         $citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
         $onlineISSN = $series->getOnlineISSN();
         if (!empty($onlineISSN)) {
