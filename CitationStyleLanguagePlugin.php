@@ -570,13 +570,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     foreach ([
                         str_replace('_', '-', substr(Locale::getLocale(), 0, 5)),
                         substr(Locale::getLocale(), 0, 2),
+                        substr(Locale::getLocale(), 0, 2) . '-' . strtoupper(substr(Locale::getLocale(), 0, 2)),
+                        $this->mapLocale(substr(Locale::getLocale(), 0, 2)),
                         'en-US',
                     ] as $tryLocale) {
                         if (file_exists(dirname(__FILE__) . '/lib/vendor/citation-style-language/locales/locales-' . $tryLocale . '.xml')) {
                             break;
                         }
                     }
-
                     //Clickable URL and DOI including affixes
                     $additionalMarkup = [
                         'DOI' => [
@@ -780,7 +781,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $citationData;
         }
         $citationData->{'collection-title'} = htmlspecialchars(trim($series->getLocalizedFullTitle()));
-        $citationData->volume = htmlspecialchars($publication->getData('seriesPosition'));
+        $citationData->{'collection-number'} = htmlspecialchars($publication->getData('seriesPosition'));
         $citationData->{'collection-editor'} = htmlspecialchars($series->getEditorsString());
         $onlineISSN = $series->getOnlineISSN();
         if (!empty($onlineISSN)) {
@@ -930,6 +931,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     {
         $chapterAuthorGroups = $this->getChapterAuthorGroups($context->getId());
         $chapterAuthors = $chapter->getAuthors();
+        $citationData->author = [];
 
         /** @var Author $chapterAuthor */
         foreach ($chapterAuthors as $chapterAuthor) {
@@ -983,18 +985,20 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                         $citationData->{'container-author'}[] = $currentAuthor;
                         break;
                     default:
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
                         break;
                 }
             }
         }
 
         if (isset($citationData->{'container-author'})) {
-            $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
-            if (count($diffChapterAuthorsAuthors) === 0) {
+            if (empty($citationData->author)) {
+                $citationData->author = $citationData->{'container-author'};
                 $citationData->{'container-author'} = [];
+            } else {
+                $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
+                if (count($diffChapterAuthorsAuthors) === 0) {
+                    $citationData->{'container-author'} = [];
+                }
             }
         }
 
@@ -1004,5 +1008,36 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     protected function compareAuthors($a, $b): int
     {
         return 0 === strcmp($a->family, $b->family) && 0 === strcmp($a->given, $b->given) ? 0 : 1;
+    }
+
+    protected function mapLocale(string $locale): string
+    {
+        $locales = [
+            'af' => 'af-ZA',
+            'ca' => 'ca-AD',
+            'cs' => 'cs-CZ',
+            'cy' => 'cy-GB',
+            'da' => 'da-DK',
+            'el' => 'el-GR',
+            'et' => 'et-EE',
+            'fa' => 'fa-IR',
+            'he' => 'he-IL',
+            'hi' => 'hi-IN',
+            'ja' => 'ja-JP',
+            'km' => 'km-KH',
+            'ko' => 'ko-KR',
+            'nb' => 'nb-NO',
+            'nn' => 'nn-NO',
+            'sr' => 'sr-RS',
+            'sv' => 'sv-SE',
+            'uk' => 'uk-UA',
+            'vi' => 'vi-VN'
+        ];
+
+        if( array_key_exists($locale, $locales) ) {
+            return  $locales[$locale];
+        } else {
+            return $locale;
+        }
     }
 }
