@@ -22,7 +22,7 @@ use APP\template\TemplateManager;
 use PKP\form\Form;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
-use PKP\notification\PKPNotification;
+use PKP\notification\Notification;
 use PKP\security\Role;
 
 class CitationStyleLanguageSettingsForm extends Form
@@ -156,7 +156,7 @@ class CitationStyleLanguageSettingsForm extends Form
 
         $notificationMgr = new NotificationManager();
         $user = $request->getUser();
-        $notificationMgr->createTrivialNotification($user->getId(), PKPNotification::NOTIFICATION_TYPE_SUCCESS, ['contents' => __('common.changesSaved')]);
+        $notificationMgr->createTrivialNotification($user->getId(), Notification::NOTIFICATION_TYPE_SUCCESS, ['contents' => __('common.changesSaved')]);
 
         return parent::execute(...$functionArgs);
     }
