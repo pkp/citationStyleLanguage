@@ -40,8 +40,7 @@ use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
-use PKP\submission\SubmissionKeywordDAO;
-use PKP\submission\SubmissionLanguageDAO;
+use PKP\submission\SubmissionKeywordVocab;
 use Seboettg\CiteProc\CiteProc;
 use stdClass;
 
@@ -417,10 +416,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $chapter = $this->application === 'omp' ? $this->getChapter($request, $publication) : null;
         }
         $this->setDocumentType($chapter);
-        /** @var SubmissionKeywordDAO $submissionKeywordDao */
-        $submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
-        $keywords = $submissionKeywordDao->getKeywords($publication->getId(), [Locale::getSupportedLocales()]);
 
+        $keywords = SubmissionKeywordVocab::getKeywords($publication->getId(), [Locale::getSupportedLocales()]);
         $citationData = new stdClass();
 
         if ($this->isArticle) {
