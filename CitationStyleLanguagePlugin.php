@@ -30,6 +30,7 @@ use APP\publicationFormat\PublicationFormat;
 use APP\submission\Submission;
 use APP\template\TemplateManager;
 use Exception;
+use PKP\controlledVocab\ControlledVocab;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
@@ -40,7 +41,6 @@ use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
-use PKP\submission\SubmissionKeywordVocab;
 use Seboettg\CiteProc\CiteProc;
 use stdClass;
 
@@ -417,7 +417,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
         $this->setDocumentType($chapter);
 
-        $keywords = SubmissionKeywordVocab::getKeywords($publication->getId(), [Locale::getSupportedLocales()]);
+        $keywords = Repo::controlledVocab()->getBySymbolic(
+            ControlledVocab::CONTROLLED_VOCAB_SUBMISSION_KEYWORD,
+            Application::ASSOC_TYPE_PUBLICATION,
+            $publication->getId(),
+            [Locale::getSupportedLocales()]
+        );
+
         $citationData = new stdClass();
 
         if ($this->isArticle) {
