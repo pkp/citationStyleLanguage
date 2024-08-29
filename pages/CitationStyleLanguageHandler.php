@@ -75,7 +75,7 @@ class CitationStyleLanguageHandler extends Handler
 
         $plugin = $this->plugin;
         if (null === $plugin) {
-            $request->getDispatcher()->handle404();
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
         }
         $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication, $this->chapter);
 
@@ -135,7 +135,7 @@ class CitationStyleLanguageHandler extends Handler
         $context = $request->getContext();
 
         if (empty($userVars['submissionId']) || !$context || empty($args)) {
-            $request->getDispatcher()->handle404();
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
         }
 
         // Load plugin categories which might need to add data to the citation
@@ -147,7 +147,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->submission = Repo::submission()->get((int) $userVars['submissionId']);
 
         if (!$this->submission) {
-            $request->getDispatcher()->handle404();
+            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
         }
 
         $this->publication = !empty($userVars['publicationId'])
@@ -171,7 +171,7 @@ class CitationStyleLanguageHandler extends Handler
             || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
             if (!$this->canUserAccess($context, $user, $userRoles)) {
-                $request->getDispatcher()->handle404();
+                throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
             }
         }
     }
