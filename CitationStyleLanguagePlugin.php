@@ -421,7 +421,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             ControlledVocab::CONTROLLED_VOCAB_SUBMISSION_KEYWORD,
             Application::ASSOC_TYPE_PUBLICATION,
             $publication->getId(),
-            [Locale::getSupportedLocales()]
+            $context->getSupportedLocales()
         );
 
         $citationData = new stdClass();
