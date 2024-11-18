@@ -116,10 +116,10 @@ class CitationStyleLanguageHandler extends Handler
         $applicationName = Application::get()->getName();
 
         if ($applicationName === 'ojs2') {
-            return !$issue || !$issue->getPublished() || $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+            return !$issue || !$issue->getPublished() || $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
         }
 
-        return $submission->getStatus() != PKPSubmission::STATUS_PUBLISHED;
+        return $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
     }
 
     /**
@@ -160,7 +160,7 @@ class CitationStyleLanguageHandler extends Handler
         }
 
         if ($this->submission && $this->plugin->application === 'ojs2') {
-            $this->issue = $userVars['issueId'] ? Repo::issue()->get((int) $userVars['issueId']) : null;
+            $this->issue = empty($userVars['issueId']) ? null : Repo::issue()->get((int) $userVars['issueId']);
         }
 
         // Disallow access to unpublished submissions, unless the user is a
