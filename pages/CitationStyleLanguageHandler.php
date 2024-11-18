@@ -187,7 +187,7 @@ class CitationStyleLanguageHandler extends Handler
                     continue;
                 }
                 $userGroup = Repo::userGroup()->get($assignment->getUserGroupId($context->getId()));
-                if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
+                if (in_array($userGroup->roleId, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
                     return true;
                 }
             }
