@@ -102,10 +102,9 @@ class CitationStyleLanguageSettingsForm extends Form
         }
 
         $allUserGroups = [];
-        $userGroups = Repo::userGroup()->getByRoleIds([Role::ROLE_ID_AUTHOR], $contextId);
-        $userGroups = $userGroups->toArray();
+        $userGroups = Repo::userGroup()->getByRoleIds([Role::ROLE_ID_AUTHOR], $contextId)->all();
         foreach ($userGroups as $userGroup) {
-            $allUserGroups[(int) $userGroup->getId()] = $userGroup->getLocalizedName();
+            $allUserGroups[(int) $userGroup->id] = $userGroup->getLocalizedData('name');
         }
         asort($allUserGroups);
 
