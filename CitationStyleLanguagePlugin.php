@@ -564,19 +564,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             } else {
                 $style = $this->loadStyle($styleConfig);
                 if ($style) {
-                    // Determine what locale to use. Try in order:
-                    //  - xx_YY
-                    //  - xx
-                    // Fall back English if none found.
-                    foreach ([
-                        str_replace('_', '-', substr(Locale::getLocale(), 0, 5)),
-                        substr(Locale::getLocale(), 0, 2),
-                        'en-US',
-                    ] as $tryLocale) {
-                        if (file_exists(dirname(__FILE__) . '/lib/vendor/citation-style-language/locales/locales-' . $tryLocale . '.xml')) {
-                            break;
-                        }
-                    }
+                    // Determine what locale to use. Fall back English if none found.
+                    $tryLocale = $this->getCSLLocale(Locale::getLocale(), 'en-US');
 
                     //Clickable URL and DOI including affixes
                     $additionalMarkup = [
@@ -1005,5 +994,42 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     protected function compareAuthors($a, $b): int
     {
         return 0 === strcmp($a->family, $b->family) && 0 === strcmp($a->given, $b->given) ? 0 : 1;
+    }
+
+    /**
+     * Find the best match for a CSL locale.
+     * @param $locale Weblate locale.
+     * @param $default A locale code to use as default. This should already be sanitized.
+     * @return string A language code that's available in the CSL library.
+     */
+    function getCSLLocale(string $locale, string $defaultLocale = 'en-US') : string
+    {
+        $prefix = $this->getPluginPath() . '/lib/vendor/citation-style-language/locales/locales-';
+        $suffix = '.xml';
+        $preferences = [
+            'de' => 'de-DE',
+            'en' => 'en-US',
+            'es' => 'es-ES',
+            'fr' => 'fr-FR',
+            'pt' => 'pt-PT',
+        ];
+        // Determine the language and region we're looking for from $locale
+        $language = \Locale::getPrimaryLanguage($locale);
+        $region = \Locale::getRegion($locale) ?? null;
+        $localeAndRegion = $language . ($region ? "-{$region}" : '');
+        // Get a list of available options from the filesystem.
+        $availableLocaleFiles = glob("{$prefix}*{$suffix}");
+        // 1. Look for an exact match and return it.
+        if (in_array("{$prefix}{$locale}{$suffix}", $availableLocaleFiles)) return $locale;
+        // 2. Look in the preference list for a preferred fallback.
+        if ($preference = $preferences[$localeAndRegion] ?? false) return $preference;
+        // 3. Find the first match by language.
+        foreach ($availableLocaleFiles as $filename) {
+            if (strpos($filename, "{$prefix}{$language}-") === 0) {
+                return substr($filename, strlen($prefix), -strlen($suffix));
+            }
+        }
+        // 4. Use the supplied default.
+        return $defaultLocale;
     }
 }
