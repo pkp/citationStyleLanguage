@@ -17,6 +17,7 @@
 {assign var="containerTitle" value="container-title"}
 {assign var="containerTitleShort" value="container-title-short"}
 {assign var="collectionTitle" value="collection-title"}
+{assign var="collectionNumber" value="collection-number"}
 {assign var="collectionEditor" value="collection-editor"}
 {assign var="publisherPlace" value="publisher-place"}
 
@@ -74,8 +75,8 @@ T2  - {trim($citationData->$containerTitle)}
 {if $citationData->$collectionTitle}
 T3  - {trim($citationData->$collectionTitle)}
 {/if}
-{if $citationData->volume}
-M1  - {$citationData->volume}
+{if $citationData->$collectionNumber}
+M1  - {$citationData->$collectionNumber}
 {/if}
 {if $citationData->$publisherPlace}
 PP  - {$citationData->$publisherPlace}
