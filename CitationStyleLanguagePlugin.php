@@ -419,7 +419,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $this->setDocumentType($chapter);
         /** @var SubmissionKeywordDAO $submissionKeywordDao */
         $submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
-        $keywords = $submissionKeywordDao->getKeywords($publication->getId(), [Locale::getSupportedLocales()]);
+        $keywords = $submissionKeywordDao->getKeywords($publication->getId());
 
         $citationData = new stdClass();
 
