@@ -402,9 +402,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @see Mendeley's mappings http://support.mendeley.com/customer/portal/articles/364144-csl-type-mapping
      *
      * @param string $citationStyle Name of the citation style to use.
-     * @param Issue $issue Optional. Will fetch from db if not passed.
-     * @param Publication $publication Optional. A particular version
-     * @param Chapter $chapter Optional. OMP chapter pages only.
+     * @param ?Issue $issue Optional. Will fetch from db if not passed.
+     * @param ?Publication $publication Optional. A particular version
+     * @param ?Chapter $chapter Optional. OMP chapter pages only.
      *
      * @throws Exception
      */
@@ -569,18 +569,17 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     // Determine what locale to use. Fall back English if none found.
                     $tryLocale = $this->getCSLLocale(Locale::getLocale(), 'en-US');
 
-                    //Clickable URL and DOI including affixes
+                    // Clickable URL and DOI including affixes
                     $additionalMarkup = [
                         'DOI' => [
                             'function' => function ($item, $renderedValue) {
-                                $doiWithUrl = 'https://doi.org/'.$item->DOI;
+                                $doiWithUrl = 'https://doi.org/' . $item->DOI;
                                 if (str_contains($renderedValue, $doiWithUrl)) {
                                     $doiLink = '<a href="' . $doiWithUrl . '">' . $doiWithUrl . '</a>';
                                     return str_replace($doiWithUrl, $doiLink, $renderedValue);
                                 } else {
                                     $doiLink = '<a href="' . $doiWithUrl . '">' . $item->DOI . '</a>';
                                     return str_replace($item->DOI, $doiLink, $renderedValue);
-
                                 }
                             },
                             'affixes' => true

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file CitationStyleLanguageSettingsForm.php
  *
@@ -24,6 +25,7 @@ use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
 use PKP\notification\Notification;
 use PKP\security\Role;
+use PKP\userGroup\UserGroup;
 
 class CitationStyleLanguageSettingsForm extends Form
 {
@@ -102,7 +104,9 @@ class CitationStyleLanguageSettingsForm extends Form
         }
 
         $allUserGroups = [];
-        $userGroups = Repo::userGroup()->getByRoleIds([Role::ROLE_ID_AUTHOR], $contextId)->all();
+        $userGroups = UserGroup::withRoleIds([Role::ROLE_ID_AUTHOR])
+            ->withContextIds([$contextId])
+            ->get();
         foreach ($userGroups as $userGroup) {
             $allUserGroups[(int) $userGroup->id] = $userGroup->getLocalizedData('name');
         }
