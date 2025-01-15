@@ -30,8 +30,9 @@ use PKP\core\PKPRequest;
 use PKP\db\DAORegistry;
 use PKP\plugins\PluginRegistry;
 use PKP\security\Role;
-use PKP\stageAssignment\StageAssignmentDAO;
+use PKP\stageAssignment\StageAssignment;
 use PKP\submission\PKPSubmission;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CitationStyleLanguageHandler extends Handler
 {
@@ -47,8 +48,8 @@ class CitationStyleLanguageHandler extends Handler
     /** @var Issue issue of the publication being requested */
     public ?Issue $issue = null;
 
-    /** @var array citation style being requested */
-    public $citationStyle = '';
+    /** @var string citation style being requested */
+    public string $citationStyle = '';
 
     /** @var bool Whether or not to return citation in JSON format */
     public $returnJson = false;
@@ -75,7 +76,7 @@ class CitationStyleLanguageHandler extends Handler
 
         $plugin = $this->plugin;
         if (null === $plugin) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+            throw new NotFoundHttpException();
         }
         $citation = $plugin->getCitation($request, $this->submission, $this->citationStyle, $this->issue, $this->publication, $this->chapter);
 
@@ -135,7 +136,7 @@ class CitationStyleLanguageHandler extends Handler
         $context = $request->getContext();
 
         if (empty($userVars['submissionId']) || !$context || empty($args)) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+            throw new NotFoundHttpException();
         }
 
         // Load plugin categories which might need to add data to the citation
@@ -147,7 +148,7 @@ class CitationStyleLanguageHandler extends Handler
         $this->submission = Repo::submission()->get((int) $userVars['submissionId']);
 
         if (!$this->submission) {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+            throw new NotFoundHttpException();
         }
 
         $this->publication = !empty($userVars['publicationId'])
@@ -166,12 +167,14 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if (($this->plugin->application !== 'omp' && !$this->issue)
+        if (
+            ($this->plugin->application !== 'omp' && !$this->issue)
             || $this->isSubmissionUnpublished($this->submission, $this->issue)
-            || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())) {
+            || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())
+        ) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
             if (!$this->canUserAccess($context, $user, $userRoles)) {
-                throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+                throw new NotFoundHttpException();
             }
         }
     }
@@ -179,15 +182,13 @@ class CitationStyleLanguageHandler extends Handler
     protected function canUserAccess($context, $user, $userRoles)
     {
         if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
-            /** @var StageAssignmentDAO */
-            $stageAssignmentDao = DAORegistry::getDAO('StageAssignmentDAO');
-            $assignments = $stageAssignmentDao->getBySubmissionAndStageId($this->submission->getId());
+            $assignments = StageAssignment::withSubmissionIds([$this->submission->getId()])->get();
             foreach ($assignments as $assignment) {
-                if ($assignment->getUser()->getId() == $user->getId()) {
+                if ($assignment->userId == $user->getId()) {
                     continue;
                 }
-                $userGroup = Repo::userGroup()->get($assignment->getUserGroupId($context->getId()));
-                if (in_array($userGroup->getRoleId(), [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
+                $userGroup = Repo::userGroup()->get($assignment->userGroupId);
+                if (in_array($userGroup->roleId, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
                     return true;
                 }
             }
