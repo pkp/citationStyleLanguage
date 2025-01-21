@@ -337,9 +337,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 break;
             case 'omp':
                 /** @var Submission $submission */
-                $submission = & $args[1];
-                $publication = & $args[2];
-                $chapter = & $args[3];
+                $submission = &$args[1];
+                $publication = &$args[2];
+                $chapter = &$args[3];
                 $issue = null;
                 $citation = $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), $issue, $publication);
                 break;
@@ -388,8 +388,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     public function addCitationMarkup(string $hookName, array $args): bool
     {
-        $smarty = & $args[1];
-        $output = & $args[2];
+        $smarty = &$args[1];
+        $output = &$args[2];
         $output .= $smarty->fetch($this->getTemplateResource('citationblock.tpl'));
 
         return false;
@@ -723,8 +723,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function setPageHandler(string $hookName, array $params): bool
     {
-        $page = & $params[0];
-        $handler = & $params[3];
+        $page = &$params[0];
+        $handler = &$params[3];
         if ($this->getEnabled() && $page === 'citationstylelanguage') {
             $handler = new CitationStyleLanguageHandler($this);
             return true;
