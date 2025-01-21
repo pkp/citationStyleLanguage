@@ -109,6 +109,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     /**
      * Get list of citation styles available
+     *
+     * @hook CitationStyleLanguage::citationStyleDefaults [[&$defaults, $this]]
      */
     public function getCitationStyles(): array
     {
@@ -222,6 +224,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     /**
      * Get list of citation download formats available
+     *
+     * @hook CitationStyleLanguage::citationDownloadDefaults [[&$defaults, $this]]
      */
     public function getCitationDownloads(): array
     {
@@ -407,6 +411,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * @param ?Chapter $chapter Optional. OMP chapter pages only.
      *
      * @throws Exception
+     *
+     * @hook CitationStyleLanguage::citation [[&$citationData, &$citationStyle, $submission, $issue, $context, $publication]]
      */
     public function getCitation(PKPRequest $request, Submission $submission, string $citationStyle = 'apa', ?Issue $issue = null, ?Publication $publication = null, ?Chapter $chapter = null): string
     {
@@ -999,11 +1005,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     /**
      * Find the best match for a CSL locale.
+     *
      * @param $locale Weblate locale.
-     * @param $default A locale code to use as default. This should already be sanitized.
+     * @param $defaultLocale A locale code to use as default. This should already be sanitized.
+     *
      * @return string A language code that's available in the CSL library.
      */
-    function getCSLLocale(string $locale, string $defaultLocale = 'en-US') : string
+    public function getCSLLocale(string $locale, string $defaultLocale = 'en-US'): string
     {
         $prefix = $this->getPluginPath() . '/lib/vendor/citation-style-language/locales/locales-';
         $suffix = '.xml';
@@ -1021,9 +1029,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         // Get a list of available options from the filesystem.
         $availableLocaleFiles = glob("{$prefix}*{$suffix}");
         // 1. Look for an exact match and return it.
-        if (in_array("{$prefix}{$locale}{$suffix}", $availableLocaleFiles)) return $locale;
+        if (in_array("{$prefix}{$locale}{$suffix}", $availableLocaleFiles)) {
+            return $locale;
+        }
         // 2. Look in the preference list for a preferred fallback.
-        if ($preference = $preferences[$localeAndRegion] ?? false) return $preference;
+        if ($preference = $preferences[$localeAndRegion] ?? false) {
+            return $preference;
+        }
         // 3. Find the first match by language.
         foreach ($availableLocaleFiles as $filename) {
             if (strpos($filename, "{$prefix}{$language}-") === 0) {

@@ -17,7 +17,6 @@
 namespace APP\plugins\generic\citationStyleLanguage;
 
 use APP\core\Application;
-use APP\facades\Repo;
 use APP\notification\NotificationManager;
 use APP\template\TemplateManager;
 use PKP\form\Form;
