@@ -1,9 +1,10 @@
 # Informatikaria <informatikaria@ueu.eus>, 2024.
 # Josu Acosta <josuacostacalvo@gmail.com>, 2024.
+# Ricardo Gómez-López <ricardogomezlopez@gmail.com>, 2025.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-06-12 14:34+0000\n"
-"Last-Translator: Josu Acosta <josuacostacalvo@gmail.com>\n"
+"PO-Revision-Date: 2025-02-19 17:50+0000\n"
+"Last-Translator: Ricardo Gómez-López <ricardogomezlopez@gmail.com>\n"
 "Language-Team: Basque <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/eu/>\n"
 "Language: eu\n"
@@ -15,3 +16,45 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
 msgstr "Egileak"
+
+msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
+msgstr "ACM"
+
+msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgstr "ACS"
+
+msgid "plugins.generic.citationStyleLanguage.style.apa"
+msgstr "APA"
+
+msgid "plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas"
+msgstr "ABNT"
+
+msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
+msgstr "Chicago"
+
+msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
+msgstr "Harvard"
+
+msgid "plugins.generic.citationStyleLanguage.style.ieee"
+msgstr "IEEE"
+
+msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
+msgstr "MLA"
+
+msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
+msgstr "Turabian"
+
+msgid "plugins.generic.citationStyleLanguage.style.vancouver"
+msgstr "Vancouver"
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.download.bibtex"
+msgstr "BibTex"
+
+msgid "plugins.generic.citationStyleLanguage.download.ris"
+msgstr "Endnote/Zotero/Mendeley (RIS)"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
+msgstr "Jaisteko formatuak"
