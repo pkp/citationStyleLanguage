@@ -324,9 +324,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         switch ($this->application) {
             case 'ops':
-                $preprint = $args[1];
+                $submission = $args[1];
                 $publication = $args[2];
-                $citation = $this->getCitation($request, $preprint, $this->getPrimaryStyleName($contextId), null, $publication);
+                $citation = $this->getCitation($request, $submission, $this->getPrimaryStyleName($contextId), null, $publication);
                 break;
             case 'ojs2':
                 $issue = $args[1];
