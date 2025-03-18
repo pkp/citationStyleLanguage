@@ -1,12 +1,13 @@
 {
 	"require": {
 		"citation-style-language/locales":"@dev",
-		"seboettg/citeproc-php": "^2.4.1"
+		"seboettg/citeproc-php": "^2.4.1",
+		"seboettg/collection": ">=3.1.0,<4.0.0"
 	},
 	"config": {
 		"vendor-dir": "lib/vendor",
 		"platform": {
-			"php": "8.1.0"
+			"php": "8.2.0"
 		}
 	},
 	"repositories": [
