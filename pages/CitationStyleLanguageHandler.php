@@ -167,11 +167,7 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if (
-            ($this->plugin->application !== 'omp' && !$this->issue)
-            || $this->isSubmissionUnpublished($this->submission, $this->issue)
-            || ($this->plugin->application !== 'omp' && !$this->issue->getPublished())
-        ) {
+        if ($this->isSubmissionUnpublished($this->submission, $this->issue)) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
             if (!$this->canUserAccess($context, $user, $userRoles)) {
                 throw new NotFoundHttpException();
