@@ -1,15 +1,16 @@
+# Tạ Phước Ánh <taphuocanh@huaf.edu.vn>, 2025.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-16 10:48+0000\n"
-"Last-Translator: Nguyen Xuan Giao <giaonxb@gmail.com>\n"
+"PO-Revision-Date: 2025-04-12 01:50+0000\n"
+"Last-Translator: Tạ Phước Ánh <taphuocanh@huaf.edu.vn>\n"
 "Language-Team: Vietnamese <http://translate.pkp.sfu.ca/projects/plugins/"
-"citation-style-language-plugin/vi_VN/>\n"
-"Language: vi_VN\n"
+"citation-style-language-plugin/vi/>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
 msgstr "ACS"
@@ -85,3 +86,48 @@ msgstr ""
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Ngôn ngữ kiểu trích dẫn"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Chọn những vai trò nên được coi như là tác giả."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Chọn các vai trò nên được coi như là biên tập viên."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Chọn những vai trò nên được coi như là dịch giả."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Chọn những vai trò nên được coi như là tác giả chương."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Những người đóng góp"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Các tác giả"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Các biên tập viên"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Các dịch giả"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Các tác giả chương"
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Cho phép độc giả có thể lấy trích dẫn của một cuốn sách đã xuất bản theo một "
+"trong các định dạng được hỗ trợ bởi Ngôn ngữ kiểu trích dẫn."
+
+msgid "plugins.generic.citationStyleLanguage.style.ama"
+msgstr "AMA"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Chọn định dạng trích dẫn bạn muốn hiển thị mặc định trên trang giới thiệu "
+"sách của mình."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Trong một số kiểu trích dẫn, những người đóng góp phải được xác định khác "
+"nhau tùy thuộc vào vai trò của họ. Vui lòng xác định các vai trò thích hợp."
