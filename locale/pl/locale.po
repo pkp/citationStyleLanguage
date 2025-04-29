@@ -1,12 +1,13 @@
 # Piotr Pielach <ppielach@gmail.com>, 2022.
 # Dorota Siwecka <dorota.k.siwecka@gmail.com>, 2023.
+# Mikołaj Machowski <mikmach@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-02T16:45:26+00:00\n"
-"PO-Revision-Date: 2023-10-21 22:06+0000\n"
-"Last-Translator: Dorota Siwecka <dorota.k.siwecka@gmail.com>\n"
+"PO-Revision-Date: 2025-04-16 13:34+0000\n"
+"Last-Translator: Mikołaj Machowski <mikmach@gmail.com>\n"
 "Language-Team: Polish <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/pl/>\n"
 "Language: pl\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13.1\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Style cytowań"
@@ -105,3 +106,35 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Wybierz styl cytowania, który ma być domyślnie wyświetlany na stronie "
 "docelowej książki."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
+msgstr "Autorzy"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Redaktorzy"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Wybierz role, które powinny być identyfikowane jako autorzy rozdziałów."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Wybierz role, które powinny być identyfikowane jako redaktorzy."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Wybierz role, które powinny być identyfikowane jako tłumacze."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Współtwórcy"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"W niektórych stylach cytowań współtwórcy muszą być zindentyfikowani w "
+"zależności od ich roli. Proszę określ odpowiednie role."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Tłumacze"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Autorzy rozdziałów"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Wybierz role, które powinny być identyfikowane jako autorzy."
