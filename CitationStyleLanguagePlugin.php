@@ -651,7 +651,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $encodedFilename = urlencode(substr(($publication ? $publication->getLocalizedTitle() : ''), 0, 60)) . '.' . $styleConfig['fileExtension'];
 
-        header("Content-Disposition: attachment; filename*=UTF-8''\"{$encodedFilename}\"");
+        header("Content-Disposition: attachment; filename*=UTF-8''{$encodedFilename}");
         header('Content-Type: ' . $styleConfig['contentType']);
         echo $citation;
         exit;
