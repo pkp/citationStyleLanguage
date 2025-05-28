@@ -161,6 +161,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'isEnabled' => true,
             ],
             [
+                'id' => 'national-library-of-medicine',
+                'title' => __('plugins.generic.citationStyleLanguage.style.national-library-of-medicine'),
+                'isEnabled' => true,
+            ],
+            [
                 'id' => 'turabian-fullnote-bibliography',
                 'title' => __('plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography'),
                 'isEnabled' => true,
