@@ -426,7 +426,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         $keywords = Repo::controlledVocab()->getBySymbolic(
             ControlledVocab::CONTROLLED_VOCAB_SUBMISSION_KEYWORD,
             Application::ASSOC_TYPE_PUBLICATION,
-            $publication->getId()
+            $publication->getId(),
+            [],
+            true
         );
 
         $citationData = new stdClass();
