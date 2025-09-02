@@ -104,6 +104,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             Hook::add('Templates::Catalog::Chapter::Details', $this->addCitationMarkup(...));
             Hook::add('LoadHandler', $this->setPageHandler(...));
         }
+        
         return $success;
     }
 
@@ -238,7 +239,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'id' => 'ris',
                 'title' => __('plugins.generic.citationStyleLanguage.download.ris'),
                 'isEnabled' => true,
-                'useTemplate' => $this->getTemplateResource('citation-styles/ris.tpl'),
+                'useTemplate' => $this->getTemplateResource('citation-styles.ris'),
                 'fileExtension' => 'ris',
                 'contentType' => 'application/x-Research-Info-Systems',
             ],
@@ -388,9 +389,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     public function addCitationMarkup(string $hookName, array $args): bool
     {
-        $smarty = &$args[1];
         $output = &$args[2];
-        $output .= $smarty->fetch($this->getTemplateResource('citationblock.tpl'));
+
+        // Get partial blade view
+        $output .= TemplateManager::getManager()->fetch($this->getTemplateResource('citation-block'));
 
         return false;
     }

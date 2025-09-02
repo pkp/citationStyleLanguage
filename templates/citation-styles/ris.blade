@@ -1,0 +1,106 @@
+{{-- 
+plugins/generic/citationStyleLanguage/templates/citation-styles/ris.blade
+
+Copyright (c) 2017-2025 Simon Fraser University
+Copyright (c) 2017-2025 John Willinsky
+Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+
+@brief Citation output for the .ris downloadable format
+
+@uses $citationData stdClass Compiled citation data
+@uses $citationStyle string Name of the citation style being compiled
+@uses $article Article
+@uses $publication Publication
+@uses $issue Issue
+@uses $journal Journal
+--}}
+
+TY  - {{ $citationData->risType }}
+@foreach($citationData->author ?? [] as $author)
+AU  - {{ $author->family }}, {{ $author->given }}
+@endforeach
+@if($citationData->risType === 'BOOK'){{-- OMP book only --}}
+@if($citationData->{'collection-editor'})
+A2  - {{ $citationData->{'collection-editor'} }}
+@endif
+@foreach($citationData->editor ?? [] as $editor)
+A3  - {{ $editor->family }}, {{ $editor->given }}
+@endforeach
+@elseif($citationData->risType === 'CHAP'){{-- OMP chapter only --}}
+@foreach($citationData->editor ?? [] as $editor)
+A2  - {{ $editor->family }}, {{ $editor->given }}
+@endforeach
+@if($citationData->{'collection-editor'})
+A3  - {{ $citationData->{'collection-editor'} }}
+@endif
+@endif
+@foreach($citationData->translator ?? [] as $translator)
+A4  - {{ $translator->family }}, {{ $translator->given }}
+@endforeach
+@if($citationData->title)
+TI  - {{ $citationData->title }}
+@endif
+@if($citationData->risType === 'JOUR'){{-- OJS only --}}
+@if($citationData->issued)
+PY  - {{ \Carbon\Carbon::parse($citationData->issued->raw)->format('%Y/%m/%d') }}
+@endif
+@if($citationData->accessed)
+Y2  - {{ \Carbon\Carbon::parse($citationData->accessed->raw)->format('%Y/%m/%d') }}
+@endif
+@if($citationData->{'container-title'})
+JF  - {{ $citationData->{'container-title'} }}
+@endif
+@if($citationData->{'container-title-short'})
+JA  - {{ $citationData->{'container-title-short'} }}
+@endif
+@if($citationData->volume)
+VL  - {{ $citationData->volume }}
+@endif
+@if($citationData->issue)
+IS  - {{ $citationData->issue }}
+@endif
+@if($citationData->section)
+SE  - {{ $citationData->section }}
+@endif
+@else
+@if($citationData->{'container-title'})
+T2  - {{ trim($citationData->{'container-title'}) }}
+@endif
+@if($citationData->{'collection-title'})
+T3  - {{ trim($citationData->{'collection-title'}) }}
+@endif
+@if($citationData->volume)
+M1  - {{ $citationData->volume }}
+@endif
+@if($citationData->{'publisher-place'})
+PP  - {{ $citationData->{'publisher-place'} }}
+@endif
+@if($citationData->publisher)
+PB  - {{ $citationData->publisher }}
+@endif
+@if($citationData->issued)
+PY  - {{ \Carbon\Carbon::parse($citationData->issued->raw)->format('%Y') }}
+@endif
+@endif
+@foreach($citationData->languages ?? [] as $language)
+LA  - {{ $language }}
+@endforeach
+@foreach($citationData->serialNumber ?? []  as $serialNumber)
+SN  - {{ $serialNumber }}
+@endforeach
+@foreach($citationData->keywords ?? [] as $keyword)
+KW  - {{ $keyword }}
+@endforeach
+@if($citationData->DOI)
+DO  - {{ $citationData->DOI }}
+UR  - https://doi.org/{{ $citationData->DOI }}
+@else
+UR  - {{ $citationData->URL }}
+@endif
+@if($citationData->page)
+SP  - {{ $citationData->page }}
+@endif
+@if($citationData->abstract)
+AB  - {{ preg_replace("/[\r\n]+/", '', $citationData->abstract) }}
+@endif
+ER  -
