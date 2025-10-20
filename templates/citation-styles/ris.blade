@@ -91,7 +91,7 @@ SN  - {{ $serialNumber }}
 @foreach($citationData->keywords ?? [] as $keyword)
 KW  - {{ $keyword }}
 @endforeach
-@if($citationData->DOI)
+@if(isset($citationData->DOI))
 DO  - {{ $citationData->DOI }}
 UR  - https://doi.org/{{ $citationData->DOI }}
 @else

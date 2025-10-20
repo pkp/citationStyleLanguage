@@ -16,7 +16,7 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
             </h2>
             <div class="value">
                 <div id="citationOutput" role="region" aria-live="polite">
-                    {!! Str::sanitizeHtml($citation) !!}
+                    {!! ViewHelper::sanitizeHtml($citation) !!}
                 </div>
                 <div class="citation_formats">
                     <button class="citation_formats_button label" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
@@ -29,19 +29,19 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
                                     <a
                                         rel="nofollow"
                                         aria-controls="citationOutput"
-                                        href="@url([
+                                        href="{!!ViewHelper::url([
                                             'page' => 'citationstylelanguage',
                                             'op' => 'get',
                                             'path' => $citationStyle['id'],
                                             'params' => $citationArgs
-                                        ])"
+                                        ])!!}"
                                         data-load-citation
-                                        data-json-href="@url([
+                                        data-json-href="{!!ViewHelper::url([
                                             'page' => 'citationstylelanguage',
                                             'op' => 'get',
                                             'path' => $citationStyle['id'],
                                             'params' => $citationArgsJson
-                                        ])"
+                                        ])!!}"
                                     >
                                         {{ $citationStyle['title'] }}
                                     </a>
@@ -56,12 +56,12 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
                                 @foreach($citationDownloads as $citationDownload)
                                     <li>
                                         <a 
-                                            href="@url([
+                                            href="{!!ViewHelper::url([
                                                 'page' => 'citationstylelanguage',
                                                 'op' => 'download',
                                                 'path' => $citationDownload['id'],
                                                 'params' => $citationArgs
-                                            ])"
+                                            ])!!}"
                                         >
                                             <span class="fa fa-download"></span> {{ $citationDownload['title'] }}
                                         </a>
