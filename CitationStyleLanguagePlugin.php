@@ -425,11 +425,13 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
         $this->setDocumentType($chapter);
 
-        $keywords = Repo::controlledVocab()->getBySymbolic(
-            ControlledVocab::CONTROLLED_VOCAB_SUBMISSION_KEYWORD,
-            Application::ASSOC_TYPE_PUBLICATION,
-            $publication->getId()
-        );
+        $keywords = collect($publication->getData('keywords'))
+                            ->map(
+                                fn(array $items): array => collect($items)
+                                    ->pluck("name")
+                                ->all()
+                                )
+                            ->all();
 
         $citationData = new stdClass();
 
