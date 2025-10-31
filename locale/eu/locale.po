@@ -1,10 +1,11 @@
 # Informatikaria <informatikaria@ueu.eus>, 2024.
 # Josu Acosta <josuacostacalvo@gmail.com>, 2024.
 # Ricardo Gómez-López <ricardogomezlopez@gmail.com>, 2025.
+# Oihan Odriozola <oodriozola@euskaltzaindia.eus>, 2025.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-02-19 17:50+0000\n"
-"Last-Translator: Ricardo Gómez-López <ricardogomezlopez@gmail.com>\n"
+"PO-Revision-Date: 2025-09-01 07:55+0000\n"
+"Last-Translator: Oihan Odriozola <oodriozola@euskaltzaindia.eus>\n"
 "Language-Team: Basque <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/eu/>\n"
 "Language: eu\n"
@@ -58,3 +59,78 @@ msgstr "Endnote/Zotero/Mendeley (RIS)"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
 msgstr "Jaisteko formatuak"
+
+msgid "plugins.generic.citationStyleLanguage.displayName"
+msgstr "Aipuen estiloen hizkuntza"
+
+msgid "plugins.generic.citationStyleLanguage.description"
+msgstr ""
+"Irakurleei argitaratutako artikulu baten aipua eskuratzeko aukera ematen die "
+"Citation Style Language-k onartzen dituen hainbat formatutan."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
+msgstr ""
+"Hautatu deskargatzeko zein formatu eskaini nahi dizkiezun zure irakurleei. "
+"Deskarga daitezkeen formatuak hirugarrenen bibliografia kudeatzeko "
+"softwarera inportatzeko erabili ohi dira, EndNote edo Zotero bezala."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
+msgstr ""
+"Hautatu zer aipu-formatu bistaratu nahi duzun lehenespenez artikuluaren "
+"hasierako orrian."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Aipu-estilo batzuetan, kolaboratzaileak modu ezberdinean identifikatu behar "
+"dira beren rolaren arabera. Mesedez, identifikatu rol egokiak."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Kolaboratzaileak"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Hautatu egile gisa identifikatu behar diren rolak."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
+msgstr "Hautatu itzultzaile gisa identifikatu behar diren rolak."
+
+msgid "plugins.generic.citationStyleLanguage.description.omp"
+msgstr ""
+"Irakurleei argitaratutako liburu baten aipua eskuratzeko aukera ematen die, "
+"Citation Style Language-k onartzen dituen hainbat formatutan."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
+msgstr "Aipu formatu gehigarriak"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
+msgstr "Hautatu zein formatu gehigarri eskaini nahi dizkiezun zure irakurleei."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
+msgstr "Aipuen formatu nagusia"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
+msgstr ""
+"Hautatu zer aipu-formatu bistaratu nahi duzun lehenespenez liburuaren "
+"hasierako orrian."
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
+msgstr "Argitaratzailearen helbidea"
+
+msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
+msgstr ""
+"Aipamen formatu batzuek argitaletxearen kokapen geografikoa eskatzen dute, "
+"adibidez, \"Londres, EB\"."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
+msgstr "Editoreak"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
+msgstr "Itzultzaileak"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
+msgstr "Kapitulu-egileak"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
+msgstr "Hautatu editore gisa identifikatu behar diren rolak."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
+msgstr "Hautatu kapitulu-egile gisa identifikatu behar diren rolak."
