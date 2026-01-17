@@ -91,39 +91,7 @@ msgstr ""
 "Umožňuje čtenářům získat citaci publikované knihy v jednom z několika "
 "formátů podporovaných jazykem Citation Style Language."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Přispěvatelé"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autoři"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editoři"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Překladatelé"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autoři kapitol"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Vyberte role, které by měly být označeny jako autoři."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Vyberte role, které mají být označeny jako editoři."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Vyberte role, které by měly být označeny jako překladatelé."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Vyberte role, které by měly být označeny jako autoři kapitol."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Vyberte, který formát citací chcete na úvodní stránce knihy zobrazit jako "
 "výchozí."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"V některých citačních stylech musí být přispěvatelé označeni odlišně v "
-"závislosti na jejich roli. Určete prosím příslušné role."

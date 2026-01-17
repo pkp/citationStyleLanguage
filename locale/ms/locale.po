@@ -98,39 +98,7 @@ msgstr ""
 "Benarkan pembaca mendapatkan petikan buku yang diterbitkan dalam salah satu "
 "daripada beberapa format yang disokong oleh Bahasa Gaya Petikan."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Penyumbang"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Pilih peranan yang harus dikenal pasti sebagai editor."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Dalam beberapa gaya petikan, penyumbang mesti dikenal pasti secara berbeza "
-"bergantung pada peranan mereka. Sila kenal pasti peranan yang sesuai."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Pengarang"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editor"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Pengarang Bab"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Pilih peranan yang harus dikenal pasti sebagai pengarang."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Pilih format petikan yang anda ingin paparkan secara lalai pada halaman "
 "pendaratan buku anda."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Penterjemah"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Pilih peranan yang harus dikenal pasti sebagai penterjemah."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Pilih peranan yang harus dikenal pasti sebagai pengarang bab."

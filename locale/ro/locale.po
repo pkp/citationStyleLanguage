@@ -88,30 +88,6 @@ msgstr ""
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "CSL (Citation Style Language)"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Selectați rolurile care ar putea fi identificate ca traducători."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Selectați rolurile care ar putea fi identificate ca autori de capitol."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Contributori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Traducători"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Selectați rolurile care ar putea fi identificate ca editori."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Selectați rolurile care ar putea fi echivalate ca autori."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permite cititorilor să obțină o citare a cărții în unul din formatele CSL."
@@ -122,11 +98,3 @@ msgstr "AMA"
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Selectați modelul de citare care să fie afișat pe prima pagină a cărții."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autori de capitol"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"În anumite stiluri de citare contributorii trebuie identificați diferit, în "
-"funcție de rolul lor. Vă rugăm să identificați rolurile acestora."
