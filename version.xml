@@ -4,8 +4,8 @@
 <!--
   * plugins/generic/citationStyleLanguage/version.xml
   *
-  * Copyright (c) 2017-2020 Simon Fraser University
-  * Copyright (c) 2017-2020 John Willinsky
+  * Copyright (c) 2017-2026 Simon Fraser University
+  * Copyright (c) 2017-2026 John Willinsky
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Plugin version information.
@@ -13,8 +13,8 @@
 <version>
 	<application>citationStyleLanguage</application>
 	<type>plugins.generic</type>
-	<release>0.1.0.0</release>
-	<date>2017-06-28</date>
+	<release>1.0.0.0</release>
+	<date>2026-01-20</date>
 	<lazy-load>1</lazy-load>
 	<class>CitationStyleLanguagePlugin</class>
 </version>

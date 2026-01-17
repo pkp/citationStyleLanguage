@@ -3,11 +3,11 @@
 /**
  * @file CitationStyleLanguageSettingsForm.php
  *
- * Copyright (c) 2017-2020 Simon Fraser University
- * Copyright (c) 2017-2020 John Willinsky
+ * Copyright (c) 2017-2026 Simon Fraser University
+ * Copyright (c) 2017-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class CitationStyleLanguageSettingsForm.inc
+ * @class CitationStyleLanguageSettingsForm
  *
  * @ingroup plugins_generic_citationStyleLanguage
  *
@@ -23,8 +23,6 @@ use PKP\form\Form;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
 use PKP\notification\Notification;
-use PKP\security\Role;
-use PKP\userGroup\UserGroup;
 
 class CitationStyleLanguageSettingsForm extends Form
 {
@@ -55,12 +53,6 @@ class CitationStyleLanguageSettingsForm extends Form
         $this->setData('enabledCitationStyles', array_keys($this->plugin->getEnabledCitationStyles($contextId)));
         $this->setData('enabledCitationDownloads', $this->plugin->getEnabledCitationDownloads($contextId));
         $this->setData('publisherLocation', $this->plugin->getSetting($contextId, 'publisherLocation'));
-        $this->setData('groupAuthor', $this->plugin->getAuthorGroups($contextId));
-        $this->setData('groupTranslator', $this->plugin->getTranslatorGroups($contextId));
-        if ($this->plugin->application === 'omp') {
-            $this->setData('groupEditor', $this->plugin->getEditorGroups($contextId));
-            $this->setData('groupChapterAuthor', $this->plugin->getChapterAuthorGroups($contextId));
-        }
     }
 
     /**
@@ -73,13 +65,7 @@ class CitationStyleLanguageSettingsForm extends Form
             'enabledCitationStyles',
             'enabledCitationDownloads',
             'publisherLocation',
-            'groupAuthor',
-            'groupTranslator'
         ]);
-        if ($this->plugin->application === 'omp') {
-            $this->readUserVars(['groupEditor']);
-            $this->readUserVars(['groupChapterAuthor']);
-        }
     }
 
     /**
@@ -102,15 +88,6 @@ class CitationStyleLanguageSettingsForm extends Form
             $allDownloads[$style['id']] = $style['title'];
         }
 
-        $allUserGroups = [];
-        $userGroups = UserGroup::withRoleIds([Role::ROLE_ID_AUTHOR])
-            ->withContextIds([$contextId])
-            ->get();
-        foreach ($userGroups as $userGroup) {
-            $allUserGroups[(int) $userGroup->id] = $userGroup->getLocalizedData('name');
-        }
-        asort($allUserGroups);
-
         $templateMgr = TemplateManager::getManager($request);
         $templateMgr->assign([
             'pluginName' => $this->plugin->getName(),
@@ -120,17 +97,7 @@ class CitationStyleLanguageSettingsForm extends Form
             'enabledStyles' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationStyles($contextId)),
             'enabledDownloads' => $this->plugin->mapCitationIds($this->plugin->getEnabledCitationDownloads($contextId)),
             'application' => $this->plugin->application,
-            'groupAuthor' => $this->getData('groupAuthor'),
-            'groupTranslator' => $this->getData('groupTranslator'),
-            'allUserGroups' => $allUserGroups,
         ]);
-
-        if ($this->plugin->application === 'omp') {
-            $templateMgr->assign([
-                'groupEditor' => $this->getData('groupEditor'),
-                'groupChapterAuthor' => $this->getData('groupChapterAuthor'),
-            ]);
-        }
 
         return parent::fetch($request, $template, $display);
     }
@@ -149,12 +116,6 @@ class CitationStyleLanguageSettingsForm extends Form
         $enabledCitationDownloads = $this->getData('enabledCitationDownloads') ?: [];
         $this->plugin->updateSetting($contextId, 'enabledCitationDownloads', $enabledCitationDownloads);
         $this->plugin->updateSetting($contextId, 'publisherLocation', $this->getData('publisherLocation'));
-        $this->plugin->updateSetting($contextId, 'groupAuthor', $this->getData('groupAuthor'));
-        $this->plugin->updateSetting($contextId, 'groupTranslator', $this->getData('groupTranslator'));
-        if ($this->plugin->application === 'omp') {
-            $this->plugin->updateSetting($contextId, 'groupEditor', $this->getData('groupEditor'));
-            $this->plugin->updateSetting($contextId, 'groupChapterAuthor', $this->getData('groupChapterAuthor'));
-        }
 
         $notificationMgr = new NotificationManager();
         $user = $request->getUser();
