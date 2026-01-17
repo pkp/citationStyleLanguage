@@ -94,33 +94,6 @@ msgstr "Місцезнаходження видавця"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA (American Medical Association)"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Автори глав"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Редактори"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Перекладачі"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Виберіть ролі, які слід визначати як перекладачів."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Виберіть ролі, які слід визначати як авторів глав."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Особи, які зробили свій внесок у роботу"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Автори"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Виберіть ролі, які слід визначати як авторів."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Виберіть ролі, які слід визначати як редакторів."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Оберіть формат посилань, який ви хочете відображати усталено на посадковій "
@@ -130,9 +103,3 @@ msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Дозволити читачам отримати бібліографічне посилання на опубліковану книгу в "
 "одному з декількох форматів, підтримуваних мовою стилю посилання."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"У деяких стилях цитування особи, які зробили свій внесок у роботу, повинні "
-"бути ідентифіковані по-різному залежно від їхньої ролі. Будь ласка, визначте "
-"відповідні ролі."

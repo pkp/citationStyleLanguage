@@ -89,41 +89,7 @@ msgstr ""
 "Позволете на читателите да получат цитат за публикувана книга в един от "
 "няколкото формата, поддържани от Citation Style Language."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"В някои стилове на цитиране съавторите трябва да бъдат идентифицирани по "
-"различен начин в зависимост от тяхната роля. Моля, идентифицирайте "
-"подходящите роли."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Автори"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Изберете ролите, които трябва да бъдат идентифицирани като преводачи."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Изберете ролите, които трябва да бъдат идентифицирани като автори на раздел."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Редактори"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Преводачи"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Автори на раздел"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Изберете ролите, които трябва да бъдат идентифицирани като редактори."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Изберете кой формат на цитиране искате да се показва по подразбиране на "
 "целевата страница на вашата книга."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Съавтори"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Изберете ролите, които трябва да бъдат идентифицирани като автори."

@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/citationStyleLanguage/CitationStyleLanguagePlugin.php
  *
- * Copyright (c) 2017-2020 Simon Fraser University
- * Copyright (c) 2017-2020 John Willinsky
+ * Copyright (c) 2017-2026 Simon Fraser University
+ * Copyright (c) 2017-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguagePlugin
@@ -24,13 +24,15 @@ use APP\facades\Repo;
 use APP\issue\Issue;
 use APP\monograph\Chapter;
 use APP\monograph\ChapterDAO;
+use APP\plugins\generic\citationStyleLanguage\classes\migration\upgrade\DeleteUserGroupSettings;
 use APP\plugins\generic\citationStyleLanguage\pages\CitationStyleLanguageHandler;
 use APP\publication\Publication;
 use APP\publicationFormat\PublicationFormat;
 use APP\submission\Submission;
 use APP\template\TemplateManager;
 use Exception;
-use PKP\controlledVocab\ControlledVocab;
+use PKP\author\contributorRole\ContributorRoleIdentifier;
+use PKP\author\contributorRole\ContributorType;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
@@ -85,6 +87,14 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     }
 
     /**
+     * @copydoc Plugin::getInstallMigration()
+     */
+    public function getInstallMigration(): DeleteUserGroupSettings
+    {
+        return new DeleteUserGroupSettings();
+    }
+
+    /**
      * @copydoc Plugin::register()
      *
      * @param null|mixed $mainContextId
@@ -104,7 +114,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             Hook::add('Templates::Catalog::Chapter::Details', $this->addCitationMarkup(...));
             Hook::add('LoadHandler', $this->setPageHandler(...));
         }
-        
+
         return $success;
     }
 
@@ -460,7 +470,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
             }
             $citationData->abstract = PKPString::html2text($publication->getLocalizedData('abstract'));
-            $citationData = $this->setArticleAuthors($citationData, $publication, $context);
+            $citationData = $this->setArticleAuthors($citationData, $publication);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'view', [$publication->getData('urlPath') ?? $submission->getId()], urlLocaleForPage: '');
             if ($publication->getDoi()) {
                 $citationData->DOI = $publication->getDoi();
@@ -478,7 +488,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             }
             $citationData->abstract = PKPString::html2text($publication->getLocalizedData('abstract'));
             $citationData->serialNumber = $this->getSerialNumber($publication);
-            $citationData = $this->setBookAuthors($citationData, $publication, $context);
+            $citationData = $this->setBookAuthors($citationData, $publication);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', [$publication->getData('urlPath') ?? $submission->getId()], urlLocaleForPage: '');
             if ($publication->getDoi()) {
                 $citationData->DOI = $publication->getDoi();
@@ -496,7 +506,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             }
             $citationData->abstract = htmlspecialchars(strip_tags($chapter->getLocalizedData('abstract')));
             $citationData->serialNumber = $this->getSerialNumber($publication);
-            $citationData = $this->setBookChapterAuthors($citationData, $publication, $context, $chapter);
+            $citationData = $this->setBookChapterAuthors($citationData, $publication, $chapter);
             $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', [$publication->getData('urlPath') ?? $submission->getId(), 'chapter', $chapter->getSourceChapterId()], urlLocaleForPage: '');
 
             if ($chapter->getDoi()) {
@@ -523,16 +533,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         if ($publication->getData('datePublished')) {
             $citationData->issued = new stdClass();
             $citationData->issued->raw = htmlspecialchars($publication->getData('datePublished'));
-            $publishedPublications = $submission->getPublishedPublications();
-            if (count($publishedPublications) > 1) {
-                $originalPublication = array_reduce($publishedPublications, function ($a, $b) {
-                    return $a && $a->getId() < $b->getId() ? $a : $b;
-                });
-                $originalDate = $originalPublication->getData('datePublished');
-                if ($originalDate && $originalDate !== $publication->getData('datePublished')) {
-                    $citationData->{'original-date'} = new stdClass();
-                    $citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
-                }
+            $originalPublication = $submission->getOriginalPublication();
+            $originalDate = $originalPublication?->getData('datePublished');
+            if ($originalDate && $originalDate !== $publication->getData('datePublished')) {
+                $citationData->{'original-date'} = new stdClass();
+                $citationData->{'original-date'}->raw = htmlspecialchars($originalPublication->getData('datePublished'));
             }
         } elseif ($this->isArticle && $issue?->getPublished()) {
             $citationData->issued = new stdClass();
@@ -736,26 +741,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         return false;
     }
 
-    public function getEditorGroups(int $contextId): array
-    {
-        return $this->getSetting($contextId, 'groupEditor') ?? [];
-    }
-
-    public function getTranslatorGroups(int $contextId): array
-    {
-        return $this->getSetting($contextId, 'groupTranslator') ?? [];
-    }
-
-    public function getAuthorGroups(int $contextId): array
-    {
-        return $this->getSetting($contextId, 'groupAuthor') ?? [];
-    }
-
-    public function getChapterAuthorGroups(int $contextId): array
-    {
-        return $this->getSetting($contextId, 'groupChapterAuthor') ?? [];
-    }
-
     public function getSerialNumber(Publication $publication): array
     {
         $serialNumber = [];
@@ -818,7 +803,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * @throws Exception
      */
-    protected function setDocumentType($chapter): void
+    protected function setDocumentType(?Chapter $chapter): void
     {
         switch ($this->application) {
             case 'ops':
@@ -836,165 +821,77 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
     }
 
-    protected function setArticleAuthors($citationData, $publication, $context): stdClass
+    /**
+     * Set article authors in citation data based on their contributor roles
+     * Maps translators and authors to their respective CSL roles
+     */
+    protected function setArticleAuthors(stdClass $citationData, Publication $publication): stdClass
     {
         $authors = $publication->getData('authors');
-        $authorsGroups = $this->getAuthorGroups($context->getId());
-        $translatorsGroups = $this->getTranslatorGroups($context->getId());
-        if (count($authors)) {
-            /** @var Author $author */
-            foreach ($authors as $author) {
-                $currentAuthor = new stdClass();
-                if (empty($author->getLocalizedFamilyName())) {
-                    $currentAuthor->family = htmlspecialchars($author->getLocalizedGivenName());
-                } else {
-                    $currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
-                    $currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
-                }
+        $hasNonAnonymous = $this->hasNonAnonymousAuthors($authors);
 
-                $userGroupId = $author->getUserGroupId();
-                switch (true) {
-                    case in_array($userGroupId, $translatorsGroups):
-                        if (!isset($citationData->translator)) {
-                            $citationData->translator = [];
-                        }
-                        $citationData->translator[] = $currentAuthor;
-                        break;
-                    case in_array($userGroupId, $authorsGroups):
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
-                        $citationData->author[] = $currentAuthor;
-                        break;
-                    default:
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
-                        break;
-                }
-            }
+        foreach ($authors as $author) {
+            $this->assignContributorRoles($citationData, $this->buildCslName($author, $hasNonAnonymous), $author->getContributorRoleIdentifiers(), [
+                ContributorRoleIdentifier::TRANSLATOR->getName() => 'translator',
+                ContributorRoleIdentifier::AUTHOR->getName() => 'author',
+            ]);
         }
-
         return $citationData;
     }
 
-    protected function setBookAuthors($citationData, $publication, $context): stdClass
+    /**
+     * Set book authors in citation data based on their contributor roles
+     * Maps editors, translators, and authors to their respective CSL roles
+     */
+    protected function setBookAuthors(stdClass $citationData, Publication $publication): stdClass
     {
         $authors = $publication->getData('authors');
-        $authorsGroups = $this->getAuthorGroups($context->getId());
-        $editorsGroups = $this->getEditorGroups($context->getId());
-        $translatorsGroups = $this->getTranslatorGroups($context->getId());
-        if (count($authors)) {
-            /** @var Author $author */
-            foreach ($authors as $author) {
-                $currentAuthor = new stdClass();
-                if (empty($author->getLocalizedFamilyName())) {
-                    $currentAuthor->family = htmlspecialchars($author->getLocalizedGivenName());
-                } else {
-                    $currentAuthor->family = htmlspecialchars($author->getLocalizedFamilyName());
-                    $currentAuthor->given = htmlspecialchars($author->getLocalizedGivenName());
-                }
+        $hasNonAnonymous = $this->hasNonAnonymousAuthors($authors);
 
-                $userGroupId = $author->getUserGroupId();
-                switch (true) {
-                    case in_array($userGroupId, $editorsGroups):
-                        if (!isset($citationData->editor)) {
-                            $citationData->editor = [];
-                        }
-                        $citationData->editor[] = $currentAuthor;
-                        break;
-                    case in_array($userGroupId, $translatorsGroups):
-                        if (!isset($citationData->translator)) {
-                            $citationData->translator = [];
-                        }
-                        $citationData->translator[] = $currentAuthor;
-                        break;
-                    case in_array($userGroupId, $authorsGroups):
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
-                        $citationData->author[] = $currentAuthor;
-                        break;
-                    default:
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
-                        break;
-                }
-            }
+        foreach ($authors as $author) {
+            $this->assignContributorRoles($citationData, $this->buildCslName($author, $hasNonAnonymous), $author->getContributorRoleIdentifiers(), [
+                ContributorRoleIdentifier::EDITOR->getName() => 'editor',
+                ContributorRoleIdentifier::TRANSLATOR->getName() => 'translator',
+                ContributorRoleIdentifier::AUTHOR->getName() => 'author',
+            ]);
         }
-
         return $citationData;
     }
 
-    protected function setBookChapterAuthors($citationData, $publication, $context, $chapter): stdClass
+    /**
+     * Set book chapter authors in citation data
+     * Chapter authors are mapped to 'author', while book authors are mapped to
+     * 'container-author' (with editors and translators to their respective roles).
+     * If chapter and book authors are identical, container-author is cleared.
+     */
+    protected function setBookChapterAuthors(stdClass $citationData, Publication $publication, Chapter $chapter): stdClass
     {
-        $chapterAuthorGroups = $this->getChapterAuthorGroups($context->getId());
+        // Chapter authors
         $chapterAuthors = $chapter->getAuthors();
+        $hasNonAnonymousChapterAuthors = $this->hasNonAnonymousAuthors($chapterAuthors);
 
-        /** @var Author $chapterAuthor */
         foreach ($chapterAuthors as $chapterAuthor) {
-            $currentAuthor = new stdClass();
-            if (empty($chapterAuthor->getLocalizedFamilyName())) {
-                $currentAuthor->family = htmlspecialchars($chapterAuthor->getLocalizedGivenName());
-            } else {
-                $currentAuthor->family = htmlspecialchars($chapterAuthor->getLocalizedFamilyName());
-                $currentAuthor->given = htmlspecialchars($chapterAuthor->getLocalizedGivenName());
-            }
-
-            $userGroupId = $chapterAuthor->getUserGroupId();
-            if (in_array($userGroupId, $chapterAuthorGroups)) {
-                $citationData->author[] = $currentAuthor;
-            }
+            $this->assignContributorRoles($citationData, $this->buildCslName($chapterAuthor, $hasNonAnonymousChapterAuthors), $chapterAuthor->getContributorRoleIdentifiers(), [
+                ContributorRoleIdentifier::AUTHOR->getName() => 'author',
+            ]);
         }
 
+        // Book authors as container-author
         $bookAuthors = $publication->getData('authors');
-        $authorsGroups = $this->getAuthorGroups($context->getId());
-        $editorsGroups = $this->getEditorGroups($context->getId());
-        $translatorsGroups = $this->getTranslatorGroups($context->getId());
-        if (count($bookAuthors)) {
-            /** @var Author $bookAuthor */
-            foreach ($bookAuthors as $bookAuthor) {
-                $currentAuthor = new stdClass();
-                if (empty($bookAuthor->getLocalizedFamilyName())) {
-                    $currentAuthor->family = htmlspecialchars($bookAuthor->getLocalizedGivenName());
-                } else {
-                    $currentAuthor->family = htmlspecialchars($bookAuthor->getLocalizedFamilyName());
-                    $currentAuthor->given = htmlspecialchars($bookAuthor->getLocalizedGivenName());
-                }
+        $hasNonAnonymousBookAuthors = $this->hasNonAnonymousAuthors($bookAuthors);
 
-                $userGroupId = $bookAuthor->getUserGroupId();
-                switch (true) {
-                    case in_array($userGroupId, $editorsGroups):
-                        if (!isset($citationData->editor)) {
-                            $citationData->editor = [];
-                        }
-                        $citationData->editor[] = $currentAuthor;
-                        break;
-                    case in_array($userGroupId, $translatorsGroups):
-                        if (!isset($citationData->translator)) {
-                            $citationData->translator = [];
-                        }
-                        $citationData->translator[] = $currentAuthor;
-                        break;
-                    case in_array($userGroupId, $authorsGroups):
-                        if (!isset($citationData->{'container-author'})) {
-                            $citationData->{'container-author'} = [];
-                        }
-                        $citationData->{'container-author'}[] = $currentAuthor;
-                        break;
-                    default:
-                        if (!isset($citationData->author)) {
-                            $citationData->author = [];
-                        }
-                        break;
-                }
-            }
+        foreach ($bookAuthors as $bookAuthor) {
+            $this->assignContributorRoles($citationData, $this->buildCslName($bookAuthor, $hasNonAnonymousBookAuthors), $bookAuthor->getContributorRoleIdentifiers(), [
+                ContributorRoleIdentifier::EDITOR->getName() => 'editor',
+                ContributorRoleIdentifier::TRANSLATOR->getName() => 'translator',
+                ContributorRoleIdentifier::AUTHOR->getName() => 'container-author',
+            ]);
         }
 
-        if (isset($citationData->{'container-author'})) {
-            $diffChapterAuthorsAuthors = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
-            if (count($diffChapterAuthorsAuthors) === 0) {
+        // Remove container-author if same as chapter author
+        if (isset($citationData->{'container-author'}, $citationData->author)) {
+            $diff = array_udiff($citationData->{'container-author'}, $citationData->author, $this->compareAuthors(...));
+            if (count($diff) === 0) {
                 $citationData->{'container-author'} = [];
             }
         }
@@ -1002,9 +899,95 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         return $citationData;
     }
 
-    protected function compareAuthors($a, $b): int
+    /**
+     * Check if authors collection has any non-anonymous authors
+     */
+    protected function hasNonAnonymousAuthors(iterable $authors): bool
     {
-        return 0 === strcmp($a->family, $b->family) && 0 === strcmp($a->given, $b->given) ? 0 : 1;
+        foreach ($authors as $author) {
+            if ($author->getData('contributorType') !== ContributorType::ANONYMOUS->getName()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Build a CSL-compatible name object from an Author
+     *
+     * @param bool $hasNonAnonymousAuthors Whether the publication has non-anonymous authors
+     * @return ?stdClass Returns null for anonymous when all authors are anonymous
+     */
+    protected function buildCslName(Author $author, bool $hasNonAnonymousAuthors = true): ?stdClass
+    {
+        switch ($author->getData('contributorType')) {
+            case ContributorType::PERSON->getName():
+                $cslName = new stdClass();
+                if (empty($author->getLocalizedFamilyName())) {
+                    $cslName->family = htmlspecialchars($author->getLocalizedGivenName());
+                } else {
+                    $cslName->family = htmlspecialchars($author->getLocalizedFamilyName());
+                    $cslName->given = htmlspecialchars($author->getLocalizedGivenName());
+                }
+                return $cslName;
+            case ContributorType::ORGANIZATION->getName():
+                // Note: CSL-JSON spec (citeproc-js) recommends 'literal' for institutional names,
+                // but seboettg/citeproc-php doesn't support it (Name.php returns empty string
+                // if 'family' is not set). Using 'family' renders the name as a single-field name.
+                $cslName = new stdClass();
+                $cslName->family = htmlspecialchars($author->getLocalizedOrganizationName());
+                return $cslName;
+            case ContributorType::ANONYMOUS->getName():
+                // If mixed with other authors, show "Anonymous"; otherwise let CSL fallback to title.
+                // Note: Using 'family' instead of 'literal' because seboettg/citeproc-php
+                // doesn't support 'literal'.
+                if ($hasNonAnonymousAuthors) {
+                    $cslName = new stdClass();
+                    $cslName->family = __('submission.submit.contributorType.anonymous');
+                    return $cslName;
+                }
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Assign contributor to CSL roles based on their role identifiers
+     */
+    protected function assignContributorRoles(stdClass $citationData, ?stdClass $cslName, array $contributorRoles, array $roleMapping): void
+    {
+        if ($cslName === null) {
+            return;
+        }
+
+        foreach ($roleMapping as $contributorRole => $cslRole) {
+            if (in_array($contributorRole, $contributorRoles)) {
+                $this->addToRole($citationData, $cslName, $cslRole);
+            }
+        }
+    }
+
+    /**
+     * Add a contributor to the specified role in citation data
+     */
+    protected function addToRole(stdClass $citationData, stdClass $contributor, string $role): void
+    {
+        if (!isset($citationData->{$role})) {
+            $citationData->{$role} = [];
+        }
+        $citationData->{$role}[] = $contributor;
+    }
+
+    /**
+     * Compare two CSL author objects for equality
+     * Used with array_udiff to find unique authors between collections
+     *
+     * @return int 0 if authors are equal, 1 otherwise
+     */
+    protected function compareAuthors(stdClass $a, stdClass $b): int
+    {
+        return ($a->family ?? '') === ($b->family ?? '') && ($a->given ?? '') === ($b->given ?? '') ? 0 : 1;
     }
 
     /**
@@ -1028,7 +1011,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         ];
         // Determine the language and region we're looking for from $locale
         $language = \Locale::getPrimaryLanguage($locale);
-        $region = \Locale::getRegion($locale) ?? null;
+        $region = \Locale::getRegion($locale);
         $localeAndRegion = $language . ($region ? "-{$region}" : '');
         // Get a list of available options from the filesystem.
         $availableLocaleFiles = glob("{$prefix}*{$suffix}");
