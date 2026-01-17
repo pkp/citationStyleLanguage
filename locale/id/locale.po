@@ -89,27 +89,6 @@ msgstr "Gaya Selingkung"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Penyunting"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Penerjemah"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Penulis"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Penulis Bab"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Pilih peran yang harus diidentifikasi sebagai penyunting."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Pilih peran yang harus diidentifikasi sebagai penerjemah."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Pilih peran yang harus diidentifikasi sebagai penulis bab."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Memungkinkan pembaca mendapatkan kutipan buku yang diterbitkan dalam salah "
@@ -119,14 +98,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Pilih format kutipan yang ingin Anda tampilkan secara default di halaman "
 "awal buku Anda."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Kontributor"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Dalam beberapa gaya kutipan, kontributor harus diidentifikasi secara berbeda "
-"tergantung pada perannya. Harap identifikasi peran yang sesuai."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Pilih peran yang harus diidentifikasi sebagai penulis."

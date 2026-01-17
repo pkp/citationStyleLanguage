@@ -84,42 +84,10 @@ msgstr "مکان ناشر"
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"
 msgstr "در برخی فرمت‌های ارجاع‌دهی مکان جغرافیایی ناشر ذکر می‌شود."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "مشارکت‌کنندگان"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "نویسندگان"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "ویراستاران"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "مترجمین"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "نویسندگان فصل"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "انتخاب نقش‌هایی که باید به عنوان نویسنده شناخته شوند."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "انتخاب نقش‌هایی که باید به عنوان ویراستار شناخته شوند."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "انتخاب نقش‌هایی که به عنوان مترجمین باید شناسایی شوند."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "انتخاب نقش‌هایی که به عنوان نویسندگان فصل باید شناسایی شوند."
-
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr ""
 "این افزونه ارجاع‌دهی به مقاله با انواع فرمت‌های رایج را به صفحه مقاله اضافه "
 "می‌کند."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"در برخی شیوه‌های ارجاع‌دهی، مشارکت‌کنندگان باید بر اساس نقش‌های مختلفی که "
-"دارند مشخص شوند. لطفاً نقش‌های درست را مشخص کنید."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
 msgstr ""

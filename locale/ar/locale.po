@@ -87,42 +87,10 @@ msgstr "موقع الناشر"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "المساهمون"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "المؤلفون"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "المحررون"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "مؤلفو الفصول"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "إختر الأدوار التي ينبغي اعتبارها للمؤلفين."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "إختر الأدوار التي ينبغي اعتبارها لمؤلفي الفصول."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr "حدد نوع الاقتباس الذي ترغب بعرضه إفتراضيًا في صفحة البدء لكتابك."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"في بعض أنماط الاقتباسات، ينبغي التمييز ما بين المساهمين بشكل مختلف بناءً على "
-"أدوارهم. يرجى تعريف الأدوار المناسبة لكل منهم."
 
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "السماح للقراء بالحصول على اقتباس الكتاب المنشور بواحد من أنواع عديدة من "
 "الصيغ المدعومة من قبل لغة نمط الاقتباس."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "المترجمون"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "إختر الأدوار التي ينبغي اعتبارها للمحررين."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "إختر الأدوار التي ينبغي اعتبارها للمترجمين."

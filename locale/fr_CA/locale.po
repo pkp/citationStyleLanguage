@@ -88,47 +88,12 @@ msgstr "Certains styles bibliographiques requièrent la mention du lieu de la ma
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Contributeur.trice.s"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Sélectionner les rôles devant être considérés comme auteur.trice.s."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permettre aux lecteur.trice.s d'obtenir la citation du livre dans l'un des "
 "formats pris en charge par le « Citation Style Language »."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Auteur.trice.s"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Sélectionnez les rôles devant être considérés comme rédacteur.trice.s."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Sélectionnez les rôles devant être considérés comme traducteurs-trices."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Sélectionnez les rôles devant être considérés comme auteurs-trices de "
-"chapitre."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Dans certains styles de citation, les contributeur.trice.s doivent être "
-"identifié.e.s différemment selon leur rôle dans la publication. Prière "
-"d'identifier les rôles appropriés."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Traducteurs-trices"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Auteur.trice.s du chapitre"
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Sélectionner le format de citation que vous souhaitez voir apparaitre par "
 "défaut sur la page d'accueil du livre."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Rédacteurs-trices"

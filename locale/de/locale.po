@@ -86,26 +86,6 @@ msgstr "Standort des Verlags"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Beitragende"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr ""
-"Wählen Sie die Rollen aus, die als Übersetzer/innen identifiziert werden "
-"sollen."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Herausgeber/innen"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr ""
-"Wählen Sie die Rollen aus, die als Herausgeber/innen identifiziert werden "
-"sollen."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr ""
-"Wählen Sie die Rollen aus, die als Autor/innen identifiziert werden sollen."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Ermöglicht es Leser/innen, die bibliografischen Angaben für ein "
@@ -116,22 +96,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Wählen Sie aus, in welchem Format Sie bibliografische Angaben standardmäßig "
 "auf der Monographieseite anzeigen möchten."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"In einigen Citation Styles muss Beitragenden eine genaue Rolle zugewiesen "
-"werden. Bitte wählen Sie die passenden Rollen."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autor/innen"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Übersetzer/innen"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Kapitelautor/innen"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Wählen Sie die Rollen aus, die als Kapitelautor/innen identifiziert werden "
-"sollen."

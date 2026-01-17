@@ -87,33 +87,6 @@ msgstr ""
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Ngôn ngữ kiểu trích dẫn"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Chọn những vai trò nên được coi như là tác giả."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Chọn các vai trò nên được coi như là biên tập viên."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Chọn những vai trò nên được coi như là dịch giả."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Chọn những vai trò nên được coi như là tác giả chương."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Những người đóng góp"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Các tác giả"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Các biên tập viên"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Các dịch giả"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Các tác giả chương"
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Cho phép độc giả có thể lấy trích dẫn của một cuốn sách đã xuất bản theo một "
@@ -126,8 +99,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Chọn định dạng trích dẫn bạn muốn hiển thị mặc định trên trang giới thiệu "
 "sách của mình."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Trong một số kiểu trích dẫn, những người đóng góp phải được xác định khác "
-"nhau tùy thuộc vào vai trò của họ. Vui lòng xác định các vai trò thích hợp."

@@ -85,29 +85,6 @@ msgstr "Некоторые форматы ссылок требуют указа
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Авторы"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Авторы"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Выберите роли, которые должны быть определены как авторы глав."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Авторы глав"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Выберите роли, которые должны быть определены как переводчики."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"В некоторых стилях оформления ссылок авторов необходимо указывать по-"
-"разному, в зависимости от их роли. Пожалуйста, укажите соответствующие роли."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Редакторы"
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Позволяет читателям получить библиографическую ссылку на опубликованную "
@@ -118,12 +95,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Выберите, какой формат ссылок вы хотите отображать по умолчанию на основной "
 "странице книги."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Переводчики"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Выберите роли, которые должны быть определены как авторы."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Выберите роли, которые должны быть определены как редакторы."
