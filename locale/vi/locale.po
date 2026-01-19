@@ -131,3 +131,6 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescript
 msgstr ""
 "Trong một số kiểu trích dẫn, những người đóng góp phải được xác định khác "
 "nhau tùy thuộc vào vai trò của họ. Vui lòng xác định các vai trò thích hợp."
+
+msgid "plugins.generic.citationStyleLanguage.style.national-library-of-medicine"
+msgstr "NLM"

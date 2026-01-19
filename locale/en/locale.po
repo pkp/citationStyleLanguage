@@ -44,6 +44,9 @@ msgstr "IEEE"
 msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
 msgstr "MLA"
 
+msgid "plugins.generic.citationStyleLanguage.style.national-library-of-medicine"
+msgstr "NLM"
+
 msgid "plugins.generic.citationStyleLanguage.style.turabian-fullnote-bibliography"
 msgstr "Turabian"
 
