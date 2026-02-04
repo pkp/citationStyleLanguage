@@ -106,35 +106,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Wybierz styl cytowania, który ma być domyślnie wyświetlany na stronie "
 "docelowej książki."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autorzy"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Redaktorzy"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Wybierz role, które powinny być identyfikowane jako autorzy rozdziałów."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Wybierz role, które powinny być identyfikowane jako redaktorzy."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Wybierz role, które powinny być identyfikowane jako tłumacze."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Współtwórcy"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"W niektórych stylach cytowań współtwórcy muszą być zindentyfikowani w "
-"zależności od ich roli. Proszę określ odpowiednie role."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Tłumacze"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autorzy rozdziałów"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Wybierz role, które powinny być identyfikowane jako autorzy."

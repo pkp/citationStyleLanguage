@@ -90,27 +90,6 @@ msgstr "Localizzazione del publisher"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autori del capitolo"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Selezionare i ruoli che devono essere identificati come traduttori."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editors/Curatori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Collaboratori"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Selezionare i ruoli che devono essere identificati come autori."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Traduttori"
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Consente ai lettori di ottenere la citazione di un libro pubblicato in uno "
@@ -120,17 +99,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Selezionare il formato di citazione che si desidera visualizzare di default "
 "sulla pagina di destinazione del libro."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"In alcuni stili di citazione, i collaboratori devono essere identificati in "
-"modo diverso a seconda del loro ruolo. Si prega di identificare i ruoli "
-"appropriati."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr ""
-"Selezionare i ruoli che devono essere identificati come editors/curatori."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Selezionate i ruoli che devono essere identificati come autori dei capitoli."

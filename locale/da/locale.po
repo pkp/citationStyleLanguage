@@ -96,39 +96,7 @@ msgstr ""
 "Tillad læsere at få en offentliggjort bogs citationer i et af flere formater "
 "understøttet af Citation Style Language plugin'et."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Angiv hvilke roller, der skal identificeres som oversættere."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Angiv hvilke roller, der skal identificeres som redaktører."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Angiv hvilke roller, der skal identificeres som kapitelforfattere."
-
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
 "Vælg hvilket citationsformat, du ønsker at vise som standard på din bogs "
 "landing page."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Bidragydere"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"I nogle citationsstyles skal bidragydere identificeres forskelligt afhængigt "
-"af deres rolle. Angiv venligst de passende roller."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Forfattere"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Redaktører"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Oversættere"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Kapitelforfattere"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Angiv hvilke roller, der skal identificeres som forfattere."

@@ -95,43 +95,10 @@ msgstr ""
 "Seleccione el formato de citación que desea mostrar por defecto en la página "
 "de aterrizaje del libro."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autores/as"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Seleccionar los roles que deben identificarse como editores/as."
-
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Seleccionar los roles que deben identificarse como autores/as."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Seleccionar los roles que deben identificarse como autores/as de capítulo."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Seleccionar los roles que deben identificarse como traductores/as."
 
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permite a los lectores/as obtener la cita de un libro publicado en alguno de "
 "los formatos compatibles con Citation Style Language."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Colaboradores/as"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"En algunos estilos de citación, los colaboradores/as deben identificarse de "
-"forma diferente en función de su rol. Identifique los roles correspondientes."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editores/as"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Traductores/as"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autores/as de capítulo"

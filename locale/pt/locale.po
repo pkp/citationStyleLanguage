@@ -90,12 +90,6 @@ msgstr "Localização da Editora"
 msgid "plugins.generic.citationStyleLanguage.style.ama"
 msgstr "AMA"
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Selecione os papéis que devem ser identificados como autores."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Selecione os papéis que devem ser identificados como editores."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permitir aos leitores obter uma citação de um livro publicado em um dos "
@@ -105,30 +99,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Selecione o formato de citação que deseja dispor como padrão na página do "
 "livro."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Contribuidores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Em alguns estilos de citação, os contribuidores devem ser identificados de "
-"forma diferente de acordo com o seu papel. Identifique os papéis apropriados."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Tradutores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autores de capítulos"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Selecione os papéis que devem ser identificados como tradutores."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Selecione os papéis que devem ser identificados como autores de capítulos."

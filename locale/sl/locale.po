@@ -96,36 +96,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Izberite stil citiranja, ki bi ga želeli prikazovati kot privzetega na "
 "strani knjige."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Sodelujoči"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Pri nekaterih stilih citiranja morajo biti sodelujoči (soavtorji) "
-"identificirani različno glede na njihovo vlogo. Prosimo določite ustrezne "
-"vloge."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Avtorji"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Uredniki"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Prevajalci"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Avtorji poglavij"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Izberite vloge, ki naj bodo identificirane kot avtorji."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Izberite vloge, ki naj bodo identificirane kot uredniki."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Izberite vloge, ki naj bodo identificirane kot prevajalci."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Izberite vloge, ki naj bodo identificirane kot avtorji poglavij."

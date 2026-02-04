@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/citationStyleLanguage/CitationStyleLanguageHandler.php
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
+ * Copyright (c) 2014-2026 Simon Fraser University
+ * Copyright (c) 2003-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguageHandler
@@ -32,6 +32,7 @@ use PKP\plugins\PluginRegistry;
 use PKP\security\Role;
 use PKP\stageAssignment\StageAssignment;
 use PKP\submission\PKPSubmission;
+use PKP\user\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CitationStyleLanguageHandler extends Handler
@@ -52,7 +53,7 @@ class CitationStyleLanguageHandler extends Handler
     public string $citationStyle = '';
 
     /** @var bool Whether or not to return citation in JSON format */
-    public $returnJson = false;
+    public bool $returnJson = false;
 
     /**
      * Constructor
@@ -64,15 +65,10 @@ class CitationStyleLanguageHandler extends Handler
 
     /**
      * Get a citation style
-     *
-     * @param array $args
-     * @param PKPRequest $request
-     *
-     * @return null|JSONMessage
      */
-    public function get($args, $request)
+    public function get(array $args, PKPRequest $request): ?JSONMessage
     {
-        $this->_setupRequest($args, $request);
+        $this->setupRequest($args, $request);
 
         $plugin = $this->plugin;
         if (null === $plugin) {
@@ -97,13 +93,10 @@ class CitationStyleLanguageHandler extends Handler
 
     /**
      * Download a citation in a downloadable format
-     *
-     * @param array $args
-     * @param PKPRequest $request
      */
-    public function download($args, $request)
+    public function download(array $args, PKPRequest $request): void
     {
-        $this->_setupRequest($args, $request);
+        $this->setupRequest($args, $request);
 
         $plugin = $this->plugin;
         if (null !== $plugin) {
@@ -112,7 +105,7 @@ class CitationStyleLanguageHandler extends Handler
         exit;
     }
 
-    protected function isSubmissionUnpublished($submission, $issue = null)
+    protected function isSubmissionUnpublished(Submission $submission, ?Issue $issue = null): bool
     {
         $applicationName = Application::get()->getName();
 
@@ -125,11 +118,8 @@ class CitationStyleLanguageHandler extends Handler
 
     /**
      * Generate a citation based on page parameters
-     *
-     * @param array $args
-     * @param PKPRequest $request
      */
-    public function _setupRequest($args, $request)
+    protected function setupRequest(array $args, PKPRequest $request): void
     {
         $userVars = $request->getUserVars();
         $user = $request->getUser();
@@ -169,29 +159,30 @@ class CitationStyleLanguageHandler extends Handler
         // submission preview will work for those who can see it.
         if ($this->isSubmissionUnpublished($this->submission, $this->issue)) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
-            if (!$this->canUserAccess($context, $user, $userRoles)) {
+            if (!$this->canUserAccess($user, $userRoles)) {
                 throw new NotFoundHttpException();
             }
         }
     }
 
-    protected function canUserAccess($context, $user, $userRoles)
+    protected function canUserAccess(?User $user, array $userRoles): bool
     {
+        // Allow managers and site admins
+        if ($user && !empty(array_intersect([Role::ROLE_ID_MANAGER, Role::ROLE_ID_SITE_ADMIN], $userRoles))) {
+            return true;
+        }
+
+        // Check if user is assigned to this submission as sub-editor or assistant
         if ($user && !empty(array_intersect($userRoles, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT]))) {
             $assignments = StageAssignment::withSubmissionIds([$this->submission->getId()])->get();
             foreach ($assignments as $assignment) {
                 if ($assignment->userId == $user->getId()) {
-                    continue;
-                }
-                $userGroup = Repo::userGroup()->get($assignment->userGroupId);
-                if (in_array($userGroup->roleId, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
-                    return true;
+                    $userGroup = Repo::userGroup()->get($assignment->userGroupId);
+                    if (in_array($userGroup->roleId, [Role::ROLE_ID_SUB_EDITOR, Role::ROLE_ID_ASSISTANT])) {
+                        return true;
+                    }
                 }
             }
-        }
-
-        if ($user && count(array_intersect([Role::ROLE_ID_MANAGER, Role::ROLE_ID_SITE_ADMIN], $userRoles))) {
-            return true;
         }
 
         return false;

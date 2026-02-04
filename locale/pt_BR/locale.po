@@ -96,41 +96,7 @@ msgstr ""
 "Selecione qual formato de citação você gostaria de exibir por padrão na "
 "página inicial do seu livro."
 
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Em alguns estilos de citação, os colaboradores devem ser identificados de "
-"forma diferente, dependendo de sua função. Identifique as funções "
-"apropriadas."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Selecione as funções que devem ser identificadas como tradutores."
-
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
 "Permita que os leitores obtenham a citação de um livro publicado em um dos "
 "vários formatos suportados pelo Citation Style Language."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Contribuidores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Autores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Editores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Tradutores"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Autores do Capítulo"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Selecione as funções que devem ser identificadas como editores."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr ""
-"Selecione as funções que devem ser identificadas como autores de capítulos."
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Selecione as funções que devem ser identificadas como autores."

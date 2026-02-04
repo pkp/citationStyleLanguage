@@ -101,35 +101,3 @@ msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDesc
 msgstr ""
 "Ընտրեք, թե մեջբերումների որ ձևաչափն եք ցանկանում լռելյայն ցուցադրել ձեր գրքի "
 "վայրէջքի էջում:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
-msgstr "Աջակիցներ"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
-msgstr ""
-"Մեջբերումների որոշ ոճերում աջակիցները պետք է տարբեր կերպ նույնականացվեն՝ "
-"կախված իրենց դերից: Խնդրում ենք նշել համապատասխան դերերը:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseAuthor"
-msgstr "Հեղինակներ"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseEditor"
-msgstr "Խմբագիրներ"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseTranslator"
-msgstr "Թարգմանիչներ"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationChooseChapterAuthor"
-msgstr "Գլխի հեղինակներ"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
-msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես հեղինակներ:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseEditor"
-msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես խմբագիրներ:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseTranslator"
-msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես թարգմանիչներ:"
-
-msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseChapterAuthor"
-msgstr "Ընտրեք այն դերերը, որոնք պետք է նույնականացվեն որպես գլխի հեղինակներ:"
