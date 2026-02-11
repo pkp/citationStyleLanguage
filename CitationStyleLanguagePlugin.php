@@ -377,6 +377,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             'citationArgsJson' => $citationArgsJson,
             'citationStyles' => $this->getEnabledCitationStyles($contextId),
             'citationDownloads' => $this->getEnabledCitationDownloads($contextId),
+            'citationPrimaryStyle' => $this->getPrimaryStyleName($contextId),
         ]);
 
         $templateMgr->addStyleSheet(
