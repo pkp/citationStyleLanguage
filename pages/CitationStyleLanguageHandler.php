@@ -32,6 +32,7 @@ use PKP\plugins\PluginRegistry;
 use PKP\security\Role;
 use PKP\stageAssignment\StageAssignment;
 use PKP\submission\PKPSubmission;
+use PKP\publication\PKPPublication;
 use PKP\user\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -105,12 +106,12 @@ class CitationStyleLanguageHandler extends Handler
         exit;
     }
 
-    protected function isSubmissionUnpublished(Submission $submission, ?Issue $issue = null): bool
+    protected function isUnpublished(PKPPublication $publication, Submission $submission, ?Issue $issue = null): bool
     {
         $applicationName = Application::get()->getName();
 
         if ($applicationName === 'ojs2') {
-            return !$issue || !$issue->getPublished() || $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
+            return !$issue || !$issue->getPublished() || $publication->getData('status') != PKPPublication::STATUS_PUBLISHED;
         }
 
         return $submission->getData('status') != PKPSubmission::STATUS_PUBLISHED;
@@ -157,7 +158,7 @@ class CitationStyleLanguageHandler extends Handler
         // Disallow access to unpublished submissions, unless the user is a
         // journal manager or an assigned subeditor or assistant. This ensures the
         // submission preview will work for those who can see it.
-        if ($this->isSubmissionUnpublished($this->submission, $this->issue)) {
+        if ($this->isUnpublished($this->publication, $this->submission, $this->issue)) {
             $userRoles = $this->getAuthorizedContextObject(PKPApplication::ASSOC_TYPE_USER_ROLES);
             if (!$this->canUserAccess($user, $userRoles)) {
                 throw new NotFoundHttpException();
