@@ -1,8 +1,8 @@
 # Ramli Baharuddin <ramli.baharuddin@relawanjurnal.id>, 2022.
-# Muhammad Ihlasul Amal <ihlasulamal26@gmail.com>, 2024.
+# Muhammad Ihlasul Amal <ihlasulamal26@gmail.com>, 2024, 2026.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-11-18 11:40+0000\n"
+"PO-Revision-Date: 2026-02-20 20:50+0000\n"
 "Last-Translator: Muhammad Ihlasul Amal <ihlasulamal26@gmail.com>\n"
 "Language-Team: Indonesian <http://translate.pkp.sfu.ca/projects/plugins/"
 "citation-style-language-plugin/id/>\n"
@@ -22,25 +22,25 @@ msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation"
 msgstr "Lokasi Penerbit"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription"
-msgstr "Pilih format sitasi yang ingin ditampilkan pada halaman artikel."
+msgstr "Pilih format sitasi bawaan yang ingin ditampilkan pada halaman artikel."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimary"
 msgstr "Format Sitasi Utama"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsDescription"
-msgstr "Pilih format tambahan yang ingin Anda tawarkan kepada pembaca."
+msgstr "Pilih format tambahan yang ingin ditawarkan kepada pembaca."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormats"
 msgstr "Format Sitasi Tambahan"
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloadsDescription"
 msgstr ""
-"Pilih format yang dapat diunduh oleh pembaca. Format tersebut digunakan "
-"untuk mengimpor ke dalam software manajemen daftar pustaka pihak ketiga, "
-"seperti EndNote atau Zotero."
+"Pilih format yang dapat diunduh dan ingin ditawarkan kepada pembaca. Format "
+"yang dapat diunduh biasanya digunakan untuk mengimpor ke perangkat lunak "
+"manajemen bibliografi pihak ketiga, seperti EndNote atau Zotero."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationDownloads"
-msgstr "Format yang tersedia diunduh"
+msgstr "Format yang dapat diunduh"
 
 msgid "plugins.generic.citationStyleLanguage.download.ris"
 msgstr "Endnote/Zotero/Mendeley (RIS)"
@@ -58,7 +58,7 @@ msgid "plugins.generic.citationStyleLanguage.style.modern-language-association"
 msgstr "MLA"
 
 msgid "plugins.generic.citationStyleLanguage.style.ieee"
-msgstr "IEEE40r"
+msgstr "IEEE"
 
 msgid "plugins.generic.citationStyleLanguage.style.harvard-cite-them-right"
 msgstr "Harvard"
@@ -80,8 +80,8 @@ msgstr "ACM"
 
 msgid "plugins.generic.citationStyleLanguage.description"
 msgstr ""
-"Izinkan pembaca memilih sitasi artikel dalam beberapa format yang didukung "
-"oleh Gaya Selingkung."
+"Izinkan pembaca memilih sitasi artikel dalam format yang didukung oleh Gaya "
+"Selingkung."
 
 msgid "plugins.generic.citationStyleLanguage.displayName"
 msgstr "Gaya Selingkung"
@@ -91,10 +91,20 @@ msgstr "AMA"
 
 msgid "plugins.generic.citationStyleLanguage.description.omp"
 msgstr ""
-"Memungkinkan pembaca mendapatkan kutipan buku yang diterbitkan dalam salah "
-"satu dari beberapa format yang didukung oleh Gaya Selingkung."
+"Memungkinkan pembaca mendapatkan kutipan buku yang diterbitkan dalam  format "
+"yang didukung oleh Gaya Selingkung."
 
 msgid "plugins.generic.citationStyleLanguage.settings.citationFormatsPrimaryDescription.omp"
 msgstr ""
-"Pilih format kutipan yang ingin Anda tampilkan secara default di halaman "
-"awal buku Anda."
+"Pilih format kutipan bawaan yang ingin ditampilkan di halaman awal buku Anda."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroups"
+msgstr "Kontributor"
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationUserGroupsDescription"
+msgstr ""
+"Dalam beberapa gaya kutipan, kontributor harus diidentifikasi secara berbeda "
+"tergantung pada perannya. Harap identifikasi peran yang sesuai."
+
+msgid "plugins.generic.citationStyleLanguage.settings.citationOptionChooseAuthor"
+msgstr "Pilih peran yang harus diidentifikasi sebagai penulis."
