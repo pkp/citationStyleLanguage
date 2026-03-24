@@ -451,7 +451,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->risType = 'JOUR';
             $citationData->id = $submission->getId();
             $citationData->title = $publication->getLocalizedFullTitle();
-            $citationData->{'container-title'} = $context->getLocalizedName();
+            $citationData->{'container-title'} = $publication->getLocalizedData('contextName');
             $issueId = $publication->getData('issueId');
             $issue ??= $issueId ? Repo::issue()->get($issueId) : null;
             if ($issue) {
@@ -485,7 +485,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->id = $submission->getId();
             $citationData->title = $publication->getLocalizedFullTitle();
             $citationData = $this->addSeriesInformation($citationData, $publication);
-            $citationData->publisher = $context->getLocalizedName();
+            $citationData->publisher = $publication->getLocalizedData('contextName');
             $citationData->keywords = $keywords[Locale::getLocale()] ?? [];
             if ($publication->getData('pages')) {
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
@@ -504,7 +504,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->title = $chapter->getLocalizedFullTitle();
             $citationData->{'container-title'} = $publication->getLocalizedFullTitle();
             $citationData = $this->addSeriesInformation($citationData, $publication);
-            $citationData->publisher = $context->getLocalizedName();
+            $citationData->publisher = $publication->getLocalizedData('contextName');
             if ($chapter->getPages()) {
                 $citationData->page = htmlspecialchars($chapter->getPages());
             }
@@ -533,7 +533,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             ->push($submission->getData('locale'))
             ->filter()->unique()->sort()->values()->toArray();
 
-        $citationData->{'publisher-place'} = $this->getSetting($context->getId(), 'publisherLocation');
+        $citationData->{'publisher-place'} = $publication->getData('publisherLocation');
         $abbreviation = $context->getData('abbreviation', $context->getPrimaryLocale()) ?? $context->getData('acronym', $context->getPrimaryLocale());
         if ($abbreviation) {
             $citationData->{'container-title-short'} = $abbreviation;
