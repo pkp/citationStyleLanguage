@@ -1023,6 +1023,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             'es' => 'es-ES',
             'fr' => 'fr-FR',
             'pt' => 'pt-PT',
+            'zh_Hans' => 'zh-CN',
+            'zh_Hant' => 'zh-TW',
         ];
         // Determine the language and region we're looking for from $locale
         $language = \Locale::getPrimaryLanguage($locale);
@@ -1035,7 +1037,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             return $locale;
         }
         // 2. Look in the preference list for a preferred fallback.
-        if ($preference = $preferences[$localeAndRegion] ?? false) {
+        if ($preference = $preferences[$locale] ?? $preferences[$localeAndRegion] ?? false) {
             return $preference;
         }
         // 3. Find the first match by language.
