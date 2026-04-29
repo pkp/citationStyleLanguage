@@ -49,10 +49,10 @@ use stdClass;
 class CitationStyleLanguagePlugin extends GenericPlugin
 {
     /** @var array List of citation styles available */
-    public array $_citationStyles = [];
+    public array $citationStyles = [];
 
     /** @var array List of citation download formats available */
-    public array $_citationDownloads = [];
+    public array $citationDownloads = [];
 
     /** @var string Name of the application */
     public string $application;
@@ -73,7 +73,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * @copydoc Plugin::getDisplayName()
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return __('plugins.generic.citationStyleLanguage.displayName');
     }
@@ -81,7 +81,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * @copydoc Plugin::getDescription()
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return __('plugins.generic.citationStyleLanguage.description');
     }
@@ -125,8 +125,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function getCitationStyles(): array
     {
-        if (!empty($this->_citationStyles)) {
-            return $this->_citationStyles;
+        if (!empty($this->citationStyles)) {
+            return $this->citationStyles;
         }
 
         $defaults = [
@@ -191,9 +191,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         // If hooking in to add a custom .csl file, add a `useCsl` key to your
         // style definition with the path to the file.
         Hook::call('CitationStyleLanguage::citationStyleDefaults', [&$defaults, $this]);
-        $this->_citationStyles = $defaults;
+        $this->citationStyles = $defaults;
 
-        return $this->_citationStyles;
+        return $this->citationStyles;
     }
 
     /**
@@ -240,8 +240,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      */
     public function getCitationDownloads(): array
     {
-        if (!empty($this->_citationDownloads)) {
-            return $this->_citationDownloads;
+        if (!empty($this->citationDownloads)) {
+            return $this->citationDownloads;
         }
 
         $defaults = [
@@ -265,9 +265,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         // If hooking in to add a custom .csl file, add a `useCsl` key to your
         // style definition with the path to the file.
         Hook::call('CitationStyleLanguage::citationDownloadDefaults', [&$defaults, $this]);
-        $this->_citationDownloads = $defaults;
+        $this->citationDownloads = $defaults;
 
-        return $this->_citationDownloads;
+        return $this->citationDownloads;
     }
 
     /**
@@ -438,10 +438,10 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $keywords = collect($publication->getData('keywords'))
                             ->map(
-                                fn(array $items): array => collect($items)
+                                fn (array $items): array => collect($items)
                                     ->pluck("name")
                                 ->all()
-                                )
+                            )
                             ->all();
 
         $citationData = new stdClass();
@@ -469,6 +469,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->keywords = $keywords[Locale::getLocale()] ?? [];
             if ($publication->getData('pages')) {
                 $citationData->page = htmlspecialchars($publication->getData('pages'));
+            }
+            if ($publication->getData('articleNumber')) {
+                $citationData->number = htmlspecialchars($publication->getData('articleNumber'));
             }
             $citationData->abstract = PKPString::html2text($publication->getLocalizedData('abstract'));
             $citationData = $this->setArticleAuthors($citationData, $publication);
@@ -508,7 +511,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             $citationData->abstract = htmlspecialchars(strip_tags($chapter->getLocalizedData('abstract')));
             $citationData->serialNumber = $this->getSerialNumber($publication);
             $citationData = $this->setBookChapterAuthors($citationData, $publication, $chapter);
-            $citationData->URL = $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, $this->getPublicationTypeUrlPath(), 'book', [$publication->getData('urlPath') ?? $submission->getId(), 'chapter', $chapter->getSourceChapterId()], urlLocaleForPage: '');
+            $citationData->URL = $request->getDispatcher()->url(
+                $request,
+                PKPApplication::ROUTE_PAGE,
+                null,
+                $this->getPublicationTypeUrlPath(),
+                'book',
+                [$publication->getData('urlPath') ?? $submission->getId(),'chapter', $chapter->getSourceChapterId()],
+                urlLocaleForPage: ''
+            );
 
             if ($chapter->getDoi()) {
                 $citationData->DOI = $chapter->getDoi();
@@ -575,7 +586,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                             'press' => $context,
                         ]);
                         break;
-                    default: throw new Exception('Unknown application!');
+                    default:
+                        throw new Exception('Unknown application!');
                 }
 
                 $citation = $templateMgr->fetch($styleConfig['useTemplate']);
@@ -609,7 +621,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     ];
 
                     $citeProc = new CiteProc($style, $tryLocale, $additionalMarkup);
-                    $citation = $citeProc->render([$citationData], 'bibliography');
+                    $citation = $citeProc->render([$citationData]);
                 }
             }
         }
@@ -635,9 +647,9 @@ class CitationStyleLanguagePlugin extends GenericPlugin
      * software.
      *
      * @param string $citationStyle Name of the citation style to use.
-     * @param Issue $issue Optional. Will fetch from db if not passed.
-     * @param $publication Publication Optional.
-     * @param $chapter Chapter Optional. OMP chapter pages only.
+     * @param ?Issue $issue Optional. Will fetch from db if not passed.
+     * @param ?Publication $publication Optional.
+     * @param ?Chapter $chapter Optional. OMP chapter pages only.
      */
     public function downloadCitation(PKPRequest $request, Submission $submission, string $citationStyle = 'ris', ?Issue $issue = null, ?Publication $publication = null, ?Chapter $chapter = null)
     {
@@ -794,7 +806,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $chapterId = (int) $args[$key];
         if ($chapterId > 0) {
-            /** @var ChapterDAO */
+            /** @var ChapterDAO $chapterDao */
             $chapterDao = DAORegistry::getDAO('ChapterDAO');
             return $chapterDao->getBySourceChapterAndPublication($chapterId, $publication->getId());
         }
@@ -818,7 +830,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     $this->isBook = true;
                 }
                 break;
-            default: throw new Exception('Unknown application!');
+            default:
+                throw new Exception('Unknown application!');
         }
     }
 
@@ -994,8 +1007,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Find the best match for a CSL locale.
      *
-     * @param $locale Weblate locale.
-     * @param $defaultLocale A locale code to use as default. This should already be sanitized.
+     * @param string $locale Weblate locale.
+     * @param string $defaultLocale A locale code to use as default. This should already be sanitized.
      *
      * @return string A language code that's available in the CSL library.
      */
@@ -1028,7 +1041,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
         }
         // 3. Find the first match by language.
         foreach ($availableLocaleFiles as $filename) {
-            if (strpos($filename, "{$prefix}{$language}-") === 0) {
+            if (str_starts_with($filename, "{$prefix}{$language}-")) {
                 return substr($filename, strlen($prefix), -strlen($suffix));
             }
         }
