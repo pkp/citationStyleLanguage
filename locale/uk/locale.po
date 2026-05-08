@@ -27,7 +27,7 @@ msgstr ""
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM (Association for Computing Machinery)"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS (American Chemical Society – Американське хімічне товариство)"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"
