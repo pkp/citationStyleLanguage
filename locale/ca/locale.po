@@ -30,7 +30,7 @@ msgstr "Harvard"
 msgid "plugins.generic.citationStyleLanguage.style.chicago-author-date"
 msgstr "Chicago"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS"
 
 msgid "plugins.generic.citationStyleLanguage.settings.publisherLocation.description"

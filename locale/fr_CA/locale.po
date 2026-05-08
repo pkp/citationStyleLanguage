@@ -26,7 +26,7 @@ msgstr "Permettre aux lecteurs-trices d'obtenir la référence d'un article publ
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"
