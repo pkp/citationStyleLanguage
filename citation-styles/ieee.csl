@@ -45,15 +45,10 @@
     <category field="engineering"/>
     <category field="generic-base"/>
     <summary>IEEE style as per the 2021 guidelines, V 01.29.2021.</summary>
-    <updated>2022-02-05T21:19:36-05:00</updated>
+    <updated>2021-10-06T22:42:26-04:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
-    <date form="text">
-      <date-part name="month" form="short" suffix=" "/>
-      <date-part name="day" form="numeric-leading-zeros" suffix=", "/>
-      <date-part name="year"/>
-    </date>
     <terms>
       <term name="chapter" form="short">ch.</term>
       <term name="presented at">presented at the</term>
@@ -105,10 +100,18 @@
         </date>
       </else-if>
       <else-if type="motion_picture" match="any">
-        <date variable="issued" form="text" prefix="(" suffix=")"/>
+        <date variable="issued" prefix="(" suffix=")">
+          <date-part name="month" form="short" suffix=" "/>
+          <date-part name="day" form="numeric-leading-zeros" suffix=", "/>
+          <date-part name="year"/>
+        </date>
       </else-if>
       <else>
-        <date variable="issued" form="text"/>
+        <date variable="issued">
+          <date-part name="month" form="short" suffix=" "/>
+          <date-part name="day" form="numeric-leading-zeros" suffix=", "/>
+          <date-part name="year"/>
+        </date>
       </else>
     </choose>
   </macro>
@@ -210,7 +213,11 @@
               <text variable="URL"/>
               <group delimiter=" " prefix="(" suffix=").">
                 <text term="accessed"/>
-                <date variable="accessed" form="text"/>
+                <date variable="accessed">
+                  <date-part name="month" form="short"/>
+                  <date-part name="day" form="numeric-leading-zeros" prefix=" " suffix=", "/>
+                  <date-part name="year" form="long"/>
+                </date>
               </group>
             </group>
           </if>
@@ -226,27 +233,24 @@
           <!-- Accessed: Mon. DD, YYYY. -->
           <group delimiter=": ">
             <text term="accessed" text-case="capitalize-first"/>
-            <date variable="accessed" form="text"/>
+            <date variable="accessed">
+              <date-part name="month" form="short" suffix=" "/>
+              <date-part name="day" form="numeric-leading-zeros" suffix=", "/>
+              <date-part name="year"/>
+            </date>
           </group>
           <!-- [Online Video]. -->
           <group prefix="[" suffix="]" delimiter=" ">
+            <text term="online" text-case="capitalize-first"/>
             <choose>
-              <if variable="medium" match="any">
-                <text variable="medium" text-case="capitalize-first"/>
+              <if type="motion_picture">
+                <text value="video" text-case="capitalize-first"/>
               </if>
-              <else>
-                <text term="online" text-case="capitalize-first"/>
-                <choose>
-                  <if type="motion_picture">
-                    <text term="video" text-case="capitalize-first"/>
-                  </if>
-                </choose>
-              </else>
             </choose>
           </group>
         </group>
         <!-- Available: https://URL.com/ -->
-        <group delimiter=": " prefix=" ">
+        <group delimiter=": ">
           <text term="available at" text-case="capitalize-first"/>
           <text variable="URL"/>
         </group>

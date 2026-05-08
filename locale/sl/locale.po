@@ -25,7 +25,7 @@ msgstr "Omogoči uporabnikom, da dobijo citat objavljenega članka v enem od ve�
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"

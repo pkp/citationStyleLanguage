@@ -24,7 +24,7 @@ msgstr "Permite aos leitores obter citações de artigos publicados usando um de
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"

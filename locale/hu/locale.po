@@ -20,7 +20,7 @@ msgstr "Lehetővé teszi az olvasók számára, hogy egy közzétett cikk hivatk
 msgid "plugins.generic.citationStyleLanguage.style.acm-sig-proceedings"
 msgstr "ACM"
 
-msgid "plugins.generic.citationStyleLanguage.style.acs-nano"
+msgid "plugins.generic.citationStyleLanguage.style.acs"
 msgstr "ACS"
 
 msgid "plugins.generic.citationStyleLanguage.style.apa"
