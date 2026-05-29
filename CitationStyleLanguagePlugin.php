@@ -131,6 +131,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $defaults = [
             [
+                'id' => 'associacao-brasileira-de-normas-tecnicas',
+                'title' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
+                'isEnabled' => true,
+            ],
+            [
                 'id' => 'acm-sig-proceedings',
                 'title' => __('plugins.generic.citationStyleLanguage.style.acm-sig-proceedings'),
                 'isEnabled' => true,
@@ -141,15 +146,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'isEnabled' => true,
             ],
             [
+                'id' => 'ama',
+                'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
+                'isEnabled' => true,
+            ],
+            [
                 'id' => 'apa',
                 'title' => __('plugins.generic.citationStyleLanguage.style.apa'),
                 'isEnabled' => true,
                 'isPrimary' => true,
-            ],
-            [
-                'id' => 'associacao-brasileira-de-normas-tecnicas',
-                'title' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
-                'isEnabled' => true,
             ],
             [
                 'id' => 'chicago-author-date',
@@ -179,11 +184,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             [
                 'id' => 'vancouver',
                 'title' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
-                'isEnabled' => true,
-            ],
-            [
-                'id' => 'ama',
-                'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
                 'isEnabled' => true,
             ],
         ];
@@ -595,7 +595,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $style = $this->loadStyle($styleConfig);
                 if ($style) {
                     // Determine what locale to use. Fall back English if none found.
-                    $tryLocale = $this->getCSLLocale(Locale::getLocale(), 'en-US');
+                    $tryLocale = $this->getCSLLocale(Locale::getLocale());
 
                     // Clickable URL and DOI including affixes
                     $additionalMarkup = [
