@@ -4,17 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32d6bc8a5f02f94739de2b410d5ffb85",
+    "content-hash": "591adae01983c546905939fce5a592e9",
     "packages": [
         {
             "name": "citation-style-language/locales",
-            "version": "1.0.0",
+            "version": "v0.0.93",
             "source": {
                 "type": "git",
                 "url": "https://github.com/citation-style-language/locales.git",
                 "reference": "master"
             },
             "type": "library"
+        },
+        {
+            "name": "citation-style-language/styles",
+            "version": "v0.0.772",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/citation-style-language/styles.git",
+                "reference": "5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/citation-style-language/styles/zipball/5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0",
+                "reference": "5c1e6ba17b0c0127bf737bcf36355982ecbb6ff0",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Citation Style Language (CSL) Team",
+                    "homepage": "http://citationstyles.org/about/#Credits"
+                }
+            ],
+            "description": "Citation Style Language (CSL) Styless",
+            "homepage": "http://citationstyles.org/",
+            "support": {
+                "issues": "https://github.com/citation-style-language/styles/issues",
+                "source": "https://github.com/citation-style-language/styles/tree/v0.0.772"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/adam3smith",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-22T17:23:31+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -81,26 +120,28 @@
         },
         {
             "name": "seboettg/citeproc-php",
-            "version": "v2.5.2",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/seboettg/citeproc-php.git",
-                "reference": "042535d9d1e56058f54156e3c5682f3f9a467abe"
+                "url": "https://github.com/pkp/citeproc-php.git",
+                "reference": "a7200e4ac0ec4265442a41aa82fb574d22af21a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seboettg/citeproc-php/zipball/042535d9d1e56058f54156e3c5682f3f9a467abe",
-                "reference": "042535d9d1e56058f54156e3c5682f3f9a467abe",
+                "url": "https://api.github.com/repos/pkp/citeproc-php/zipball/a7200e4ac0ec4265442a41aa82fb574d22af21a2",
+                "reference": "a7200e4ac0ec4265442a41aa82fb574d22af21a2",
                 "shasum": ""
             },
             "require": {
+                "citation-style-language/locales": "v0.0.*",
+                "citation-style-language/styles": "v0.0.*",
                 "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-simplexml": "*",
                 "myclabs/php-enum": "^1.8",
                 "php": ">=7.3",
-                "seboettg/collection": ">=v3.1.0"
+                "seboettg/collection": "^3.1"
             },
             "require-dev": {
                 "php-coveralls/php-coveralls": "^1",
@@ -135,9 +176,9 @@
             "description": "Full-featured CSL processor (https://citationstyles.org)",
             "support": {
                 "issues": "https://github.com/seboettg/citeproc-php/issues",
-                "source": "https://github.com/seboettg/citeproc-php/tree/v2.5.2"
+                "source": "https://github.com/pkp/citeproc-php/tree/v2.7.1"
             },
-            "time": "2023-02-08T21:13:17+00:00"
+            "time": "2026-02-05T11:15:32+00:00"
         },
         {
             "name": "seboettg/collection",
@@ -216,5 +257,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
