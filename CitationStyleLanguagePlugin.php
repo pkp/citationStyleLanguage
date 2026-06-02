@@ -30,7 +30,6 @@ use APP\publicationFormat\PublicationFormat;
 use APP\submission\Submission;
 use APP\template\TemplateManager;
 use Exception;
-use PKP\controlledVocab\ControlledVocab;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
@@ -120,6 +119,11 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
         $defaults = [
             [
+                'id' => 'associacao-brasileira-de-normas-tecnicas',
+                'title' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
+                'isEnabled' => true,
+            ],
+            [
                 'id' => 'acm-sig-proceedings',
                 'title' => __('plugins.generic.citationStyleLanguage.style.acm-sig-proceedings'),
                 'isEnabled' => true,
@@ -130,15 +134,15 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 'isEnabled' => true,
             ],
             [
+                'id' => 'ama',
+                'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
+                'isEnabled' => true,
+            ],
+            [
                 'id' => 'apa',
                 'title' => __('plugins.generic.citationStyleLanguage.style.apa'),
                 'isEnabled' => true,
                 'isPrimary' => true,
-            ],
-            [
-                'id' => 'associacao-brasileira-de-normas-tecnicas',
-                'title' => __('plugins.generic.citationStyleLanguage.style.associacao-brasileira-de-normas-tecnicas'),
-                'isEnabled' => true,
             ],
             [
                 'id' => 'chicago-author-date',
@@ -168,11 +172,6 @@ class CitationStyleLanguagePlugin extends GenericPlugin
             [
                 'id' => 'vancouver',
                 'title' => __('plugins.generic.citationStyleLanguage.style.vancouver'),
-                'isEnabled' => true,
-            ],
-            [
-                'id' => 'ama',
-                'title' => __('plugins.generic.citationStyleLanguage.style.ama'),
                 'isEnabled' => true,
             ],
         ];
@@ -428,7 +427,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                                 fn(array $items): array => collect($items)
                                     ->pluck("name")
                                 ->all()
-                                )
+                            )
                             ->all();
 
         $citationData = new stdClass();
@@ -567,7 +566,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                             'press' => $context,
                         ]);
                         break;
-                    default: throw new Exception('Unknown application!');
+                    default:
+                        throw new Exception('Unknown application!');
                 }
 
                 $citation = $templateMgr->fetch($styleConfig['useTemplate']);
@@ -575,7 +575,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                 $style = $this->loadStyle($styleConfig);
                 if ($style) {
                     // Determine what locale to use. Fall back English if none found.
-                    $tryLocale = $this->getCSLLocale(Locale::getLocale(), 'en-US');
+                    $tryLocale = $this->getCSLLocale(Locale::getLocale());
 
                     // Clickable URL and DOI including affixes
                     $additionalMarkup = [
@@ -830,7 +830,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                     $this->isBook = true;
                 }
                 break;
-            default: throw new Exception('Unknown application!');
+            default:
+                throw new Exception('Unknown application!');
         }
     }
 
@@ -1008,8 +1009,8 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     /**
      * Find the best match for a CSL locale.
      *
-     * @param $locale Weblate locale.
-     * @param $defaultLocale A locale code to use as default. This should already be sanitized.
+     * @param string $locale Weblate locale.
+     * @param string $defaultLocale A locale code to use as default. This should already be sanitized.
      *
      * @return string A language code that's available in the CSL library.
      */
