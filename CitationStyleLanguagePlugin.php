@@ -431,6 +431,7 @@ class CitationStyleLanguagePlugin extends GenericPlugin
                             ->all();
 
         $citationData = new stdClass();
+        $citationData->language = str_replace('_', '-', (string) ($publication->getData('locale') ?: $context->getPrimaryLocale()));
 
         if ($this->isArticle) {
             $citationData->type = ($this->application === 'ojs2' ? 'article-journal' : 'article');
