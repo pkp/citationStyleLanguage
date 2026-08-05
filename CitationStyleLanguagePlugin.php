@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/citationStyleLanguage/CitationStyleLanguagePlugin.php
  *
- * Copyright (c) 2017-2020 Simon Fraser University
- * Copyright (c) 2017-2020 John Willinsky
+ * Copyright (c) 2017-2026 Simon Fraser University
+ * Copyright (c) 2017-2026 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class CitationStyleLanguagePlugin
@@ -40,6 +40,8 @@ use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
+use PKP\security\Role;
+use PKP\userGroup\UserGroup;
 use Seboettg\CiteProc\CiteProc;
 use stdClass;
 
@@ -57,6 +59,25 @@ class CitationStyleLanguagePlugin extends GenericPlugin
     protected bool $isBook = false;
     protected bool $isChapter = false;
     protected bool $isArticle = false;
+
+    /**
+     * Locale keys of the user groups selected by default for each contributor
+     * setting, used when a context has never saved the plugin settings.
+     */
+    protected const DEFAULT_USER_GROUP_KEYS = [
+        'groupAuthor' => ['default.groups.name.author'],
+        'groupTranslator' => ['default.groups.name.translator'],
+        'groupEditor' => ['default.groups.name.volumeEditor'],
+        'groupChapterAuthor' => ['default.groups.name.chapterAuthor'],
+    ];
+
+    /**
+     * Contributor settings that also take the user groups a manager created
+     * themselves. Those groups have no locale key to match on, and 3.6 will treat
+     * them as authors when it converts user groups into contributor roles, so
+     * do the same here rather than dropping them from citations.
+     */
+    protected const CUSTOM_USER_GROUP_SETTINGS = ['groupAuthor', 'groupChapterAuthor'];
 
     /**
      * Constructor
@@ -736,22 +757,51 @@ class CitationStyleLanguagePlugin extends GenericPlugin
 
     public function getEditorGroups(int $contextId): array
     {
-        return $this->getSetting($contextId, 'groupEditor') ?? [];
+        return $this->getContributorGroups($contextId, 'groupEditor');
     }
 
     public function getTranslatorGroups(int $contextId): array
     {
-        return $this->getSetting($contextId, 'groupTranslator') ?? [];
+        return $this->getContributorGroups($contextId, 'groupTranslator');
     }
 
     public function getAuthorGroups(int $contextId): array
     {
-        return $this->getSetting($contextId, 'groupAuthor') ?? [];
+        return $this->getContributorGroups($contextId, 'groupAuthor');
     }
 
     public function getChapterAuthorGroups(int $contextId): array
     {
-        return $this->getSetting($contextId, 'groupChapterAuthor') ?? [];
+        return $this->getContributorGroups($contextId, 'groupChapterAuthor');
+    }
+
+    /**
+     * Get the user groups configured for one of the contributor settings.
+     *
+     * Contexts that have never saved these settings fall back to the default
+     * user groups so that contributors aren't dropped from citations. Default
+     * groups are matched on their locale key so that renaming a group doesn't
+     * change the citation, and groups a manager created themselves never have
+     * a locale key, so they are matched by the absence of one.
+     */
+    protected function getContributorGroups(int $contextId, string $settingName): array
+    {
+        $userGroupIds = $this->getSetting($contextId, $settingName);
+        if (is_array($userGroupIds)) {
+            return array_map(intval(...), $userGroupIds);
+        }
+
+        $localeKeys = self::DEFAULT_USER_GROUP_KEYS[$settingName];
+        $includeCustomGroups = in_array($settingName, self::CUSTOM_USER_GROUP_SETTINGS);
+
+        return UserGroup::withContextIds([$contextId])
+            ->withRoleIds([Role::ROLE_ID_AUTHOR])
+            ->get()
+            ->filter(fn (UserGroup $userGroup): bool => in_array($userGroup->nameLocaleKey, $localeKeys)
+                || ($includeCustomGroups && empty($userGroup->nameLocaleKey)))
+            ->map(fn (UserGroup $userGroup): int => (int) $userGroup->id)
+            ->values()
+            ->all();
     }
 
     public function getSerialNumber(Publication $publication): array
