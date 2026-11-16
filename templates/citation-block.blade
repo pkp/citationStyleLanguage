@@ -29,6 +29,7 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
                                     <a
                                         rel="nofollow"
                                         aria-controls="citationOutput"
+                                        @if($citationStyle['id'] === $citationPrimaryStyle) aria-current="true" @endif
                                         href="{!!ViewHelper::url([
                                             'page' => 'citationstylelanguage',
                                             'op' => 'get',

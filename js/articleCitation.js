@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					citationOutput.innerHTML = r.content;
 					citationOutput.classList.add('fade-in');
 					citationOutput.style.opacity = '1';
+					citationFormatLinks.forEach((choice) => choice.removeAttribute('aria-current'));
+					link.setAttribute('aria-current', 'true');
 				})
 				.catch(() => {
 					citationOutput.style.opacity = '1';
@@ -97,6 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Close the dropdown when any link or button inside is clicked
 	citationFormatDropdown.querySelectorAll('a, button').forEach((elem) => {
 		elem.addEventListener('click', () => {
+			if (citationFormatDropdown.contains(document.activeElement)) {
+				citationFormatBtn.focus();
+			}
 			citationFormatBtn.setAttribute('aria-expanded', false);
 			citationFormatDropdown.setAttribute('aria-hidden', true);
 		});

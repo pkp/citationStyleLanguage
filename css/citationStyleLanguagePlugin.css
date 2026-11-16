@@ -65,6 +65,10 @@
 	outline : 0;
 }
 
+.citation_display .citation_formats_styles a[aria-current="true"] {
+	font-weight : 700;
+}
+
 .citation_display .citation_formats_styles li:last-child a {
 	border-bottom : none;
 }
