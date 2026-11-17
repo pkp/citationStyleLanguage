@@ -19,7 +19,7 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
                     {!! ViewHelper::sanitizeHtml($citation) !!}
                 </div>
                 <div class="citation_formats">
-                    <button class="citation_formats_button label" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
+                    <button class="citation_formats_button label" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true" data-selected-label="{{ __('plugins.generic.citationStyleLanguage.citationFormatSelected') }}">
                         {{ __('submission.howToCite.citationFormats') }}
                     </button>
                     <div id="cslCitationFormats" class="citation_formats_list" aria-hidden="true">
@@ -29,6 +29,7 @@ Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
                                     <a
                                         rel="nofollow"
                                         aria-controls="citationOutput"
+                                        @if($citationStyle['id'] === $citationPrimaryStyle) aria-current="true" @endif
                                         href="{!!ViewHelper::url([
                                             'page' => 'citationstylelanguage',
                                             'op' => 'get',

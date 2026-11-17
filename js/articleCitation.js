@@ -47,6 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	);
 	const citationFormatDropdown = document.getElementById('cslCitationFormats');
 
+	function describeSelection(link) {
+		const label = citationFormatBtn && citationFormatBtn.dataset.selectedLabel;
+		if (!label) {
+			return;
+		}
+		citationFormatBtn.setAttribute(
+			'aria-label',
+			label.replace('{$format}', link.textContent.trim())
+		);
+	}
+
 	// Check if the required elements exist
 	if (!citationOutput || citationFormatLinks.length === 0) {
 		return;
@@ -62,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			e.preventDefault();
+			const previousLabel = citationFormatBtn && citationFormatBtn.getAttribute('aria-label');
+			describeSelection(link);
 			citationOutput.classList.remove('fade-in');
 			citationOutput.style.opacity = '0.5';
 
@@ -71,9 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
 					citationOutput.innerHTML = r.content;
 					citationOutput.classList.add('fade-in');
 					citationOutput.style.opacity = '1';
+					citationFormatLinks.forEach((choice) => choice.removeAttribute('aria-current'));
+					link.setAttribute('aria-current', 'true');
 				})
 				.catch(() => {
 					citationOutput.style.opacity = '1';
+					if (!citationFormatBtn) {
+						return;
+					}
+					if (previousLabel) {
+						citationFormatBtn.setAttribute('aria-label', previousLabel);
+					} else {
+						citationFormatBtn.removeAttribute('aria-label');
+					}
 				});
 		});
 	});
@@ -81,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Check if the required elements for the dropdown exist
 	if (!citationFormatBtn || !citationFormatDropdown) {
 		return;
+	}
+
+	const currentChoice = citationFormatDropdown.querySelector('[data-load-citation][aria-current="true"]');
+	if (currentChoice) {
+		describeSelection(currentChoice);
 	}
 
 	// Function to handle dropdown display for more citation formats
@@ -97,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Close the dropdown when any link or button inside is clicked
 	citationFormatDropdown.querySelectorAll('a, button').forEach((elem) => {
 		elem.addEventListener('click', () => {
+			if (citationFormatDropdown.contains(document.activeElement)) {
+				citationFormatBtn.focus();
+			}
 			citationFormatBtn.setAttribute('aria-expanded', false);
 			citationFormatDropdown.setAttribute('aria-hidden', true);
 		});
